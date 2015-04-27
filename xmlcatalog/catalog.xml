@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+  <!-- resolve xml catalogs -->
+  <nextCatalog catalog="../distro/schemas/xmlcatalog/catalog.xml"/>
+
+  <!-- transpect extensions (unzip, rng, image-props): -->
+  <nextCatalog catalog="../extensions/transpect/xmlcatalog/catalog.xml"/>
+
+  <!-- RNG/Schematron validator: -->
+  <uri name="http://transpect.le-tex.de/rngvalid/rng-schematron.xpl" uri="../extensions/ltx/ltx-validate-with-rng/rng-schematron.xpl" /> 
+
+  <!-- Default location for Calabash extensions in importing projects (legacy naming): -->
+  <nextCatalog catalog="../../adaptions/common/calabash/catalog.xml"/>
+  <!-- Default location for Calabash extensions. The following catalog is project-specific.
+	 If there are other extensions, it should import their catalogs via nextCatalog. -->
+  <nextCatalog catalog="../extensions/xmlcatalog/catalog.xml"/>
+
+  <!-- Catalog of the importing project: -->
+  <nextCatalog catalog="../../xmlcatalog/catalog.xml"/>
+
+  <uri name="http://xmlcalabash.com/extension/steps/library-1.0.xpl" uri="../extensions/calabash/library-1.0.xpl"/>
+  
+</catalog>
