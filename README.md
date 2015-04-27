@@ -1,6 +1,6 @@
 # calabash-distro
 
-This repo contains the default XML Calabash distribution as downloadable from http://xmlcalabash.com/download/.
+This repo contains the default XML Calabash distribution as downloadable from http://xmlcalabash.com/download/. Don’t wonder why there’s a README in addition to this README.md. The README.md is the only file that does not originate from the distro. README is XML Calabash’s original README.
 
 Its purpose is to provide a place for svn or git based projects to attach their XPRoc runtime via external or submodule.
 
