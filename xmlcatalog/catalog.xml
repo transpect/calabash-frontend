@@ -7,6 +7,8 @@
   <!-- transpect extensions (unzip, rng, image-props): -->
   <nextCatalog catalog="../extensions/transpect/xmlcatalog/catalog.xml"/>
 
+  <nextCatalog catalog="../schemas/xmlcatalog/catalog.xml"/>
+
   <!-- RNG/Schematron validator: -->
   <uri name="http://transpect.le-tex.de/rngvalid/rng-schematron.xpl" uri="../extensions/ltx/ltx-validate-with-rng/rng-schematron.xpl" /> 
 

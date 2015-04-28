@@ -1,0 +1,1774 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ August 4, 2009
+  George Bina george@oxygenxml.com added annotations with documentation from the specification.
+
+-->
+<grammar xmlns:sa="http://xproc.org/ns/syntax-annotations"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  xmlns:c="http://www.w3.org/ns/xproc-step" xmlns:p="http://www.w3.org/ns/xproc"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:s="http://www.ascc.net/xml/schematron"
+  ns="http://www.w3.org/ns/xproc" xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!-- This is schema version $Id: xproc.rng,v 1.6 2009/08/05 07:48:12 george Exp $ -->
+  <!-- This schema neither supports nor requires the use of RELAX NG DTD Compatibility -->
+  <define name="XPathExpression" sa:model="XPathExpression">
+    <text/>
+  </define>
+  <define name="XSLTMatchPattern" sa:model="XSLTMatchPattern">
+    <text/>
+  </define>
+  <define name="name.ncname.attr">
+    <attribute name="name">
+      <a:documentation>Specifies the name this XProc component can be referred with. The value of
+        the name attribute is a not qualified name (NCName). </a:documentation>
+      <data type="NCName"/>
+    </attribute>
+  </define>
+  <define name="name.qname.attr">
+    <attribute name="name">
+      <a:documentation>Specifies the expanded name for an XProc option, variable or parameter. The
+        value of the name attribute is a qualified name (QName), if it does not contain a prefix
+        then it is in no namespace.</a:documentation>
+      <data type="QName"/>
+    </attribute>
+  </define>
+  <define name="port.attr">
+    <attribute name="port">
+      <a:documentation>Specifies the name of the port. It is a static error to identify two ports
+        with the same name on the same step. The value of the port attribute is a not qualified name
+        (NCName). </a:documentation>
+      <data type="NCName"/>
+    </attribute>
+  </define>
+  <define name="required.attr">
+    <attribute name="required">
+      <a:documentation>Defines if an option is required. The value for the required attribute is
+        boolean. When set to true, a value for that option needs to be specified.</a:documentation>
+      <data type="boolean"/>
+    </attribute>
+  </define>
+  <define name="sequence.attr">
+    <attribute name="sequence">
+      <a:documentation>Determines whether or not a sequence of documents is allowed on the port. The
+        value for the sequence attribute is boolean. If sequence is not specified, or has the value
+        false, then exactly one document should appear on the declared port.</a:documentation>
+      <data type="boolean"/>
+    </attribute>
+  </define>
+  <define name="primary.attr">
+    <attribute name="primary">
+      <a:documentation>Identifies the primary port of a specific type. The value for the primary
+        attribute is boolean. A port is a primary port if primary is specified with the value true
+        or if the step has only a single port of that type and primary is not specified. No more
+        than one port of a specific type can be set as primary port.</a:documentation>
+      <data type="boolean"/>
+    </attribute>
+  </define>
+  <define name="select.attr">
+    <attribute name="select">
+      <a:documentation>Specifies an XPath expression that will be evaluated by the XProc
+        processor.</a:documentation>
+      <ref name="XPathExpression"/>
+    </attribute>
+  </define>
+  <define name="xpath-version.attr">
+    <attribute name="xpath-version">
+      <a:documentation>Identifies the XPath version that must be used to evaluate XPath expressions
+        on the pipeline(s), if the processor does not support that it will throw an error. Common
+        values are 1.0 and 2.0 for the corresponding XPath versions.</a:documentation>
+    </attribute>
+  </define>
+  <define name="psvi-required.attr">
+    <attribute name="psvi-required">
+      <a:documentation>A pipeline can assert that PSVI support is required by setting the boolean
+        psvi-required attribute to true. Even if psvi-required is set to false, it is not an error
+        for a step to produce a result that includes additional PSVI properties, provide it does not
+        violate the constraints defined in the XProc specification.</a:documentation>
+      <data type="boolean"/>
+    </attribute>
+  </define>
+  <define name="exclude-inline-prefixes.attr">
+    <attribute name="exclude-inline-prefixes">
+      <a:documentation>Specifies namespaces to be removed from the in-scope namespaces for inline
+        documents. The value of the attribute is either #all, or a whitespace-separated list of
+        tokens, each of which is either a namespace prefix or #default. The namespace bound to each
+        of the prefixes is designated as an excluded namespace. The value #all refers to all
+        namespaces and #default refers to the default namespace.</a:documentation>
+      <ref name="ExcludeInlinePrefixes"/>
+    </attribute>
+  </define>
+  <!--
+    Bah, humbug. The ExcludeInlinePrefixes pattern should 
+    really be ("#all" | (PrefixList & "#default"?)) or
+    maybe ("#all" | (PrefixList | "#default")+), but neither
+    one of those is allowed by RELAX NG.
+  -->
+  <define name="ExcludeInlinePrefixes" sa:model="prefix list">
+    <text/>
+  </define>
+  <define name="PrefixList" sa:model="prefix list">
+    <data type="NMTOKENS"/>
+  </define>
+  <define name="xmlid.attr" sa:ignore="yes">
+    <attribute name="xml:id">
+      <a:documentation>Defines an ID type value.</a:documentation>
+      <data type="ID"/>
+    </attribute>
+  </define>
+  <define name="xmlbase.attr" sa:ignore="yes">
+    <attribute name="xml:base">
+      <a:documentation>Specifies the base URIs of elements within the pipeline
+        document.</a:documentation>
+      <data type="anyURI"/>
+    </attribute>
+  </define>
+  <define name="href.attr">
+    <attribute name="href">
+      <a:documentation>Specifies a resource identified by an URI.</a:documentation>
+      <data type="anyURI"/>
+    </attribute>
+  </define>
+  <define name="common.attributes">
+    <optional>
+      <ref name="xmlid.attr"/>
+    </optional>
+    <optional>
+      <ref name="xmlbase.attr"/>
+    </optional>
+    <zeroOrMore>
+      <ref name="extension.attr"/>
+    </zeroOrMore>
+  </define>
+  <define name="decl.attributes">
+    <optional>
+      <ref name="psvi-required.attr"/>
+    </optional>
+    <optional>
+      <ref name="xpath-version.attr"/>
+    </optional>
+    <optional>
+      <ref name="exclude-inline-prefixes.attr"/>
+    </optional>
+    <optional>
+      <attribute name="version">
+        <a:documentation>The value of this option must be a string, the default is
+          1.0.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  <!-- ============================================================ -->
+  <start>
+    <choice>
+      <ref name="Pipeline"/>
+      <ref name="Library"/>
+      <ref name="DeclareStep"/>
+      <ref name="VocabParam"/>
+      <ref name="VocabParamSet"/>
+      <ref name="VocabResult"/>
+      <ref name="VocabHttpRequest"/>
+      <ref name="VocabHeader"/>
+      <ref name="VocabMultipart"/>
+      <ref name="VocabBody"/>
+      <ref name="VocabHttpResponse"/>
+      <ref name="VocabQuery"/>
+      <ref name="VocabLine"/>
+      <ref name="VocabDirectory"/>
+      <ref name="Errors"/>
+      <ref name="StandardStep"/>
+    </choice>
+  </start>
+  <!-- ============================================================ -->
+  <define name="Library" sa:class="language-construct">
+    <element name="library">
+      <a:documentation>Defines a collection of step declarations and/or pipeline definitions.
+        Libraries can import pipelines and/or other libraries but the import references should not
+        be circular.</a:documentation>
+      <ref name="decl.attributes"/>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Import"/>
+          <ref name="DeclareStep"/>
+          <ref name="Pipeline"/>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Import" sa:class="language-construct">
+    <element name="import">
+      <a:documentation>Loads a pipeline or pipeline library. The import points to a library,
+        declare-step, or pipeline (the pipeline should have a type). If the href URI, after being
+        made absolute, begins “http://www.w3.org/YYYY/xproc-” (where YYYY is a four digit year),
+        then it identifies the steps defined by a particular version of XProc.</a:documentation>
+      <ref name="common.attributes"/>
+      <ref name="href.attr"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Pipeline" sa:class="language-construct">
+    <element name="pipeline">
+      <a:documentation>Declares a pipeline. It encapsulates the behavior of a subpipeline. Its
+        children declare inputs, outputs, and options that the pipeline exposes and identify the
+        steps in its subpipeline. It is a simplified form of step declaration.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <optional>
+        <attribute name="type">
+          <a:documentation>The value of the type is a qualified name (QName). Values in no namespace
+            are not allowed. If a pipeline does not have a type then that pipeline cannot be invoked
+            as a step.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <ref name="common.attributes"/>
+      <ref name="decl.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Input"/>
+          <ref name="ParameterInput"/>
+          <ref name="Output"/>
+          <ref name="Option"/>
+          <ref name="Log"/>
+          <ref name="Serialization"/>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+      <zeroOrMore>
+        <choice>
+          <ref name="DeclareStep"/>
+          <ref name="Pipeline"/>
+          <ref name="Import"/>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="Subpipeline"/>
+    </element>
+  </define>
+  <define name="Subpipeline" sa:model="subpipeline">
+    <zeroOrMore>
+      <ref name="Variable"/>
+    </zeroOrMore>
+    <oneOrMore>
+      <choice>
+        <ref name="ForEach"/>
+        <ref name="Viewport"/>
+        <ref name="Choose"/>
+        <ref name="Group"/>
+        <ref name="Try"/>
+        <ref name="OtherStep"/>
+        <ref name="Documentation"/>
+        <ref name="PipeInfo"/>
+      </choice>
+    </oneOrMore>
+  </define>
+  <!-- ============================================================ -->
+  <define name="InputDeclaration" sa:class="language-construct">
+    <element name="input">
+      <a:documentation>Identifies an input port for a step. Declares that a port with the specified
+        name exists and identifies the properties of that port.</a:documentation>
+      <ref name="port.attr"/>
+      <optional>
+        <ref name="sequence.attr"/>
+      </optional>
+      <optional>
+        <ref name="primary.attr"/>
+      </optional>
+      <optional>
+        <attribute name="kind">
+          <a:documentation>Distinguishes between the two kinds of inputs: document inputs and
+            parameter inputs. An input port is a document input port if kind is specified with the
+            value “document” or if kind is not specified.</a:documentation>
+          <value>document</value>
+        </attribute>
+      </optional>
+      <optional>
+        <ref name="select.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Empty"/>
+            <oneOrMore>
+              <choice>
+                <ref name="Document"/>
+                <ref name="Inline"/>
+                <ref name="Data"/>
+              </choice>
+            </oneOrMore>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="InputBinding" sa:class="language-construct">
+    <element name="input">
+      <a:documentation>Provides a binding for a port declared elsewhere.</a:documentation>
+      <ref name="port.attr"/>
+      <optional>
+        <ref name="select.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Empty"/>
+            <oneOrMore>
+              <choice>
+                <ref name="Pipe"/>
+                <ref name="Document"/>
+                <ref name="Inline"/>
+                <ref name="Data"/>
+              </choice>
+            </oneOrMore>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Input" sa:element="input">
+    <choice>
+      <ref name="InputDeclaration"/>
+      <ref name="InputBinding"/>
+    </choice>
+  </define>
+  <!-- ============================================================ -->
+  <define name="ParameterInputDeclaration" sa:class="language-construct" sa:ignore="yes">
+    <element name="input">
+      <a:documentation>The declaration of a parameter input identifies the name of the port and that
+        the port is a parameter input.</a:documentation>
+      <ref name="port.attr"/>
+      <optional>
+        <attribute name="sequence">
+          <a:documentation>A sequence of documents is always allowed on a parameter input
+            port.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <ref name="primary.attr"/>
+      </optional>
+      <attribute name="kind">
+        <a:documentation>An input port is a parameter input port only if the kind attribute is
+          specified with the value “parameter”.</a:documentation>
+        <value>parameter</value>
+      </attribute>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Empty"/>
+            <oneOrMore>
+              <choice>
+                <ref name="Document"/>
+                <ref name="Inline"/>
+              </choice>
+            </oneOrMore>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="ParameterInput" sa:element="input" sa:ignore="yes">
+    <ref name="ParameterInputDeclaration"/>
+  </define>
+  <!-- ============================================================ -->
+  <define name="OutputDeclaration" sa:class="language-construct">
+    <element name="output">
+      <a:documentation>Identifies an output port.</a:documentation>
+      <ref name="port.attr"/>
+      <optional>
+        <ref name="sequence.attr"/>
+      </optional>
+      <optional>
+        <ref name="primary.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="OutputBinding" sa:class="language-construct">
+    <element name="output">
+      <a:documentation>Optionally binds an input for the output port, if
+        necessary.</a:documentation>
+      <ref name="port.attr"/>
+      <optional>
+        <ref name="sequence.attr"/>
+      </optional>
+      <optional>
+        <ref name="primary.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Empty"/>
+            <oneOrMore>
+              <choice>
+                <ref name="Pipe"/>
+                <ref name="Document"/>
+                <ref name="Inline"/>
+                <ref name="Data"/>
+              </choice>
+            </oneOrMore>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Output" sa:element="output">
+    <choice>
+      <ref name="OutputDeclaration"/>
+      <ref name="OutputBinding"/>
+    </choice>
+  </define>
+  <define name="Pipe" sa:class="language-construct">
+    <element name="pipe">
+      <a:documentation>Connects an input to a port on another step. It identifies the readable port
+        to which it connects with the name of the step and the name of the port.</a:documentation>
+      <attribute name="step">
+        <a:documentation>Identifies the step to connect to. The value is a not qualified name
+          (NCName).</a:documentation>
+        <data type="NCName"/>
+      </attribute>
+      <ref name="port.attr"/>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Document" sa:class="language-construct">
+    <element name="document">
+      <a:documentation>Reads an XML document from a URI.</a:documentation>
+      <ref name="href.attr"/>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Inline" sa:class="language-construct">
+    <element name="inline">
+      <a:documentation>Provides a document inline. The content of the inline element is wrapped in a
+        document node and passed as input. The base URI of the document is the base URI of the
+        inline element. The content of the inline element should consist of exactly one element,
+        optionally preceded and/or followed by any number of processing instructions, comments or
+        whitespace characters.</a:documentation>
+      <optional>
+        <ref name="exclude-inline-prefixes.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <ref name="Any"/>
+    </element>
+  </define>
+  <define name="Empty" sa:class="language-construct">
+    <element name="empty">
+      <a:documentation>Binds to an empty sequence of documents.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Data" sa:class="language-construct">
+    <element name="data">
+      <a:documentation>Reads an arbitrary resource from a URI. The resource is loaded, encoded,
+        wrapped in the wrapper element, and returned as a document. If no wrapper element is
+        specified, the default is c:data.</a:documentation>
+      <ref name="href.attr"/>
+      <optional>
+        <attribute name="wrapper">
+          <a:documentation>Specifies the name of the wrapper element that will contain the resulting
+            encoded data. The value is a qualified name (QName). If it is not specified then c:data
+            is used.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="content-type">
+          <a:documentation>The user specified content type. If the resource has a content type
+            associated with it (e.g., if the resource was retrieved with HTTP), then that content
+            type must be used, otherwise the user specified content-type is used. If no content type
+            is specified or is associated with the resource, the inferred content type is
+            implementation-dependent.</a:documentation>
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Log" sa:class="language-construct">
+    <element name="log">
+      <a:documentation>Associates a URI with a specific output port on a step. It writes to the
+        specified IRI whatever document or documents appear on the specified port. If the href
+        attribute is not specified, the location of the log file or files is implementation-defined.
+        No more than one log element can be applied to the same port. Implementations may, at user
+        option, ignore all log elements.</a:documentation>
+      <ref name="common.attributes"/>
+      <ref name="port.attr"/>
+      <optional>
+        <ref name="href.attr"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Serialization" sa:class="language-construct">
+    <element name="serialization">
+      <a:documentation>Allows the user to request serialization properties on a pipeline output. If
+        the pipeline processor serializes the output on the specified port, it must use the
+        serialization options specified. If the processor is not serializing (if, for example, the
+        pipeline has been called from another pipeline), then the serialization must be ignored. The
+        processor may reject statically a pipeline that requests serialization options that it
+        cannot provide.</a:documentation>
+      <ref name="common.attributes"/>
+      <ref name="port.attr"/>
+      <optional>
+        <attribute name="byte-order-mark">
+          <a:documentation>The value of this option must be a boolean. If it's not specified, the
+            default varies by encoding: for UTF-16 it's true, for all others, it's
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="cdata-section-elements">
+          <a:documentation>The value of this option must be a list of QNames. They are interpreted
+            as element names.</a:documentation>
+          <data type="NMTOKENS"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-public">
+          <a:documentation>The value of this option must be a string. The public identifier of the
+            doctype.</a:documentation>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-system">
+          <a:documentation>The value of this option must be an anyURI. The system identifier of the
+            doctype. It need not be absolute, and is not resolved.</a:documentation>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="encoding">
+          <a:documentation>A character set name. If no encoding is specified, the encoding used is
+            implementation defined. If the method is “xml” or “xhtml”, the implementation defined
+            encoding must be either UTF-8 or UTF-16. </a:documentation>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="escape-uri-attributes">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="include-content-type">
+          <a:documentation>The value of this option must be a boolean, the default is true. It is
+            ignored unless the specified method is “xhtml” or “html”.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="indent">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="media-type">
+          <a:documentation> The value of this option must be a string. It specifies the media type
+            (MIME content type). If not specified, the default varies according to the method. </a:documentation>
+          <a:documentation>xml - application/xml </a:documentation>
+          <a:documentation>html - text/html </a:documentation>
+          <a:documentation>xhtml - application/xhtml+xml </a:documentation>
+          <a:documentation>text - text/plain </a:documentation>
+          <a:documentation>For methods other than xml, html, xhtml, and text; the media-type is
+            implementation defined. </a:documentation>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="method">
+          <a:documentation>The value of this option must be a QName, the default is xml. It
+            specifies the serialization method. </a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="normalization-form">
+          <a:documentation> The value of this option must be an NMTOKEN, one of the enumerated
+            values NFC, NFD, NFKC, NFKD, fully-normalized, none or an implementation-defined value.
+            The default is none.</a:documentation>
+          <choice>
+            <value>NFC</value>
+            <value>NFD</value>
+            <value>NFKC</value>
+            <value>NFKD</value>
+            <value>fully-normalized</value>
+            <value>none</value>
+            <data type="NMTOKEN"/>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="omit-xml-declaration">
+          <a:documentation>The value of this option must be a boolean, the default is
+            true.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="standalone">
+          <a:documentation>The value of this option must be an NMTOKEN, one of the enumerated values
+            true, false, or omit. The default is omit.</a:documentation>
+          <choice>
+            <value>true</value>
+            <value>false</value>
+            <value>omit</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="undeclare-prefixes">
+          <a:documentation>The value of this option must be a boolean.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="version">
+          <a:documentation>The value of this option must be a string, the default is
+            1.0.</a:documentation>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="OptionDeclaration" sa:class="language-construct">
+    <element name="option">
+      <a:documentation>Declares an option and may associate a default value with
+        it.</a:documentation>
+      <ref name="name.qname.attr"/>
+      <optional>
+        <ref name="required.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="OptionSelect" sa:class="language-construct">
+    <element name="option">
+      <a:documentation>If a select attribute is specified, its content is an XPath expression which
+        will be evaluated to provide the value of the variable.</a:documentation>
+      <ref name="name.qname.attr"/>
+      <ref name="select.attr"/>
+      <optional>
+        <ref name="required.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Option" sa:element="option">
+    <choice>
+      <ref name="OptionDeclaration"/>
+      <ref name="OptionSelect"/>
+    </choice>
+  </define>
+  <!-- ============================================================ -->
+  <define name="WithOptionSelect" sa:class="language-construct">
+    <element name="with-option">
+      <a:documentation>Provides an actual value for an option when a step is
+        invoked.</a:documentation>
+      <ref name="name.qname.attr"/>
+      <ref name="select.attr"/>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Empty"/>
+            <ref name="Pipe"/>
+            <ref name="Document"/>
+            <ref name="Inline"/>
+            <ref name="Data"/>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Namespaces"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="WithOption" sa:element="with-option">
+    <ref name="WithOptionSelect"/>
+  </define>
+  <!-- ============================================================ -->
+  <define name="VariableSelect" sa:class="language-construct">
+    <element name="variable">
+      <a:documentation>Declares a variable and associates a value with it.</a:documentation>
+      <ref name="name.qname.attr"/>
+      <ref name="select.attr"/>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Empty"/>
+            <ref name="Pipe"/>
+            <ref name="Document"/>
+            <ref name="Inline"/>
+            <ref name="Data"/>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Namespaces"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Variable" sa:element="variable">
+    <ref name="VariableSelect"/>
+  </define>
+  <!-- ============================================================ -->
+  <define name="Namespaces" sa:class="language-construct">
+    <element name="namespaces">
+      <a:documentation>Provides explicit namespace bindings using either the binding or the element
+        attributes, or, if neither of them is specified, the in-scope namespaces on the namespaces
+        element itself are used. If there are multiple namespaces elements then the union of all the
+        namespaces specified on those elements are used as the bindings. The same prefix should not
+        be bound to two different namespace names.</a:documentation>
+      <optional>
+        <attribute name="binding">
+          <a:documentation>Contains the name of a single in-scope binding. The namespace bindings
+            associated with that binding will be used. The value is a qualified name
+            (QName).</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="element">
+          <a:documentation>Contains an XPath expression which identifies a single element node. The
+            in-scope namespaces of that node are used.</a:documentation>
+          <ref name="XPathExpression"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="except-prefixes">
+          <a:documentation>Can be used to exclude one or more namespaces. The value of the
+            except-prefixes attribute must be a sequence of tokens, each of which must be a prefix
+            bound to a namespace in the in-scope namespaces of the namespaces element. All bindings
+            of prefixes to each of the namespaces thus identified are excluded.</a:documentation>
+          <ref name="PrefixList"/>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="WithParamSelect" sa:class="language-construct">
+    <element name="with-param">
+      <a:documentation>Used to establish the value of a parameter. The parameter must be given a
+        value when it is used.</a:documentation>
+      <ref name="name.qname.attr"/>
+      <ref name="select.attr"/>
+      <optional>
+        <ref name="port.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Empty"/>
+            <ref name="Pipe"/>
+            <ref name="Document"/>
+            <ref name="Inline"/>
+            <ref name="Data"/>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Namespaces"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="WithParam" sa:element="with-param">
+    <ref name="WithParamSelect"/>
+  </define>
+  <!-- ============================================================ -->
+  <define name="DeclareStep" sa:class="language-construct">
+    <element name="declare-step">
+      <a:documentation>Provides the type and signature of an atomic step or pipeline. It declares
+        the inputs, outputs, and options for all steps of that type.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <optional>
+        <attribute name="type">
+          <a:documentation>The value of the type is a qualified name (QName). Values in no namespace
+            are not allowed.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <ref name="decl.attributes"/>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Input"/>
+          <ref name="ParameterInput"/>
+          <ref name="Output"/>
+          <ref name="Option"/>
+          <ref name="Log"/>
+          <ref name="Serialization"/>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+      <optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="DeclareStep"/>
+            <ref name="Pipeline"/>
+            <ref name="Import"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <ref name="Subpipeline"/>
+      </optional>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="ForEach" sa:class="language-construct">
+    <element name="for-each">
+      <a:documentation>Specifies a for-each iteration. It is a compound step that processes a
+        sequence of documents, applying its subpipeline to each document in turn. The result of the
+        for-each is a sequence of documents produced by processing each individual document in the
+        input sequence. If the iteration source for a for-each is an empty sequence, then the
+        subpipeline is never run and an empty sequence is produced on all of the
+        outputs.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <group>
+        <interleave>
+          <optional>
+            <ref name="IterationSource"/>
+          </optional>
+          <zeroOrMore>
+            <choice>
+              <ref name="Output"/>
+              <ref name="Log"/>
+              <ref name="Documentation"/>
+              <ref name="PipeInfo"/>
+            </choice>
+          </zeroOrMore>
+        </interleave>
+        <ref name="Subpipeline"/>
+      </group>
+    </element>
+  </define>
+  <define name="IterationSource" sa:class="language-construct">
+    <element name="iteration-source">
+      <a:documentation>Identifies input to a for-each.</a:documentation>
+      <optional>
+        <ref name="select.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Empty"/>
+            <oneOrMore>
+              <choice>
+                <ref name="Pipe"/>
+                <ref name="Document"/>
+                <ref name="Inline"/>
+                <ref name="Data"/>
+              </choice>
+            </oneOrMore>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="Viewport" sa:class="language-construct">
+    <element name="viewport">
+      <a:documentation>Specifies a viewport. It is a compound step that processes a single document,
+        applying its subpipeline to one or more subtrees of the document. The result of the viewport
+        is a copy of the original document where the selected subtrees have been replaced by the
+        results of applying the subpipeline to them. </a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <attribute name="match">
+        <a:documentation>The match attribute specifies an XSLT match pattern that matches element or
+          document nodes. Each matching node in the source document is wrapped in a document node,
+          as necessary, and provided, one at a time, to the viewport's
+          subpipeline.</a:documentation>
+        <ref name="XSLTMatchPattern"/>
+      </attribute>
+      <ref name="common.attributes"/>
+      <group>
+        <interleave>
+          <optional>
+            <ref name="ViewportSource"/>
+          </optional>
+          <optional>
+            <ref name="Output"/>
+          </optional>
+          <optional>
+            <ref name="Log"/>
+          </optional>
+          <zeroOrMore>
+            <ref name="Documentation"/>
+          </zeroOrMore>
+          <zeroOrMore>
+            <ref name="PipeInfo"/>
+          </zeroOrMore>
+        </interleave>
+        <ref name="Subpipeline"/>
+      </group>
+    </element>
+  </define>
+  <define name="ViewportSource" sa:class="language-construct">
+    <element name="viewport-source">
+      <a:documentation>Identifies input to a viewport.</a:documentation>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Pipe"/>
+            <ref name="Document"/>
+            <ref name="Inline"/>
+            <ref name="Data"/>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="Choose" sa:class="language-construct">
+    <element name="choose">
+      <a:documentation>Specifies a choose, a multi-container step that selects exactly one of a list
+        of alternative subpipelines based on the evaluation of XPath expressions. It has no inputs
+        and contains an arbitrary number of alternative subpipelines that consists of zero or more
+        subpipelines guarded by an XPath expression, followed optionally by a single default
+        subpipeline. The first (and only the first) subpipeline for which the guard expression
+        evaluates to true in its context is executed. If there are no subpipelines for which the
+        expression evaluates to true, the default subpipeline, if it was specified, is selected. If
+        no subpipeline is selected by the choose then a default must be provided.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <group>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <optional>
+          <ref name="XPathContext"/>
+        </optional>
+        <zeroOrMore>
+          <ref name="Variable"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="When"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <optional>
+          <ref name="Otherwise"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </group>
+    </element>
+  </define>
+  <define name="XPathContext" sa:class="language-construct">
+    <element name="xpath-context">
+      <a:documentation>Specifies the context against which an XPath expression will be evaluated.
+        When it appears in a when, it specifies the context for that when’s test attribute. When it
+        appears in choose, it specifies the default context for all of the when elements in that
+        choose.</a:documentation>
+      <ref name="common.attributes"/>
+      <interleave>
+        <optional>
+          <choice>
+            <ref name="Empty"/>
+            <ref name="Pipe"/>
+            <ref name="Document"/>
+            <ref name="Inline"/>
+            <ref name="Data"/>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="When" sa:class="language-construct">
+    <element name="when">
+      <a:documentation>Specifies one subpipeline guarded by a test expression. The when can specify
+        a context node against which its test expression is to be evaluated. That context node is
+        specified as a binding for the xpath-context. If no context is specified on the when, the
+        context of the choose is used.</a:documentation>
+      <attribute name="test">
+        <a:documentation>Each when branch of the choose has a test attribute which must contain an
+          XPath expression. That XPath expression's effective boolean value is the guard for the
+          subpipeline contained within that when.</a:documentation>
+        <ref name="XPathExpression"/>
+      </attribute>
+      <ref name="common.attributes"/>
+      <group>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <optional>
+          <ref name="XPathContext"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Output"/>
+            <ref name="Log"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <ref name="Subpipeline"/>
+      </group>
+    </element>
+  </define>
+  <define name="Otherwise" sa:class="language-construct">
+    <element name="otherwise">
+      <a:documentation>Specifies the default branch; the subpipeline selected if no test expression
+        on any preceding when evaluates to true.</a:documentation>
+      <ref name="common.attributes"/>
+      <group>
+        <zeroOrMore>
+          <choice>
+            <ref name="Output"/>
+            <ref name="Log"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <ref name="Subpipeline"/>
+      </group>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="Group" sa:class="language-construct">
+    <element name="group">
+      <a:documentation>A compound step specifying a group. A group encapsulates the behavior of its
+        subpipeline. It is a convenience wrapper for a collection of steps.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <group>
+        <zeroOrMore>
+          <choice>
+            <ref name="Output"/>
+            <ref name="Log"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <ref name="Subpipeline"/>
+      </group>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="Try" sa:class="language-construct">
+    <element name="try">
+      <a:documentation>Specifies a try/catch. It is a multi-container step that isolates a
+        subpipeline, preventing any dynamic errors that arise within it from being exposed to the
+        rest of the pipeline. The try step evaluates the initial subpipeline and, if no errors
+        occur, the outputs of that pipeline are the outputs of the try step. However, if any errors
+        occur, the try abandons the first subpipeline, discarding any output that it might have
+        generated, and evaluates the recovery subpipeline.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <group>
+          <zeroOrMore>
+            <ref name="Variable"/>
+          </zeroOrMore>
+          <ref name="TryGroup"/>
+          <ref name="Catch"/>
+        </group>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="TryGroup" sa:class="language-construct">
+    <element name="group">
+      <a:documentation>In a try, it is a non-step wrapper.</a:documentation>
+      <ref name="common.attributes"/>
+      <group>
+        <zeroOrMore>
+          <choice>
+            <ref name="Output"/>
+            <ref name="Log"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <ref name="Subpipeline"/>
+      </group>
+    </element>
+  </define>
+  <define name="Catch" sa:class="language-construct">
+    <element name="catch">
+      <a:documentation>Identifies the recovery subpipeline of a try.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <group>
+        <zeroOrMore>
+          <choice>
+            <ref name="Output"/>
+            <ref name="Log"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <ref name="Subpipeline"/>
+      </group>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="OtherAtomicStep" sa:class="language-construct">
+    <element>
+      <anyName>
+        <except>
+          <nsName/>
+        </except>
+      </anyName>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="option.attr"/>
+      </zeroOrMore>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="InputBinding"/>
+          <ref name="WithOption"/>
+          <ref name="WithParam"/>
+          <ref name="Log"/>
+          <ref name="Documentation"/>
+          <ref name="PipeInfo"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="OtherCompoundStep" sa:class="language-construct">
+    <element>
+      <anyName>
+        <except>
+          <nsName/>
+        </except>
+      </anyName>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <group>
+        <zeroOrMore>
+          <choice>
+            <ref name="Output"/>
+            <ref name="Log"/>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+        <ref name="Subpipeline"/>
+      </group>
+    </element>
+  </define>
+  <define name="OtherStep">
+    <choice>
+      <ref name="StandardStep"/>
+      <ref name="OtherAtomicStep"/>
+      <ref name="OtherCompoundStep"/>
+    </choice>
+  </define>
+  <!-- ============================================================ -->
+  <define name="Documentation" sa:ignore="yes" sa:class="language-construct">
+    <element name="documentation">
+      <a:documentation>Contains human-readable documentation. There are no constraints on the
+        content of the documentation element. Documentation is ignored by pipeline processors. </a:documentation>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <ref name="DocContent"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="DocContent" sa:model="any-well-formed-content">
+    <choice>
+      <text/>
+      <ref name="Any"/>
+    </choice>
+  </define>
+  <!-- ============================================================ -->
+  <define name="PipeInfo" sa:ignore="yes" sa:class="language-construct">
+    <element name="pipeinfo">
+      <a:documentation>Contains ancillary information for steps in the pipeline. There are no
+        constraints on the content of the pipeinfo element.</a:documentation>
+      <ref name="common.attributes"/>
+      <zeroOrMore>
+        <ref name="DocContent"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="_any.attr">
+    <attribute>
+      <anyName/>
+    </attribute>
+  </define>
+  <define name="option.attr">
+    <attribute>
+      <nsName ns="">
+        <except>
+          <name ns="">name</name>
+        </except>
+      </nsName>
+    </attribute>
+  </define>
+  <define name="extension.attr">
+    <attribute>
+      <anyName>
+        <except>
+          <nsName ns=""/>
+          <nsName ns="http://www.w3.org/XML/1998/namespace"/>
+        </except>
+      </anyName>
+    </attribute>
+  </define>
+  <define name="Any" sa:model="anyElement">
+    <element>
+      <anyName/>
+      <zeroOrMore>
+        <choice>
+          <ref name="_any.attr"/>
+          <text/>
+          <ref name="Any"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="VocabParam" sa:class="step-vocabulary">
+    <element name="c:param">
+      <a:documentation>Represents a parameter on a parameter input.</a:documentation>
+      <ref name="name.qname.attr"/>
+      <optional>
+        <attribute name="namespace">
+          <a:documentation>If the namespace attribute is specified, then the expanded name of the
+            parameter is constructed from the specified namespace and the name value. If the
+            namespace attribute is specified and the name contains a colon then the specified
+            namespace should be the same as the in-scope namespace binding for the specified
+            prefix.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <attribute name="value">
+        <a:documentation>Specifies the parameter value.</a:documentation>
+      </attribute>
+      <empty/>
+    </element>
+  </define>
+  <define name="VocabParamSet" sa:class="step-vocabulary">
+    <element name="c:param-set">
+      <a:documentation>Represents a set of parameters on a parameter input.</a:documentation>
+      <zeroOrMore>
+        <ref name="VocabParam"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="VocabDirectory" sa:class="step-vocabulary">
+    <element name="c:directory">
+      <a:documentation>The result of a directory-list step is a document that has a directory
+        document element whose base URI is the directory path and whose name attribute is the last
+        segment of the directory path (that is, the directory's local name).</a:documentation>
+      <attribute name="name">
+        <a:documentation>The directory local name.</a:documentation>
+        <data type="string" datatypeLibrary=""/>
+      </attribute>
+      <zeroOrMore>
+        <choice>
+          <ref name="VocabFile"/>
+          <ref name="VocabDirectory"/>
+          <ref name="VocabOther"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="VocabFile" sa:class="step-vocabulary">
+    <element name="c:file">
+      <a:documentation>It is produced for each file not determined to be special as a result of a
+        directory-list step.</a:documentation>
+      <attribute name="name">
+        <a:documentation>The file name.</a:documentation>
+        <data type="string" datatypeLibrary=""/>
+      </attribute>
+      <empty/>
+    </element>
+  </define>
+  <define name="VocabOther" sa:class="step-vocabulary">
+    <element name="c:other">
+      <a:documentation>It is produced for each file or directory determined to be special as a
+        result of a directory-list step. The criteria for marking a file as special are
+        implementation-defined.</a:documentation>
+      <attribute name="name">
+        <a:documentation>The file or directory name.</a:documentation>
+        <data type="string" datatypeLibrary=""/>
+      </attribute>
+      <empty/>
+    </element>
+  </define>
+  <define name="VocabResult" sa:class="step-vocabulary">
+    <element name="c:result">
+      <a:documentation>Used by different steps to provide result information.</a:documentation>
+      <text/>
+    </element>
+  </define>
+  <define name="VocabHttpRequest" sa:class="step-vocabulary">
+    <element name="c:request">
+      <a:documentation>Representa an HTTP request.</a:documentation>
+      <attribute name="method">
+        <a:documentation>Specifies the method to be used against the IRI specified by the href
+          attribute, e.g. GET or POST (the value is not case-sensitive).</a:documentation>
+        <data type="NCName"/>
+      </attribute>
+      <optional>
+        <attribute name="href">
+          <a:documentation>Specifies the URI for the request. If the href attribute is not absolute,
+            it will be resolved against the base URI of the element on which it is
+            occurs.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="detailed">
+          <a:documentation>The value of the detailed attribute determines the content of the result
+            document.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="status-only">
+          <a:documentation>If the status-only attribute has the value true, the result document will
+            contain only header information.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="username">
+          <a:documentation>The username for authentication.</a:documentation>
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="password">
+          <a:documentation>The password for authentication.</a:documentation>
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="auth-method">
+          <a:documentation>Used to handle authentication. Appropriate values for the auth-method
+            attribute are "Basic" or "Digest" but other values are allowed. The interpretation of
+            auth-method values on c:request other than “Basic” or “Digest” is
+            implementation-defined.</a:documentation>
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="send-authorization">
+          <a:documentation>Used to handle authentication.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="override-content-type">
+          <a:documentation>The override-content-type attribute controls interpretation of the
+            response's Content-Type header. If this attribute is present, the response will be
+            treated as if it returned the Content-Type given by its value. This original
+            Content-Type header will however be reflected unchanged as a c:header in the result
+            document.</a:documentation>
+        </attribute>
+      </optional>
+      <group>
+        <zeroOrMore>
+          <ref name="VocabHeader"/>
+        </zeroOrMore>
+        <optional>
+          <choice>
+            <ref name="VocabMultipart"/>
+            <ref name="VocabBody"/>
+          </choice>
+        </optional>
+      </group>
+    </element>
+  </define>
+  <define name="VocabHeader" sa:class="step-vocabulary">
+    <element name="c:header">
+      <a:documentation>Specifies a header name and value, either for inclusion in a request, or as
+        received in a response.</a:documentation>
+      <attribute name="name">
+        <a:documentation>The header name.</a:documentation>
+      </attribute>
+      <attribute name="value">
+        <a:documentation>The header value.</a:documentation>
+      </attribute>
+      <empty/>
+    </element>
+  </define>
+  <define name="VocabMultipart" sa:class="step-vocabulary">
+    <element name="c:multipart">
+      <a:documentation>Specifies a multi-part body either for inclusion in a request or as received
+        in a response.</a:documentation>
+      <optional>
+        <attribute name="content-type">
+          <a:documentation>In the context of a request, the media type of the c:multipart must be a
+            multipart media type (i.e. have a main type of 'multipart'). If the content-type
+            attribute is not specified, a value of "multipart/mixed" will be
+            assumed.</a:documentation>
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <attribute name="boundary">
+        <a:documentation>The boundary attribute is required and is used to provide a multipart
+          boundary marker. The implementation must use this boundary marker and must prefix the
+          value with the string “--” when formulating the multipart message.</a:documentation>
+        <data type="string" datatypeLibrary=""/>
+      </attribute>
+      <oneOrMore>
+        <zeroOrMore>
+          <ref name="VocabHeader"/>
+        </zeroOrMore>
+        <ref name="VocabBody"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="VocabBody" sa:class="step-vocabulary">
+    <element name="c:body">
+      <a:documentation>Holds the body or body part of a message. Each of the attributes holds
+        controls some aspect of the encoding the request body or decoding the body element's content
+        when the request is formulated.</a:documentation>
+      <attribute name="content-type">
+        <a:documentation>Specifies the media type of the body or body part, that is, the value of
+          its Content-Type header. If the media type is not an XML type or text, the content must
+          already be base64-encoded.</a:documentation>
+        <data type="string" datatypeLibrary=""/>
+      </attribute>
+      <optional>
+        <attribute name="encoding">
+          <a:documentation>Controls the decoding of the element content for formulating the body. A
+            value of base64 indicates the element's content is a base64 encoded string whose byte
+            stream should be sent as the message body. An implementation may support encodings other
+            than base64 but these encodings and their names are
+            implementation-defined.</a:documentation>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="id">
+          <a:documentation>Specifies the value of the Content-ID header for the body or body
+            part.</a:documentation>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="description">
+          <a:documentation>Specifies the value of the Content-Description header for the body or
+            body part.</a:documentation>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <ref name="Any"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="VocabHttpResponse" sa:class="step-vocabulary">
+    <element name="c:response">
+      <a:documentation>Represents an HTTP response.</a:documentation>
+      <optional>
+        <attribute name="status">
+          <a:documentation>Encodes the response's status code.</a:documentation>
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <group>
+        <zeroOrMore>
+          <ref name="VocabHeader"/>
+        </zeroOrMore>
+        <optional>
+          <choice>
+            <ref name="VocabMultipart"/>
+            <ref name="VocabBody"/>
+          </choice>
+        </optional>
+      </group>
+    </element>
+  </define>
+  <define name="VocabQuery" sa:class="step-vocabulary">
+    <element name="c:query">
+      <a:documentation>Wraps an XQuery for an xquery step. The text descendants of this element are
+        considered the query. Because XQuery is not necessarily well-formed XML, any markup that
+        occurs in the query must be escaped.</a:documentation>
+      <text/>
+    </element>
+  </define>
+  <define name="VocabLine" sa:class="step-vocabulary">
+    <element name="c:line">
+      <a:documentation>If wrap-result-lines is true on an exec step, a c:line element will be
+        wrapped around each line of output.</a:documentation>
+      <text/>
+    </element>
+  </define>
+  <define name="VocabData" sa:class="step-vocabulary">
+    <element name="c:data">
+      <a:documentation>The default wrapper element for data. </a:documentation>
+      <optional>
+        <attribute name="content-type">
+          <a:documentation>Indicates the specified or inferred media type of the
+            resource.</a:documentation>
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="Errors" sa:class="error-vocabulary">
+    <element name="c:errors">
+      <a:documentation>The error vocabulary consists of a root element, c:errors which contains zero
+        or more c:error elements.</a:documentation>
+      <zeroOrMore>
+        <ref name="Error"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Error" sa:class="error-vocabulary">
+    <element name="c:error">
+      <a:documentation>Each specific error is represented by an c:error element. The name and type
+        attributes identify the name and type, respectively, of the step which
+        failed.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <optional>
+        <attribute name="type">
+          <a:documentation>Identifies the type of the step which failed.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="code">
+          <a:documentation>The code is a QName which identifies the error. For steps which have
+            defined error codes, this is an opportunity for the step to identify the error in a
+            machine-processable fashion. Many steps omit this because they do not include the
+            concept of errors identified by QNames.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="href">
+          <a:documentation>If the error was caused by a specific document, or by the location of
+            some erroneous construction in a specific document, the href attribute identifies this
+            location.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="line">
+          <a:documentation>The line identifying the error location.</a:documentation>
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="column">
+          <a:documentation>The column identifying the error location.</a:documentation>
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="offset">
+          <a:documentation>The offset in the document identifying the error
+            location.</a:documentation>
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Any"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Charset">
+    <text/>
+  </define>
+  <define name="Encoding">
+    <text/>
+  </define>
+  <define name="MIMEContentType">
+    <text/>
+  </define>
+  <define name="MIMEMediaType">
+    <text/>
+  </define>
+  <define name="RegularExpression">
+    <text/>
+  </define>
+  <define name="NormalizationForm">
+    <choice>
+      <value>NFC</value>
+      <value>NFD</value>
+      <value>NFKC</value>
+      <value>NFKD</value>
+      <value>fully-normalized</value>
+      <value>none</value>
+      <data type="NMTOKEN"/>
+    </choice>
+  </define>
+  <define name="ListOfQNames">
+    <text/>
+  </define>
+  <include href="steps.rng"/>
+</grammar>

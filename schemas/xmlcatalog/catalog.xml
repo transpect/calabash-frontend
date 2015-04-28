@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <system systemId="http://www.w3.org/2001/03/xml.xsd" uri="xml2001.xsd"/>
+  <system systemId="http://www.w3.org/2004/10/xml.xsd" uri="xml2004.xsd"/>
+  <system systemId="http://www.w3.org/2005/08/xml.xsd" uri="xml2005.xsd"/>
+  <system systemId="http://www.w3.org/2007/08/xml.xsd" uri="xml2007.xsd"/>
+  <system systemId="http://www.w3.org/2001/xml.xsd" uri="xml.xsd"/>
+  
+  <rewriteURI uriStartString="http://www.w3.org/TR/xproc/schema/" rewritePrefix="../XProc/"/>
+  
+  <uri name="http://www.w3.org/XML/1998/namespace" uri="xml.xsd"/>
+    
+  <!-- OASIS XML Catalogs 1.0 -->
+  <public publicId="-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" uri="catalog1.0.dtd"/>
+  <system systemId="http://www.oasis-open.org/committees/release/1.0/catalog.dtd" uri="catalog1.0.dtd"/>
+  <system systemId="http://www.oasis-open.org/committees/release/1.0/catalog.xsd" uri="catalog1.0.xsd"/>
+    
+  <!-- OASIS XML Catalogs 1.1 -->
+  <public publicId="-//OASIS//DTD XML Catalogs V1.1//EN" uri="catalog1.1.dtd"/>
+  <system systemId="http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd" uri="catalog1.1.dtd"/>
+  <system systemId="http://www.oasis-open.org/committees/entity/release/1.1/catalog.xsd" uri="catalog1.1.xsd"/>
+</catalog>

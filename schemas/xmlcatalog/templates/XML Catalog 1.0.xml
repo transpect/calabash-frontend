@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <!-- This is a sample -->
+    <system systemId="http://www.w3.org/2004/10/xml.xsd" uri="xml.xsd"/>
+    <uri name="http://docbook.org/xsl/fo/docbook.xsl" uri="frameworks/docbook/xsl/fo/docbook.xsl"/>
+</catalog>

@@ -1,0 +1,2743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ August 3, 2009
+  George Bina george@oxygenxml.com added annotations with documentation from the specification.
+
+-->
+<grammar ns="http://www.w3.org/ns/xproc"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!-- This schema could be made more constrained. -->
+  <define name="StandardStep">
+    <choice>
+      <ref name="Step-add-attribute"/>
+      <ref name="Step-add-xml-base"/>
+      <ref name="Step-compare"/>
+      <ref name="Step-count"/>
+      <ref name="Step-delete"/>
+      <ref name="Step-directory-list"/>
+      <ref name="Step-error"/>
+      <ref name="Step-escape-markup"/>
+      <ref name="Step-filter"/>
+      <ref name="Step-http-request"/>
+      <ref name="Step-identity"/>
+      <ref name="Step-insert"/>
+      <ref name="Step-label-elements"/>
+      <ref name="Step-load"/>
+      <ref name="Step-make-absolute-uris"/>
+      <ref name="Step-namespace-rename"/>
+      <ref name="Step-pack"/>
+      <ref name="Step-parameters"/>
+      <ref name="Step-rename"/>
+      <ref name="Step-replace"/>
+      <ref name="Step-set-attributes"/>
+      <ref name="Step-sink"/>
+      <ref name="Step-split-sequence"/>
+      <ref name="Step-store"/>
+      <ref name="Step-string-replace"/>
+      <ref name="Step-unescape-markup"/>
+      <ref name="Step-unwrap"/>
+      <ref name="Step-wrap"/>
+      <ref name="Step-wrap-sequence"/>
+      <ref name="Step-xinclude"/>
+      <ref name="Step-xslt"/>
+      <ref name="Step-exec"/>
+      <ref name="Step-hash"/>
+      <ref name="Step-uuid"/>
+      <ref name="Step-validate-with-relax-ng"/>
+      <ref name="Step-validate-with-schematron"/>
+      <ref name="Step-validate-with-xml-schema"/>
+      <ref name="Step-www-form-urldecode"/>
+      <ref name="Step-www-form-urlencode"/>
+      <ref name="Step-xquery"/>
+      <ref name="Step-xsl-formatter"/>
+    </choice>
+  </define>
+  <define name="Step-add-attribute">
+    <element name="add-attribute">
+      <a:documentation>Adds a single attribute to a set of matching elements. </a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The input document specified on the source is processed for matches specified
+        by the match pattern in the match option. For each of these matches, the attribute whose
+        name is specified by the attribute-name option is set to the attribute value specified by
+        the attribute-value option. If an attribute already exists then its value is
+        updated.</a:documentation>
+      <a:documentation>For setting multiple attributes at once use the set-attributes
+        step.</a:documentation>
+      <a:documentation>This step cannot be used to explicitly add namespace
+        declarations.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
+            dynamic error if the match pattern does not match an element.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="attribute-name">
+          <a:documentation>The value of the attribute-name option must be a QName. The corresponding
+            expanded name is used to construct the added attribute.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="attribute-value">
+          <a:documentation>The value of the attribute-value option must be a legal attribute value
+            according to XML.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-add-xml-base">
+    <element name="add-xml-base">
+      <a:documentation>Exposes the base URI via explicit xml:base attributes. </a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The input document from the source port is replicated to the result port with
+        xml:base attributes added to or corrected on each element as specified by the options on
+        this step. It is a dynamic error if the all and relative options are both
+        true.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="all">
+          <a:documentation>The value of the all option must be a boolean, the default is false. If
+            set to true it forces each element to have an xml:base attribute with the element's base
+            URI value as its value.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="relative">
+          <a:documentation>The value of the relative option must be a boolean, the default is true.
+            If true it causes the computed xml:base values to be relative references resolved
+            against the parent's base URI.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-compare">
+    <element name="compare">
+      <a:documentation>Compares two documents for equality. </a:documentation>
+      <a:documentation>Input ports: source(primary), alternate.</a:documentation>
+      <a:documentation>Output port: result.</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>This step takes single documents on each of two ports and compares them using
+        the XPath 2.0 fn:deep-equal function. It is a dynamic error if the documents are not equal,
+        and the value of the fail-if-not-equal option is true. If the documents are equal, or if the
+        value of the fail-if-not-equal option is false, a c:result document is produced with
+        contents true if the documents are equal, otherwise false.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="fail-if-not-equal">
+          <a:documentation>The value of the fail-if-not-equal option must be a boolean, the default
+            is false. If set to true it causes the pipeline to fail if the documents are
+            different.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-count">
+    <element name="count">
+      <a:documentation>Counts the number of documents in the source input sequence and returns a
+        single document on result containing that number. </a:documentation>
+      <a:documentation>Input port: source (primary, sequence).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The generated document contains a single c:result element whose contents is
+        the string representation of the number of documents in the sequence.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="limit">
+          <a:documentation>If the limit option is specified and is greater than zero, the count step
+            will count at most that many documents. This provides a convenient mechanism to
+            discover, for example, if a sequence consists of more than 1 document, without requiring
+            every single document to be buffered before processing can continue.</a:documentation>
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-delete">
+    <element name="delete">
+      <a:documentation>Deletes items specified by a match pattern from the source input document and
+        produces the resulting document, with the deleted items removed, on the result port. </a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>If an element is selected by the match option, the entire subtree rooted at
+        that element is deleted.</a:documentation>
+      <a:documentation>This step cannot be used to remove namespaces. It is a dynamic error if the
+        match option matches a namespace node. Deleting an attribute named xml:base does not change
+        the base URI of the element on which it occurred.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. A match
+            pattern may match multiple items to be deleted.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-directory-list">
+    <element name="directory-list">
+      <a:documentation>Produces a list of the contents of a specified directory as restricted by the
+        include-filter and exclude-filter options. </a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>Conformant processors must support directory paths whose scheme is file. It
+        is implementation-defined what other schemes are supported by
+        p:directory-list.</a:documentation>
+      <a:documentation>The result document produced for the specified directory path has a
+        c:directory document element whose base URI is the directory path and whose name attribute
+        is the directory's (local) name. Its content is formed of c:file, c:directory and c:other
+        entries. The listing is not recursive.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="path">
+          <a:documentation>The value of the path option must be an anyURI. It is interpreted as an
+            IRI reference. If it is relative, it is made absolute against the base URI of the
+            element on which it is specified.</a:documentation>
+          <a:documentation>It is a dynamic error if the absolute path does not identify a directory
+            or if the contents of the directory path are not available to the step due to access
+            restrictions in the environment in which the pipeline is run.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="include-filter">
+          <a:documentation>The value of the include-filter option must be a regular expression as
+            specified in XPath 2.0. If the include-filter pattern matches a directory entry's name,
+            the entry is included in the output. If the exclude-filter is also provided, the include
+            filter is processed first, then the exclude filter</a:documentation>
+          <ref name="RegularExpression"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="exclude-filter">
+          <a:documentation>The value of the exclude-filter option must be a regular expression as
+            specified in XPath 2.0. If the exclude-filter pattern matches a directory entry's name,
+            the entry is excluded in the output. If the include-filter is also provided, the include
+            filter is processed first, then the exclude filter</a:documentation>
+          <ref name="RegularExpression"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-error">
+    <element name="error">
+      <a:documentation>Generates a dynamic error using the input provided to the step. </a:documentation>
+      <a:documentation>Input port: source.</a:documentation>
+      <a:documentation>Output port: result (primary, sequence).</a:documentation>
+      <a:documentation>An instance of the c:errors element will be produced on the error output
+        port, as is always the case for dynamic errors. For authoring convenience, this step is
+        declared with a single, primary output port but nothing can ever appear on it since the step
+        always fails.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="code">
+          <a:documentation>The value of the code option must be a QName.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-escape-markup">
+    <element name="escape-markup">
+      <a:documentation>Applies XML serialization to the children of the document element and
+        replaces those children with their serialization.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The outcome is a single element with text content that represents the
+        "escaped" syntax of the children as they were serialized. By default, this step must not
+        generate an XML declaration in the escaped result.</a:documentation>
+      <a:documentation>This step supports the standard serialization options that control how the
+        output markup is produced before it is escaped. The result of this step is an XML document
+        that contains the Unicode characters that are the characters that result from escaping the
+        input. It is not encoded characters in a serialized octet stream, therefore, the
+        serialization options related to encoding characters (byte-order-mark, encoding, and
+        normalization-form) do not apply. They are omitted from the standard serialization options
+        on this step.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="cdata-section-elements">
+          <a:documentation>The value of this option must be a list of QNames. They are interpreted
+            as element names.</a:documentation>
+          <ref name="ListOfQNames"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-public">
+          <a:documentation>The value of this option must be a string. The public identifier of the
+            doctype.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-system">
+          <a:documentation>The value of this option must be an anyURI. The system identifier of the
+            doctype. It need not be absolute, and is not resolved.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="escape-uri-attributes">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="include-content-type">
+          <a:documentation>The value of this option must be a boolean, the default is true. It is
+            ignored unless the specified method is “xhtml” or “html”.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="indent">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="media-type">
+          <a:documentation> The value of this option must be a string. It specifies the media type
+            (MIME content type). If not specified, the default varies according to the method: </a:documentation>
+          <a:documentation>xml - application/xml </a:documentation>
+          <a:documentation>html - text/html </a:documentation>
+          <a:documentation>xhtml - application/xhtml+xml </a:documentation>
+          <a:documentation>text - text/plain </a:documentation>
+          <a:documentation>For methods other than xml, html, xhtml, and text; the media-type is
+            implementation defined. </a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="method">
+          <a:documentation>The value of this option must be a QName, the default is xml. It
+            specifies the serialization method. </a:documentation>
+          <a:documentation>The method option controls the serialization method used by this
+            component with standard values of 'html', 'xml', 'xhtml', and 'text' but only the 'xml'
+            value is required to be supported.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="omit-xml-declaration">
+          <a:documentation>The value of this option must be a boolean, the default is
+            true.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="standalone">
+          <a:documentation>The value of this option must be an NMTOKEN, one of the enumerated values
+            true, false, or omit. The default is omit.</a:documentation>
+          <choice>
+            <value>true</value>
+            <value>false</value>
+            <value>omit</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="undeclare-prefixes">
+          <a:documentation>The value of this option must be a boolean.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="version">
+          <a:documentation>The value of this option must be a string, the default is
+            1.0.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-filter">
+    <element name="filter">
+      <a:documentation>Selects portions of the source document based on a (possibly dynamically
+        constructed) XPath select expression.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary, sequence)</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>This step behaves just like an p:input with a select expression except that
+        the select expression is computed dynamically.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="select">
+          <a:documentation>An XPath expression.</a:documentation>
+          <ref name="XPathExpression"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-http-request">
+    <element name="http-request">
+      <a:documentation>Provides for interaction with resources over HTTP or related
+        protocols.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The input document provided on the source port specifies a request by a
+        single c:request element. This element specifies the method, resource, and other request
+        properties as well as possibly including an entity body (content) for the request. The
+        standard serialization options are provided to control the serialization of any XML content
+        which is sent as part of the request.</a:documentation>
+      <a:documentation>It is a dynamic error if the document element of the document that arrives on
+        the source port is not c:request.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="byte-order-mark">
+          <a:documentation>The value of this option must be a boolean. If it's not specified, the
+            default varies by encoding: for UTF-16 it's true, for all others, it's
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="cdata-section-elements">
+          <a:documentation>The value of this option must be a list of QNames. They are interpreted
+            as element names.</a:documentation>
+          <ref name="ListOfQNames"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-public">
+          <a:documentation>The value of this option must be a string. The public identifier of the
+            doctype.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-system">
+          <a:documentation>The value of this option must be an anyURI. The system identifier of the
+            doctype. It need not be absolute, and is not resolved.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="encoding">
+          <a:documentation> A character set name. If no encoding is specified, the encoding used is
+            implementation defined. If the method is “xml” or “xhtml”, the implementation defined
+            encoding must be either UTF-8 or UTF-16. </a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="escape-uri-attributes">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="include-content-type">
+          <a:documentation>The value of this option must be a boolean, the default is true. It is
+            ignored unless the specified method is “xhtml” or “html”.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="indent">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="media-type">
+          <a:documentation> The value of this option must be a string. It specifies the media type
+            (MIME content type). If not specified, the default varies according to the method: </a:documentation>
+          <a:documentation>xml - application/xml </a:documentation>
+          <a:documentation>html - text/html </a:documentation>
+          <a:documentation>xhtml - application/xhtml+xml </a:documentation>
+          <a:documentation>text - text/plain </a:documentation>
+          <a:documentation>For methods other than xml, html, xhtml, and text; the media-type is
+            implementation defined. </a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="method">
+          <a:documentation>The value of this option must be a QName, the default is xml. It
+            specifies the serialization method. </a:documentation>
+          <a:documentation>The method option controls the serialization method used by this
+            component with standard values of 'html', 'xml', 'xhtml', and 'text' but only the 'xml'
+            value is required to be supported.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="normalization-form">
+          <a:documentation> The value of this option must be an NMTOKEN, one of the enumerated
+            values NFC, NFD, NFKC, NFKD, fully-normalized, none or an implementation-defined value.
+            The default is none.</a:documentation>
+          <ref name="NormalizationForm"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="omit-xml-declaration">
+          <a:documentation>The value of this option must be a boolean, the default is
+            true.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="standalone">
+          <a:documentation>The value of this option must be an NMTOKEN, one of the enumerated values
+            true, false, or omit. The default is omit.</a:documentation>
+          <choice>
+            <value>true</value>
+            <value>false</value>
+            <value>omit</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="undeclare-prefixes">
+          <a:documentation>The value of this option must be a boolean.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="version">
+          <a:documentation>The value of this option must be a string, the default is
+            1.0.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-identity">
+    <element name="identity">
+      <a:documentation>Makes a verbatim copy of its input available on its output.</a:documentation>
+      <a:documentation>Input port: source (primary, sequence).</a:documentation>
+      <a:documentation>Output port: result (primary, sequence)</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>If the implementation supports passing PSVI annotations between steps, the
+        identity step must preserve any annotations that appear in the input.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-insert">
+    <element name="insert">
+      <a:documentation>Inserts the insertion port's document into the source port's document
+        relative to the matching elements in the source port's document.</a:documentation>
+      <a:documentation>Input port: source (primary), insertion (sequence).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>It is a dynamic error if the match pattern matches anything other than an
+        element node and the value of the position option is “first-child” or
+        “last-child”.</a:documentation>
+      <a:documentation>As the inserted elements are part of the output of the step they are not
+        considered in determining matching elements. If an empty sequence appears on the insertion
+        port, the result will be the same as the source.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
+            dynamic error if that pattern matches anything other than element, text,
+            processing-instruction, or comment nodes. Multiple matches are allowed, in which case
+            multiple copies of the insertion documents will occur. If no elements match, then the
+            document is unchanged.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="position">
+          <a:documentation>The value of the position option must be an NMTOKEN in the following
+            list: </a:documentation>
+          <a:documentation> * ”first-child” - the insertion is made as the first child of the match; </a:documentation>
+          <a:documentation> * ”last-child” - the insertion is made as the last child of the
+            match;</a:documentation>
+          <a:documentation> * ”before” - the insertion is made as the immediate preceding sibling of
+            the match;</a:documentation>
+          <a:documentation> * ”after” - the insertion is made as the immediate following sibling of
+            the match. </a:documentation>
+          <choice>
+            <value>first-child</value>
+            <value>last-child</value>
+            <value>before</value>
+            <value>after</value>
+          </choice>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-label-elements">
+    <element name="label-elements">
+      <a:documentation>Generates a label for each matched element and stores that label in the
+        specified attribute.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>This step operates by generating attribute labels for each element matched.
+        For every matched element, the expression is evaluated with the context node set to the
+        matched element. An attribute is added to the matched element using the attribute name is
+        specified the attribute option and the string value of result of evaluating the expression.
+        If the attribute already exists on the matched element, the value is replaced with the
+        string value only if the replace option has the value of true. </a:documentation>
+      <a:documentation>If this step is used to add or change the value of an attribute named
+        “xml:base”, the base URI of the element must also be amended accordingly.</a:documentation>
+      <a:documentation>An implementation must bind the variable “p:index” in the static context of
+        each evaluation of the XPath expression to the position of the element in the sequence of
+        matched elements. In other words, the first element (in document order) matched gets the
+        value “1”, the second gets the value “2”, the third, “3”, etc.</a:documentation>
+      <a:documentation>The result of the label-elements step is the input document with the
+        attribute labels associated with matched elements. All other non-matching content remains
+        the same.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="attribute">
+          <a:documentation>The value of the attribute option must be a QName, the default is
+            xml:id.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="label">
+          <a:documentation>The value of the label option is an XPath expression used to generate the
+            value of the attribute label. The default is 'concat("_",$p:index)'.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
+            dynamic error if that expression matches anything other than element nodes. The default
+            is * matching all elements.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="replace">
+          <a:documentation>The value of the replace must be a boolean value and is used to indicate
+            whether existing attribute values are replaced, the default is true.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-load">
+    <element name="load">
+      <a:documentation>Has no inputs but produces as its result an XML resource specified by an
+        IRI.</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>Load attempts to read an XML document from the specified IRI reference, which
+        may be relative, in which case it will be resolved relative to the base URI of the element
+        on which it is specified.</a:documentation>
+      <a:documentation>It is a dynamic error if the document does not exist or is not well-formed or
+        if the step is not allowed to retrieve from the specified location. Otherwise, the retrieved
+        document is produced on the result port. The base URI of the result is the (absolute) IRI
+        used to retrieve it.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="href">
+          <a:documentation>The value of the href option must be an anyURI. It is interpreted as an
+            IRI reference. If it is relative, it is made absolute against the base URI of the
+            element on which it is specified.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="dtd-validate">
+          <a:documentation>The value of the dtd-validate option must be a boolean, the default is
+            false. If the value of the dtd-validate option is true, DTD validation is performed on
+            the retrieved document. It is a dynamic error if the document is not valid or the step
+            doesn't support DTD validation.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-make-absolute-uris">
+    <element name="make-absolute-uris">
+      <a:documentation>Makes an element or attribute's value in the source document an absolute IRI
+        value in the result document.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>For every element or attribute in the input document which matches the
+        specified pattern, its XPath string-value is resolved against the specified base URI and the
+        resulting absolute IRI is used as the matched node's entire contents in the
+        output.</a:documentation>
+      <a:documentation>The base URI used for resolution defaults to the matched attribute's element
+        or the matched element's base URI unless the base-uri option is specified. When the base-uri
+        option is specified, the option value is used as the base URI regardless of any contextual
+        base URI value in the document. This option value is resolved against the base URI of the
+        p:option element used to set the option.</a:documentation>
+      <a:documentation>If the IRI reference specified by the base-uri option on p:make-absolute-uris
+        is not valid, or if it is absent and the input document has no base URI, the results are
+        implementation-dependent.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
+            dynamic error if the pattern matches anything other than element or attribute nodes. </a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="base-uri">
+          <a:documentation>The value of the base-uri option must be an anyURI. It is interpreted as
+            an IRI reference. If it is relative, it is made absolute against the base URI of the
+            element on which it is specified.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-namespace-rename">
+    <element name="namespace-rename">
+      <a:documentation>Renames any namespace declaration or use of a namespace in a document to a
+        new IRI value.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>It is a dynamic error if the XML namespace
+        (http://www.w3.org/XML/1998/namespace) or the XMLNS namespace
+        (http://www.w3.org/2000/xmlns/) is the value of either the from option or the to
+        option.</a:documentation>
+      <a:documentation>f the value of the from option is the same as the value of the to option, the
+        input is reproduced unchanged on the output. Otherwise, namespace bindings, namespace
+        attributes and element and attribute names are changed.</a:documentation>
+      <a:documentation>The apply-to option is primarily intended to make it possible to avoid
+        renaming attributes when the from option specifies no namespace, since many attributes are
+        in no namespace. Care should be taken when specifying no namespace with the to option.
+        Prefixed names in content, for example QNames and XPath expressions, may end up with no
+        appropriate namespace binding.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="from">
+          <a:documentation>The value of the from option must be an anyURI. It should be either empty
+            or absolute, but will not be resolved in any case.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="to">
+          <a:documentation>The value of the to option must be an anyURI. It should be empty or
+            absolute, but will not be resolved in any case.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="apply-to">
+          <a:documentation>The value of the apply-to option must be one of “all”, “elements”, or
+            “attributes”. If the value is “elements”, only elements will be renamed, if the value is
+            “attributes”, only attributes will be renamed, if the value is “all”, both elements and
+            attributes will be renamed. The default is all.</a:documentation>
+          <choice>
+            <value>all</value>
+            <value>elements</value>
+            <value>attributes</value>
+          </choice>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-pack">
+    <element name="pack">
+      <a:documentation>Merges two document sequences in a pair-wise fashion.</a:documentation>
+      <a:documentation>Input port: source (primary, sequence), alternate
+        (sequence).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The step takes each pair of documents, in order, one from the source port and
+        one from the alternate port, wraps them with a new element node whose QName is the value
+        specified in the wrapper option, and writes that element to the result port as a
+        document.</a:documentation>
+      <a:documentation>If the step reaches the end of one input sequence before the other, then it
+        simply wraps each of the remaining documents in the longer sequence.</a:documentation>
+      <a:documentation>In the common case, where the document element of a document in the result
+        sequence has two element children, any comments, processing instructions, or white space
+        text nodes that occur between them may have come from either of the input documents; this
+        step does not attempt to distinguish which one.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="wrapper">
+          <a:documentation>The value of the wrapper option must be a QName.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-parameters">
+    <element name="parameters">
+      <a:documentation>Exposes a set of parameters as a c:param-set document.</a:documentation>
+      <a:documentation>Input port: source (sequence, kind="parameter").</a:documentation>
+      <a:documentation>Output port: result (kind="parameter")</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>Each parameter passed to the step is converted into a c:param element. The
+        step resolves duplicate parameters in the normal way so at most one parameter with any given
+        name will appear in the result. The resulting c:param elements are wrapped in a c:param-set
+        and the parameter set document is written to the result port. The order in which c:param
+        elements occur in the c:param-set is implementation-dependent. </a:documentation>
+      <a:documentation>For consistency and user convenience, if any of the parameters have names
+        that are in a namespace, the namespace attribute on the c:param element must be used. Each
+        name must be an NCName. The base URI of the output document is the URI of the pipeline
+        document that contains the step. </a:documentation>
+      <a:documentation>Since the parameters port is not primary, any explicit p:with-param settings
+        must include a port attribute.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithParam"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-rename">
+    <element name="rename">
+      <a:documentation>Renames elements, attributes, or processing-instruction targets in a
+        document.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>Each element, attribute, or processing-instruction in the input matched by
+        the match pattern specified in the match option is renamed in the output to the name
+        specified by the new-name option.</a:documentation>
+      <a:documentation>If the match option matches an attribute and if the element on which it
+        occurs already has an attribute whose expanded name is the same as the expanded name of the
+        specified new-name, then the results is as if the current attribute named “new-name” was
+        deleted before renaming the matched attribute.</a:documentation>
+      <a:documentation>Renaming an from “xml:base” to something else has no effect on the underlying
+        base URI of the element; however, if an attribute is renamed from something else to
+        “xml:base”, the base URI of the element must also be amended accordingly.</a:documentation>
+      <a:documentation>If the pattern matches processing instructions, then it is the processing
+        instruction target that is renamed. It is a dynamic error if the pattern matches a
+        processing instruction and the new name has a non-null namespace.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
+            dynamic errorif the pattern matches anything other than element, attribute or processing
+            instruction nodes.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="new-name">
+          <a:documentation>The value of the new-name option must be a QName.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-replace">
+    <element name="replace">
+      <a:documentation>Replaces matching elements in its primary input with the document element of
+        the replacement port's document. </a:documentation>
+      <a:documentation>Input port: source (primary), replacement.</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>Every element in the primary input matching the specified pattern is replaced
+        in the output is replaced by the document element of the replacement document. Only
+        non-nested matches are replaced. That is, once an element is replaced, its descendants
+        cannot be matched.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
+            dynamic error if that pattern matches anything other than element, text,
+            processing-instruction, or comment nodes. Multiple matches are allowed, in which case
+            multiple copies of the replacement document will occur.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-set-attributes">
+    <element name="set-attributes">
+      <a:documentation>Sets attributes on matching elements.</a:documentation>
+      <a:documentation>Input port: source (primary), attributes.</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>Each attribute on the document element of the document that appears on the
+        attributes port is copied to each element that matches the match expression. </a:documentation>
+      <a:documentation>If an attribute with the same name as one of the attributes to be copied
+        already exists, the value specified on the attribute port's document is used. The result
+        port of this step produces a copy of the source port's document with the matching elements'
+        attributes modified. </a:documentation>
+      <a:documentation>The matching elements are specified by the match pattern in the match option.
+        All matching elements are processed. If no elements match, the step will not change any
+        elements. </a:documentation>
+      <a:documentation>This step must not copy namespace declarations. If the attributes copied from
+        the attributes use namespaces, prefixes, or prefixes bound to different namespaces, the
+        document produced on the result output port will require namespace fixup. </a:documentation>
+      <a:documentation>If an attribute named xml:base is added or changed, the base URI of the
+        element must also be amended accordingly.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
+            dynamic error if that pattern matches anything other than element
+            nodes.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-sink">
+    <element name="sink">
+      <a:documentation>Accepts a sequence of documents and discards them. It has no
+        output.</a:documentation>
+      <a:documentation>Input port: source (primary, sequence).</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-split-sequence">
+    <element name="split-sequence">
+      <a:documentation>Accepts a sequence of documents and divides it into two
+        sequences.</a:documentation>
+      <a:documentation>Input port: source (primary, sequence).</a:documentation>
+      <a:documentation>Output port: matched (primary, sequence), not-matched
+        (sequence)</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The XPath expression in the test option is applied to each document in the
+        input sequence. If the effective boolean value of the expression is true, the document is
+        copied to the matched port; otherwise it is copied to the not-matched
+        port.</a:documentation>
+      <a:documentation>If the initial-only option is true, then when the first document that does
+        not satisfy the test expression is encountered, it and all the documents that follow it are
+        written to the not-matched port. In other words, it only writes the initial series of
+        matched documents (which may be empty) to the matched port. All other documents are written
+        to the not-matched port, irrespective of whether or not they match.</a:documentation>
+      <a:documentation>The XPath context for the test option changes over time. For each document
+        that appears on the source port, the expression is evaluated with that document as the
+        context document. The context position (position()) is the position of that document within
+        the sequence and the context size (last()) is the total number of documents in the
+        sequence.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="initial-only">
+          <a:documentation>If true, it writes only the initial series of matched documents (which
+            may be empty) to the matched port.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="test">
+          <a:documentation>The value of the test option must be an
+            XPathExpression.</a:documentation>
+          <ref name="XPathExpression"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-store">
+    <element name="store">
+      <a:documentation>Stores a serialized version of its input to a URI. This step outputs a
+        reference to the location of the stored document.</a:documentation>
+      <a:documentation>Input port: source (primary, sequence).</a:documentation>
+      <a:documentation>Output port: result.</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The step attempts to store the XML document to the specified URI. It is a
+        dynamic error if the URI scheme is not supported or the step cannot store to the specified
+        location. </a:documentation>
+      <a:documentation>The output of this step is a document containing a single c:result element
+        whose content is the absolute URI of the document stored by the step. </a:documentation>
+      <a:documentation>The standard serialization options are provided to control the serialization
+        of the XML content when it is stored.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="href">
+          <a:documentation>The value of the href option must be an anyURI. If it is relative, it is
+            made absolute against the base URI of the element on which it is
+            specified.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="byte-order-mark">
+          <a:documentation>The value of this option must be a boolean. If it's not specified, the
+            default varies by encoding: for UTF-16 it's true, for all others, it's
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="cdata-section-elements">
+          <a:documentation>The value of this option must be a list of QNames. They are interpreted
+            as element names.</a:documentation>
+          <ref name="ListOfQNames"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-public">
+          <a:documentation>The value of this option must be a string. The public identifier of the
+            doctype.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-system">
+          <a:documentation>The value of this option must be an anyURI. The system identifier of the
+            doctype. It need not be absolute, and is not resolved.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="encoding">
+          <a:documentation>A character set name. If no encoding is specified, the encoding used is
+            implementation defined. If the method is “xml” or “xhtml”, the implementation defined
+            encoding must be either UTF-8 or UTF-16. </a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="escape-uri-attributes">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="include-content-type">
+          <a:documentation>The value of this option must be a boolean, the default is true. It is
+            ignored unless the specified method is “xhtml” or “html”.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="indent">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="media-type">
+          <a:documentation> The value of this option must be a string. It specifies the media type
+            (MIME content type). If not specified, the default varies according to the method: </a:documentation>
+          <a:documentation>xml - application/xml </a:documentation>
+          <a:documentation>html - text/html </a:documentation>
+          <a:documentation>xhtml - application/xhtml+xml </a:documentation>
+          <a:documentation>text - text/plain </a:documentation>
+          <a:documentation>For methods other than xml, html, xhtml, and text; the media-type is
+            implementation defined. </a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="method">
+          <a:documentation>The value of this option must be a QName, the default is xml. It
+            specifies the serialization method. </a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="normalization-form">
+          <a:documentation> The value of this option must be an NMTOKEN, one of the enumerated
+            values NFC, NFD, NFKC, NFKD, fully-normalized, none or an implementation-defined value.
+            The default is none.</a:documentation>
+          <ref name="NormalizationForm"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="omit-xml-declaration">
+          <a:documentation>The value of this option must be a boolean, the default is
+            true.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="standalone">
+          <a:documentation>The value of this option must be an NMTOKEN, one of the enumerated values
+            true, false, or omit. The default is omit.</a:documentation>
+          <choice>
+            <value>true</value>
+            <value>false</value>
+            <value>omit</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="undeclare-prefixes">
+          <a:documentation>The value of this option must be a boolean.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="version">
+          <a:documentation>The value of this option must be a string, the default is
+            1.0.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-string-replace">
+    <element name="string-replace">
+      <a:documentation>Matches nodes in the document provided on the source port and replaces them
+        with the string result of evaluating an XPath expression.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The matched nodes are specified with the match pattern in the match option.
+        For each matching node, the XPath expression provided by the replace option is evaluated and
+        the string value of the result is used in the output. Nodes that do not match are copied
+        without change.</a:documentation>
+      <a:documentation>If the expression given in the match option matches an attribute, the string
+        value of the replace expression is used as the new value of the attribute in the output. If
+        the attribute is named “xml:base”, the base URI of the element must also be amended
+        accordingly.</a:documentation>
+      <a:documentation>If the expression matches any other kind of node, the entire node (and not
+        just its contents) is replaced by the string value of the replace
+        expression.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an
+            XSLTMatchPattern.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="replace">
+          <a:documentation>The value of the replace option must be an
+            XPathExpression.</a:documentation>
+          <ref name="XPathExpression"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-unescape-markup">
+    <element name="unescape-markup">
+      <a:documentation>Takes the string value of the document element and parses the content as if
+        it was a Unicode character stream containing serialized XML. The output consists of the same
+        document element with children that result from the parse. This is the reverse of the
+        escape-markup step.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>When the string value is parsed, the original document element is preserved
+        so that the result will be well-formed XML even if the content consists of multiple, sibling
+        elements.</a:documentation>
+      <a:documentation>The namespace option specifies a default namespace. Elements that are in no
+        namespace in the unescaped content will be placed into this namespace unless there is an
+        in-scope namespace declaration that specifies a different namespace (or explicitly
+        undeclares the default namespace).</a:documentation>
+      <a:documentation>The content-type option may be used to specify an alternate content type for
+        the string value. An implementation may use a different parser to produce XML content
+        depending on the specified content-type. For example, an implementation might provide an
+        HTML to XHTML parser (e.g. [HTML Tidy] or [TagSoup]) for the content type
+        'text/html'.</a:documentation>
+      <a:documentation>The encoding option specifies how the data is encoded. All implementations
+        must support the base64 encoding (and the absence of an encoding option, which implies that
+        the content is plain Unicode text). It is a dynamic error if the encoding specified is not
+        supported by the implementation.</a:documentation>
+      <a:documentation>If an encoding is specified, a charset may also be specified. The
+        octet-stream that results from decoding the text must be interpreted using the encoding
+        named by the value of the charset option to produce a sequence of Unicode characters to
+        parse.</a:documentation>
+      <a:documentation>The character set may be specified as a parameter on the content-type or via
+        the separate charset option. If it is specified in both places, the value of the charset
+        option must be used. If no encoding is specified, the character set is ignored, irrespective
+        of where it was specified.</a:documentation>
+      <a:documentation>It is a dynamic error if an encoding of “base64” is specified and a character
+        set is not, or if the specified character set is not supported by the
+        implementation.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="namespace">
+          <a:documentation>The value of the namespace option must be an anyURI. It should be
+            absolute, but will not be resolved. The namespace option specifies a default
+            namespace.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="content-type">
+          <a:documentation>The content-type option may be used to specify an alternate content type,
+            the default is application/xml.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="encoding">
+          <a:documentation>The encoding option specifies how the data is encoded.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="charset">
+          <a:documentation>The octet-stream that results from decoding the text must be interpreted
+            using the encoding named by the value of the charset option to produce a sequence of
+            Unicode characters to parse.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-unwrap">
+    <element name="unwrap">
+      <a:documentation>Replaces matched elements with their children.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>Every element in the source document that matches the specified match pattern
+        is replaced by its children, effectively “unwrapping” the children from their parent.
+        Non-element nodes and unmatched elements are passed through unchanged. </a:documentation>
+      <a:documentation>The matching applies to the entire document, not just the “top-most” matches.
+        A pattern of the form h:div will replace all h:div elements, not just the top-most
+        ones.</a:documentation>
+      <a:documentation>This step produces a single document; if the document element is unwrapped,
+        the result might not be well-formed XML.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
+            dynamic error if that pattern matches anything other than element
+            nodes.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-wrap">
+    <element name="wrap">
+      <a:documentation>Wraps matching nodes in the source document with a new parent
+        element.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>If the node matched is the document node (match="/"), the result is a new
+        document where the document element is a new element node whose QName is the value specified
+        in the wrapper option. That new element contains copies of all of the children of the
+        original document node.</a:documentation>
+      <a:documentation>When the match pattern does not match the document node, every node that
+        matches the specified match pattern is replaced with a new element node whose QName is the
+        value specified in the wrapper option. The content of that new element is a copy of the
+        original, matching node.</a:documentation>
+      <a:documentation>The group-adjacent option can be used to group adjacent matching nodes in a
+        single wrapper element. The specified XPath expression is evaluated for each matching node
+        with that node as the XPath context node. Whenever two or more adjacent matching nodes have
+        the same “group adjacent” value, they are wrapped together in a single wrapper
+        element.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="wrapper">
+          <a:documentation>The value of the wrapper option must be a QName.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
+            dynamic error if the pattern matches anything other than document, element, text,
+            processing instruction, and comment nodes.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="group-adjacent">
+          <a:documentation>The value of the group-adjacent option must be an
+            XPathExpression.</a:documentation>
+          <ref name="XPathExpression"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-wrap-sequence">
+    <element name="wrap-sequence">
+      <a:documentation>Accepts a sequence of documents and produces either a single document or a
+        new sequence of documents.</a:documentation>
+      <a:documentation>Input port: source (primary, sequence).</a:documentation>
+      <a:documentation>Output port: result (primary, sequence).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>In its simplest form, wrap-sequence takes a sequence of documents and
+        produces a single, new document by placing each document in the source sequence inside a new
+        document element as sequential siblings. The name of the document element is the value
+        specified in the wrapper option.</a:documentation>
+      <a:documentation>The group-adjacent option can be used to group adjacent documents. The XPath
+        context for the group-adjacent option changes over time. For each document that appears on
+        the source port, the expression is evaluated with that document as the context document. The
+        context position (position()) is the position of that document within the sequence and the
+        context size (last()) is the total number of documents in the sequence. Whenever two or more
+        sequentially adjacent documents have the same “group adjacent” value, they are wrapped
+        together in a single wrapper element.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="wrapper">
+          <a:documentation>The value of the wrapper option must be a QName.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="group-adjacent">
+          <a:documentation>The value of the group-adjacent option must be an
+            XPathExpression.</a:documentation>
+          <ref name="XPathExpression"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-xinclude">
+    <element name="xinclude">
+      <a:documentation>Applies XInclude processing to the source document.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The included documents are located with the base URI of the input document
+        and are not provided as input to the step. It is a dynamic error if an XInclude error occurs
+        during processing.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="fixup-xml-base">
+          <a:documentation>The value of the fixup-xml-base option must be a boolean, the default is
+            false. If it is true, base URI fixup will be performed.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="fixup-xml-lang">
+          <a:documentation>The value of the fixup-xml-lang option must be a boolean, the default is
+            false. If it is true, language fixup will be performed.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-xslt">
+    <element name="xslt">
+      <a:documentation>Applies an [XSLT 1.0] or [XSLT 2.0] stylesheet to a
+        document.</a:documentation>
+      <a:documentation>Input port: source (primary, sequence), stylesheet, parameters
+        (kind="parameter").</a:documentation>
+      <a:documentation>Output port: result (primary), secondary (sequence)</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The XSLT stylesheet provided on the stylesheet port is applied to the
+        document on the source port. Any parameters passed on the parameters port are used to define
+        top-level stylesheet parameters. The primary result document of the transformation appears
+        on the result port. All other result documents appear on the secondary port. If XSLT 1.0 is
+        used, an empty sequence of documents must appear on the secondary port.</a:documentation>
+      <a:documentation>If a sequence of documents is provided on the source port, the first document
+        is used as the primary input document. The whole sequence is also the default collection. If
+        no documents are provided on the source port, the primary input document is undefined and
+        the default collection is empty. It is a dynamic error (err:XC0039) if a sequence of
+        documents (including an empty sequence) is provided to an XSLT 1.0 step.</a:documentation>
+      <a:documentation>A dynamic error occurs if the XSLT processor signals a fatal error. This
+        includes the case where the transformation terminates due to a xsl:message instruction with
+        a terminate attribute value of “yes”.</a:documentation>
+      <a:documentation>The output-base-uri option sets the context's output base URI per the XSLT
+        2.0 specification, otherwise the base URI of the result document is the base URI of the
+        first document in the source port's sequence. If the value of the output-base-uri option is
+        not absolute, it will be resolved using the base URI of its p:option element. An XSLT 1.0
+        step should use the value of the output-base-uri as the base URI of its output, if the
+        option is specified.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <a:documentation>If present, the value of the initial-mode option must be a
+          QName.</a:documentation>
+        <attribute name="initial-mode">
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="template-name">
+          <a:documentation>If present, the value of the template-name option must be a
+            QName.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="output-base-uri">
+          <a:documentation>If present, the value of the output-base-uri option must be an anyURI. If
+            it is relative, it is made absolute against the base URI of the element on which it is
+            specified.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="version">
+          <a:documentation>If the step specifies a version, then that version of XSLT must be used
+            to process the transformation. It is a dynamic error if the specified version of XSLT is
+            not available. If the step does not specify a version, the implementation may use any
+            version it has available and may use any means to determine what version to use,
+            including, but not limited to, examining the version of the
+            stylesheet.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithParam"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-exec">
+    <element name="exec">
+      <a:documentation>Runs an external command passing the input that arrives on its source port as
+        standard input, reading result from standard output, and errors from standard
+        error.</a:documentation>
+      <a:documentation>Input port: source (primary, sequence).</a:documentation>
+      <a:documentation>Output port: result (primary), errors, exit-status.</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The exec step executes the command passed on command with the arguments
+        passed on args. The processor does not interpolate the values of the command or args (for
+        example, expanding references to environment variables). It is a dynamic error if the
+        command cannot be run.</a:documentation>
+      <a:documentation>The source port is declared to accept a sequence so that it can be empty. If
+        no document appears on the source port, then the command receives nothing on standard input.
+        If a document does arrive on the source port, it will be passed to the command as its
+        standard input. It is a dynamic error if more than one document appears on the source port
+        of the exec step. </a:documentation>
+      <a:documentation>The standard output of the command is read and returned on result; the
+        standard error output is read and returned on errors. In order to assure that the result
+        will be an XML document, each of the results will be wrapped in a c:result
+        element.</a:documentation>
+      <a:documentation>It is a dynamic error to specify both result-is-xml and wrap-result-lines or
+        errors-is-xml and wrap-error-lines options.</a:documentation>
+      <a:documentation>The exit-status port always returns a single c:result element which contains
+        the system exit status that the process returned. The specific exit status values returned
+        by a process invoked with exec are implementation-dependent.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="command">
+          <a:documentation>The name of the command to be executed.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="args">
+          <a:documentation>The value of the args option is a string. In order to support passing
+            more than one argument to a command, the args string is broken into a sequence of
+            values.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="cwd">
+          <a:documentation>If cwd is specified, then the current working directory is changed to the
+            value of that option before execution begins. It is a dynamic error if the current
+            working directory cannot be changed to the value of the cwd option. If cwd is not
+            specified, the current working directory is implementation-defined.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="source-is-xml">
+          <a:documentation>If source-is-xml is true, the serialization options are used to convert
+            the input into serialized XML which is passed to the command, otherwise the XPath
+            string-value of the document is passed.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="result-is-xml">
+          <a:documentation>If result-is-xml is true, the standard output of the program is assumed
+            to be XML and will be parsed as a single document. If it is false, the output is assumed
+            not to be XML and will be returned as escaped text.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="wrap-result-lines">
+          <a:documentation>If wrap-result-lines is true, a c:line element will be wrapped around
+            each line of output.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="errors-is-xml">
+          <a:documentation>If errors-is-xml is true, the standard error of the program is assumed to
+            be XML and will be parsed as a single document. If it is false, the output is assumed
+            not to be XML and will be returned as escaped text.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="wrap-error-lines">
+          <a:documentation>If wrap-error-lines is true, a c:line element will be wrapped around each
+            line of error.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="path-separator">
+          <a:documentation>If the path-separator option is specified, every occurrence of the
+            character identified as the path-separator character that occurs in the command, args,
+            or cwd will be replaced by the platform-specific path separator character. It is a
+            dynamic error if the path-separator option is specified and is not exactly one character
+            long.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="failure-threshold">
+          <a:documentation>If a failure-threshold value is supplied, and the exit status is greater
+            than that threshold, then the exec step must fail. It is a dynamic error if the exit
+            code from the command is greater than the specified failure-threshold value. This
+            failure, like any step failure, can be captured with a try.</a:documentation>
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="arg-separator">
+          <a:documentation>The arg-separator option specifies the character that is used to separate
+            values; by default it is a single space It is a dynamic error if the arg-separator
+            option is specified and is not exactly one character long.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="byte-order-mark">
+          <a:documentation>The value of this option must be a boolean. If it's not specified, the
+            default varies by encoding: for UTF-16 it's true, for all others, it's
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="cdata-section-elements">
+          <a:documentation>The value of this option must be a list of QNames. They are interpreted
+            as element names.</a:documentation>
+          <ref name="ListOfQNames"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-public">
+          <a:documentation>The value of this option must be a string. The public identifier of the
+            doctype.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="doctype-system">
+          <a:documentation>The value of this option must be an anyURI. The system identifier of the
+            doctype. It need not be absolute, and is not resolved.</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="encoding">
+          <a:documentation>A character set name. If no encoding is specified, the encoding used is
+            implementation defined. If the method is “xml” or “xhtml”, the implementation defined
+            encoding must be either UTF-8 or UTF-16. </a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="escape-uri-attributes">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="include-content-type">
+          <a:documentation>The value of this option must be a boolean, the default is true. It is
+            ignored unless the specified method is “xhtml” or “html”.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="indent">
+          <a:documentation>The value of this option must be a boolean, the default is
+            false.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="media-type">
+          <a:documentation> The value of this option must be a string. It specifies the media type
+            (MIME content type). If not specified, the default varies according to the method: </a:documentation>
+          <a:documentation>xml - application/xml </a:documentation>
+          <a:documentation>html - text/html </a:documentation>
+          <a:documentation>xhtml - application/xhtml+xml </a:documentation>
+          <a:documentation>text - text/plain </a:documentation>
+          <a:documentation>For methods other than xml, html, xhtml, and text; the media-type is
+            implementation defined. </a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="method">
+          <a:documentation>The value of this option must be a QName, the default is xml. It
+            specifies the serialization method. </a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="normalization-form">
+          <a:documentation> The value of this option must be an NMTOKEN, one of the enumerated
+            values NFC, NFD, NFKC, NFKD, fully-normalized, none or an implementation-defined value.
+            The default is none.</a:documentation>
+          <ref name="NormalizationForm"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="omit-xml-declaration">
+          <a:documentation>The value of this option must be a boolean, the default is
+            true.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="standalone">
+          <a:documentation>The value of this option must be an NMTOKEN, one of the enumerated values
+            true, false, or omit. The default is omit.</a:documentation>
+          <choice>
+            <value>true</value>
+            <value>false</value>
+            <value>omit</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="undeclare-prefixes">
+          <a:documentation>The value of this option must be a boolean.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="version">
+          <a:documentation>The value of this option must be a string, the default is
+            1.0.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-hash">
+    <element name="hash">
+      <a:documentation>Generates a hash, or digital “fingerprint”, for some value and injects it
+        into the source document.</a:documentation>
+      <a:documentation>Input port: source (primary), parameters
+        (kind="parameter").</a:documentation>
+      <a:documentation>Output port: result (primary, sequence)</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>A hash is constructed from the string specified in the value option using the
+        specified algorithm and version. Implementations must support [CRC32], [MD5], and [SHA1]
+        hashes. It is implementation-defined what other algorithms are supported. The resulting hash
+        should be returned as a string of hexidecimal characters.</a:documentation>
+      <a:documentation>The hash of the specified value is computed using the algorithm and
+        parameters specified. It is a dynamic error if the requested hash algorithm is not one that
+        the processor understands or if the value or parameters are not appropriate for that
+        algorithm.</a:documentation>
+      <a:documentation>The matched nodes are specified with the match pattern in the match option.
+        For each matching node, the string value of the computed hash is used in the output (if more
+        than one node matches, the same has value is used in each match). Nodes that do not match
+        are copied without change.</a:documentation>
+      <a:documentation>If the expression given in the match option matches an attribute, the hash is
+        used as the new value of the attribute in the output. If the attribute is named “xml:base”,
+        the base URI of the element must also be amended accordingly. </a:documentation>
+      <a:documentation>If the expression matches any other kind of node, the entire node (and not
+        just its contents) is replaced by the hash.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="value">
+          <a:documentation>The value to generate the hash for.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="algorithm">
+          <a:documentation>The value of the algorithm option must be a QName. If it does not have a
+            prefix, then it must be one of the following values: “crc”, “md”, or
+            “sha”.</a:documentation>
+          <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an
+            XSLTMatchPattern.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="version">
+          <a:documentation>If a version is not specified, the default version is algorithm-defined.
+            For “crc” it is 32, for “md” it is 5, for “sha” it is 1.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithParam"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-uuid">
+    <element name="uuid">
+      <a:documentation>Generates a [UUID] and injects it into the source document.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>If the version is specified, that version of UUID must be computed. It is a
+        dynamic error if the processor does not support the specified version of the UUID algorithm.
+        If the version is not specified, the version of UUID computed is
+        implementation-defined.</a:documentation>
+      <a:documentation>Implementations must support version 4 UUIDs. Support for other versions of
+        UUID, and the mechanism by which the necessary inputs are made available for computing other
+        versions, is implementation-defined. </a:documentation>
+      <a:documentation>The matched nodes are specified with the match pattern in the match option.
+        For each matching node, the generated UUID is used in the output (if more than one node
+        matches, the same UUID is used in each match). Nodes that do not match are copied without
+        change. </a:documentation>
+      <a:documentation>If the expression given in the match option matches an attribute, the UUID is
+        used as the new value of the attribute in the output. If the attribute is named “xml:base”,
+        the base URI of the element must also be amended accordingly. </a:documentation>
+      <a:documentation>If the expression matches any other kind of node, the entire node (and not
+        just its contents) is replaced by the UUID.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an
+            XSLTMatchPattern.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="version">
+          <a:documentation>The value of the version option must be an integer.</a:documentation>
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-validate-with-relax-ng">
+    <element name="validate-with-relax-ng">
+      <a:documentation>Applies Relax NG validation to the source document.</a:documentation>
+      <a:documentation>Input port: source (primary), schema.</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>If the root element of the schema is c:data or has a c:content-type attribute
+        that specifies a text content type or a media type that the implementation recognizes, then
+        the step should treat the text node descendants of the element as a Relax NG Compact Syntax
+        document for validation.</a:documentation>
+      <a:documentation>The output from this step is a copy of the input, possibly augmented by
+        application of the Relax NG DTD Compatibility. The output of this step may include PSVI
+        annotations. Support for Relax NG DTD Compatibility is implementation
+        defined.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="dtd-attribute-values">
+          <a:documentation>The value of the dtd-attribute-values option must be boolean. If the
+            dtd-attribute-values option is true, then the attribute value defaulting conventions of
+            Relax NG DTD Compatibility are also applied.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="dtd-id-idref-warnings">
+          <a:documentation>The value of the dtd-id-idref-warnings option must be boolean. If the
+            dtd-id-idref-errors option is true, then the validator should treat a schema that is
+            incompatible with the ID/IDREF/IDREFs feature of Relax NG DTD Compatibility as if the
+            document was invalid.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="assert-valid">
+          <a:documentation>The value of the assert-valid option must be boolean. It is a dynamic
+            error if the assert-valid option is true and the input document is not
+            valid.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-validate-with-schematron">
+    <element name="validate-with-schematron">
+      <a:documentation>Applies Schematron processing to the source document.</a:documentation>
+      <a:documentation>Input port: source (primary), schema, parameters
+        (kind="parameter").</a:documentation>
+      <a:documentation>Output port: result (primary), report (sequence)</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>The parameters port provides name/value pairs which correspond to Schematron
+        external variables. </a:documentation>
+      <a:documentation>The result output from this step is a copy of the input. Schematron
+        assertions and reports, if any, must appear on the report port.</a:documentation>
+      <a:documentation>The output should be in Schematron Validation Report Language (SVRL). The
+        output of this step may include PSVI annotations.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="phase">
+          <a:documentation>The value of the phase option identifies the Schematron validation phase
+            with which validation begins.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="assert-valid">
+          <a:documentation>It is a dynamic error if the assert-valid option is true and any
+            Schematron assertions fail.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithParam"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-validate-with-xml-schema">
+    <element name="validate-with-xml-schema">
+      <a:documentation/>
+      <a:documentation>Input port: source (primary), schema.</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <a:documentation>Validation is performed against the set of schemas represented by the
+        documents on the schema port. These schemas must be used in preference to any schema
+        locations provided by schema location hints encountered during schema validation, that is,
+        schema locations supplied for xs:import or xsi:schema-location, or determined by
+        schema-processor-defined namespace-based strategies, for the namespaces covered by the
+        documents available on the schemas port.</a:documentation>
+      <a:documentation>If xs:include elements occur within the supplied schema documents, they are
+        treated like any other external documents. It is implementation-defined if the documents
+        supplied on the schemas port are considered when resolving xs:include elements in the schema
+        documents provided.</a:documentation>
+      <a:documentation>The use-location-hints and try-namespaces options allow the pipeline author
+        to control how the schema processor should attempt to locate schema documents necessary but
+        not provided on the schema port. Any schema documents provided on the schema port must be
+        used in preference to schema documents located by other means.</a:documentation>
+      <a:documentation>The result of the assessment is a document with the
+        Post-Schema-Validation-Infoset (PSVI) annotations, if the pipeline implementation supports
+        such annotations. If not, the input document is reproduced with any defaulting of attributes
+        and elements performed as specified by the XML Schema recommendation.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="use-location-hints">
+          <a:documentation>The value of the use-location-hints option must be boolean. If the
+            use-location-hints option is “true”, the processor should make use of schema location
+            hints to locate schema documents. If the option is “false”, the processor should ignore
+            any such hints.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="try-namespaces">
+          <a:documentation>The value of the try-namespaces option must be boolean. If the
+            try-namespaces option is “true”, the processor should attempt to dereference the
+            namespace URI to locate schema documents. If the option is “false”, the processor should
+            not dereference namespace URIs.</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="assert-valid">
+          <a:documentation>The value of the assert-valid option must be boolean. It is a dynamic
+            error if the assert-valid option is true and the input document is not valid. If the
+            assert-valid option is false, it is not an error for the document to be invalid. In this
+            case, if the implementation does not support the PSVI, p:validate-with-xml-schema is
+            essentially just an “identity” step, but if the implementation does support the PSVI,
+            then the resulting document will have additional type information (at least for the
+            subtrees that are valid).</a:documentation>
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="mode">
+          <a:documentation>The value of the mode option must be an NMTOKEN whose value is either
+            “strict” or “lax”. The mode option allow the pipeline author to control how schema
+            validation begins. The “strict” mode means that the document element must be declared
+            and schema-valid, otherwise it will be treated as invalid. The “lax” mode means that the
+            absence of a declaration for the document element does not itself count as an
+            unsuccessful outcome of validation.</a:documentation>
+          <a:documentation>When XML Schema validation assessment is performed, the processor is
+            invoked in the mode specified by the mode option. It is a dynamic error (err:XC0055) if
+            the implementation does not support the specified mode.</a:documentation>
+          <choice>
+            <value>strict</value>
+            <value>lax</value>
+          </choice>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-www-form-urldecode">
+    <element name="www-form-urldecode">
+      <a:documentation>Decodes a x-www-form-urlencoded string into a set of
+        parameters.</a:documentation>
+      <a:documentation>It is a dynamic error if the value provided is not a properly
+        x-www-form-urlencoded value or if the name of any encoded parameter name is not a valid
+        xs:NCName. In other words, this step can only decode simple name/value pairs where the names
+        do not contain colons or any characters that cannot be used in XML names.</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="value">
+          <a:documentation>The value option is interpreted as a string of parameter values encoded
+            using the x-www-form-urlencoded algorithm.</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-www-form-urlencode">
+    <element name="www-form-urlencode">
+      <a:documentation>Encodes a set of parameter values as a x-www-form-urlencoded string and
+        injects it into the source document. When parameters are encoded into name/value pairs, only
+        the local name of each parameter is used. The namespace name is ignored and no prefix or
+        colon appears in the name. If the expression given in the match option matches an attribute,
+        the encoded string is used as the new value of the attribute in the output. If the
+        expression matches any other kind of node, the entire node (and not just its contents) is
+        replaced by the encoded string.</a:documentation>
+      <a:documentation>Input port: source (primary), parameters
+        (kind="parameter").</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="match">
+          <a:documentation>The value of the match option must be an XSLTMatchPattern. For each
+            matching node, the encoded string is used in the output. Nodes that do not match are
+            copied without change.</a:documentation>
+          <ref name="XSLTMatchPattern"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithParam"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-xquery">
+    <element name="xquery">
+      <a:documentation>Applies an XQuery 1.0 query to the sequence of documents provided on the
+        source port. The first document is used as the initial context item and the whole sequence
+        is also the default collection. If no documents are provided on the source port, the initial
+        context item is undefined and the default collection is empty.</a:documentation>
+      <a:documentation>The result of this step must be a sequence of documents. It is a dynamic
+        error if the sequence that results from evaluating the XQuery contains items other than
+        documents and elements. Any elements that appear in the result sequence will be treated as
+        documents with the element as their document element.</a:documentation>
+      <a:documentation>Input port: source (primary, sequence), query, parameters
+        (kind="parameter").</a:documentation>
+      <a:documentation>Output port: result (primary, sequence)</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithParam"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Step-xsl-formatter">
+    <element name="xsl-formatter">
+      <a:documentation>Receives an XSL-FO document and renders the content. </a:documentation>
+      <a:documentation>The result of rendering is stored to the URI provided via the href option. A
+        reference to that result is produced on the output port.</a:documentation>
+      <a:documentation>If the content-type option is not specified, the output type is
+        implementation-defined. The default should be PDF.</a:documentation>
+      <a:documentation>Input port: source (primary), parameters
+        (kind="parameter").</a:documentation>
+      <a:documentation>Output port: result.</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <optional>
+        <attribute name="href">
+          <a:documentation>The value of the href option must be an anyURI. If it is relative, it is
+            made absolute against the base URI of the element on which it is
+            specified</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="content-type">
+          <a:documentation>Controls the content-type of the output. This option specifies a media
+            type as defined by [IANA Media Types]. The option may include media type parameters as
+            well (e.g. "application/someformat; charset=UTF-8").</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithParam"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+</grammar>
