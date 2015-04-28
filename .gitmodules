@@ -1,5 +1,5 @@
 [submodule "calabash-distro"]
-	path = calabash-distro
+	path = distro
 	url = https://github.com/transpect/calabash-distro
 [submodule "extensions/transpect/unzip-extension"]
 	path = extensions/transpect/unzip-extension
