@@ -1,0 +1,12 @@
+[submodule "calabash-distro"]
+	path = calabash-distro
+	url = https://github.com/transpect/calabash-distro
+[submodule "extensions/transpect/unzip-extension"]
+	path = extensions/transpect/unzip-extension
+	url = https://github.com/transpect/unzip-extension
+[submodule "extensions/transpect/image-props-extension"]
+	path = extensions/transpect/image-props-extension
+	url = https://github.com/transpect/image-props-extension
+[submodule "extensions/transpect/rng-extension"]
+	path = extensions/transpect/rng-extension
+	url = https://github.com/transpect/rng-extension
