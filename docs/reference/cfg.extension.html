@@ -3,7 +3,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
       <title>11. Extension</title>
       <meta charset="utf-8" />
-      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.6" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.8" />
       <link rel="stylesheet" type="text/css" href="css/default.css" />
       <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script><link href="css/prism.css" rel="stylesheet" />
       <link href="css/db-prism.css" rel="stylesheet" />
@@ -14,8 +14,8 @@
             <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
                <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
                   <tr>
-                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="cfg.uri-resolver.html" title="10 .  URI resolver"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="Chapter  3 .  Configuration" href="configuration.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="12 .  Binding" href="cfg.binding.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
-                     <td align="right"><i>XML Calabash Reference</i> (Version 0.17)
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="cfg.uri-resolver.html" title="10 .  URI resolver"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="Chapter  4 .  Configuration" href="configuration.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="12 .  Binding" href="cfg.binding.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.19)
                      </td>
                   </tr>
                </table>
@@ -44,30 +44,16 @@
                               </tr>
                               <tr>
                                  <td valign="top">Java system properties:</td>
-                                 <td><span class="property">com.xmlcalabash.general-values</span>=<em class="replaceable"><code>boolean</code></em></td>
-                              </tr>
-                              <tr>
-                                 <td><span class="property">com.xmlcalabash.xpointer-on-text</span>=<em class="replaceable"><code>boolean</code></em></td>
-                              </tr>
-                              <tr>
-                                 <td><span class="property">com.xmlcalabash.transparent-json</span>=<em class="replaceable"><code>boolean</code></em></td>
-                              </tr>
-                              <tr>
-                                 <td><span class="property">com.xmlcalabash.json-flavor</span>=<em class="replaceable"><code>flavor</code></em></td>
-                              </tr>
-                              <tr>
-                                 <td><span class="property">com.xmlcalabash.use-xslt-10</span>=<em class="replaceable"><code>boolean</code></em></td>
-                              </tr>
-                              <tr>
-                                 <td><span class="property">com.xmlcalabash.html-serializer</span>=<em class="replaceable"><code>boolean</code></em></td>
+                                 <td><span class="property">com.xmlcalabash.<em class="replaceable"><code>extname</code></em></span>=<em class="replaceable"><code>value</code></em></td>
                               </tr>
                               <tr>
                                  <td>XML configuration:</td>
-                                 <td><code class="tag-emptytag">&lt;cc:extension name="<em class="replaceable"><code>extensions-name</code></em>" value="<em class="replaceable"><code>boolean</code></em>"/&gt;</code></td>
+                                 <td><code class="tag-emptytag">&lt;cc:extension name="<em class="replaceable"><code>extensions-name</code></em>" value="<em class="replaceable"><code>value</code></em>"/&gt;</code></td>
                               </tr>
                               <tr>
                                  <td>Ant task:</td>
                                  <td><code class="tag-emptytag">&lt;calabash
+                                       allowTextResults="<em class="replaceable"><code>Ant boolean</code></em>"
                                        generalValues="<em class="replaceable"><code>Ant boolean</code></em>"
                                        xPointerOnText="<em class="replaceable"><code>Ant boolean</code></em>"
                                        transparentJSON="<em class="replaceable"><code>Ant boolean</code></em>"
@@ -80,14 +66,25 @@
                      </div>
                   </figure>
                   <p>Valid extension names are
+                     “<code class="literal"><a href="langext.html#ext.allow-text-results">allow-text-results</a></code>”,
                      “<code class="literal"><a href="langext.html#ext.general-values">general-values</a></code>”,
-                     “<code class="literal"><a href="langext.html#ext.xpointer-on-text">xpointer-on-text</a></code>”,
+                     “<code class="literal"><a href="langext.html#ext.html-serializer">html-serializer</a></code>”,
+                     “<code class="literal"><a href="langext.html#ext.transparent-json">json-flavor</a></code>”,
                      “<code class="literal"><a href="langext.html#ext.transparent-json">transparent-json</a></code>”,
-                     “<code class="literal">json-flavor</code>”,
-                     “<code class="literal"><a href="langext.html#ext.use-xslt-10">use-xslt-10</a></code>”,
-                     and
-                     “<code class="literal"><a href="langext.html#ext.html-serializer">html-serializer</a></code>”.
+                     “<code class="literal"><a href="langext.html#ext.use-xslt-10">use-xslt-10</a></code>”, and
+                     “<code class="literal"><a href="langext.html#ext.xpointer-on-text">xpointer-on-text</a></code>”.
+                     
                   </p>
+                  <div class="note admonition">
+                     <h3>Note</h3>
+                     <p>The <code class="literal">json-flavor</code> extension uses a special command-line
+                        syntax:
+                        <code class="literal">--extension=json-flavor=<em class="replaceable"><code>flavor</code></em></code>
+                        or
+                        <code class="literal">-Xjson-flavor=<em class="replaceable"><code>flavor</code></em></code>.
+                        
+                     </p>
+                  </div>
                </section>
             </div>
          </div>
@@ -101,7 +98,7 @@
                </tr>
                <tr>
                   <td width="40%" align="left">10 .  URI resolver </td>
-                  <td width="20%" align="center"><a title="Chapter  3 .  Configuration" href="configuration.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="20%" align="center"><a title="Chapter  4 .  Configuration" href="configuration.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
                   <td width="40%" align="right"> 12 .  Binding</td>
                </tr>
             </table>

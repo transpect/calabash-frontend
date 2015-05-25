@@ -3,7 +3,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
       <title>XML Calabash Reference</title>
       <meta charset="utf-8" />
-      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.6" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.8" />
       <link rel="stylesheet" type="text/css" href="css/default.css" />
       <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script><link href="css/prism.css" rel="stylesheet" />
       <link href="css/db-prism.css" rel="stylesheet" />
@@ -15,7 +15,7 @@
                <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
                   <tr>
                      <td align="left"> <a title="XML Calabash Reference" href="#R.1"><img src="img/home.png" alt="Home" border="0" /></a> <img src="img/xprev.png" alt="Prev" border="0" /> <img src="img/xup.png" alt="Up" border="0" /> <a title="Preface" href="preface.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
-                     <td align="right"><i>XML Calabash Reference</i> (Version 0.17)
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.19)
                      </td>
                   </tr>
                </table>
@@ -30,10 +30,10 @@
                      <div class="author">
                         <h3><span class="personname"><span class="firstname">Norman</span> <span class="surname">Walsh</span></span></h3>
                      </div>
-                     <p xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="releaseinfo">Reference version 0.17</p>
-                     <p xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="releaseinfo">For XML Calabash version 1.1.0</p><span class="copyright">Copyright © <span class="years">2011, 2012, 2013, 2014, 2015</span> <span class="holders"><span class="holder">Norman Walsh</span></span></span><div>
+                     <p xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="releaseinfo">Reference version 0.19</p>
+                     <p xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="releaseinfo">For XML Calabash version 1.1.2</p><span class="copyright">Copyright © <span class="years">2011, 2012, 2013, 2014, 2015</span> <span class="holders"><span class="holder">Norman Walsh</span></span></span><div>
                         <p>
-                           <p xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="pubdate">Published 09 Apr 2015</p><br xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" clear="all" /></p>
+                           <p xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="pubdate">Published 22 May 2015</p><br xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" clear="all" /></p>
                      </div>
                   </header>
                   <hr />
@@ -44,13 +44,18 @@
                               <li><span><a href="whatis.html">1. What is XML Calabash?</a></span></li>
                            </ul>
                         </li>
-                        <li><span><a href="running.html">1. Running XML Calabash</a></span><ul class="toc">
+                        <li><span><a href="building.html">1. Building XML Calabash</a></span><ul class="toc">
+                              <li><span><a href="requirements.html">1. Requirements</a></span></li>
+                              <li><span><a href="gradle.html">2. Running Gradle</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span><a href="running.html">2. Running XML Calabash</a></span><ul class="toc">
                               <li><span><a href="javasetup.html">1. Setting up the environment</a></span></li>
                               <li><span><a href="cmdline.html">2. The command line</a></span></li>
                               <li><span><a href="help.html">3. What do I do if it all goes wrong?</a></span></li>
                            </ul>
                         </li>
-                        <li><span><a href="anttask.html">2. Calabash Ant Task</a></span><ul class="toc">
+                        <li><span><a href="anttask.html">3. Calabash Ant Task</a></span><ul class="toc">
                               <li><span><a href="antsetup.html">1. Setting up the Ant Task and Types</a></span></li>
                               <li><span><a href="antdesc.html">2. Description</a></span><ul class="toc">
                                     <li><span><a href="antdesc.html#antdesc.4">2.1. Custom Task and Types</a></span></li>
@@ -88,7 +93,7 @@
                               <li><span><a href="antjustdont.html">6. What not to do</a></span></li>
                            </ul>
                         </li>
-                        <li><span><a href="configuration.html">3. Configuration</a></span><ul class="toc">
+                        <li><span><a href="configuration.html">4. Configuration</a></span><ul class="toc">
                               <li><span><a href="cfg.saxon-processor.html">1. Saxon processor</a></span></li>
                               <li><span><a href="cfg.saxon-configuration.html">2. Saxon configuration</a></span></li>
                               <li><span><a href="cfg.implementation.html">3. Implementation classes</a></span></li>
@@ -124,7 +129,7 @@
                               <li><span><a href="cfg.piperack.html">33. Piperack configuration</a></span></li>
                            </ul>
                         </li>
-                        <li><span><a href="extensions.html">4. Extensions</a></span><ul class="toc">
+                        <li><span><a href="extensions.html">5. Extensions</a></span><ul class="toc">
                               <li><span><a href="extprop.html">1. System property extensions</a></span></li>
                               <li><span><a href="extattr.html">2. Extension Attributes</a></span></li>
                               <li><span><a href="langext.html">3. Language Extensions</a></span><ul class="toc">
@@ -133,6 +138,7 @@
                                     <li><span><a href="langext.html#ext.transparent-json">3.3. Transparent JSON</a></span></li>
                                     <li><span><a href="langext.html#ext.use-xslt-10">3.4. Use XSLT 1.0</a></span></li>
                                     <li><span><a href="langext.html#ext.html-serializer">3.5. HTML serializer</a></span></li>
+                                    <li><span><a href="langext.html#ext.allow-text-results">3.6. Allow text results extension</a></span></li>
                                  </ul>
                               </li>
                               <li><span><a href="extfunc.html">4. Extension functions</a></span></li>
@@ -140,7 +146,7 @@
                               <li><span><a href="extsteps.html">6. Extension steps</a></span></li>
                            </ul>
                         </li>
-                        <li><span><a href="piperack.html">5. Piperack</a></span><ul class="toc">
+                        <li><span><a href="piperack.html">6. Piperack</a></span><ul class="toc">
                               <li><span><a href="runpiperack.html">1. Running Piperack</a></span><ul class="toc">
                                     <li><span><a href="runpiperack.html#piperack-cmdline">1.1. The Piperack command line</a></span></li>
                                  </ul>
@@ -229,6 +235,7 @@
                            </ul>
                         </li>
                         <li><span><a href="cx-steps.html">III. XML Calabash Extension Steps</a></span><ul class="toc">
+                              <li><span class="refentrytitle"><a href="cx-asciidoctor.html">cx:asciidoctor</a></span><span class="refpurpose"> - Convert AsciiDoc text to XML</span></li>
                               <li><span class="refentrytitle"><a href="cx-collection-manager.html">cx:collection-manager</a></span><span class="refpurpose"> - Associate documents with a collection URI</span></li>
                               <li><span class="refentrytitle"><a href="cx-css-formatter.html">cx:css-formatter</a></span><span class="refpurpose"> - Format a document using CSS</span></li>
                               <li><span class="refentrytitle"><a href="cx-delta-xml.html">cx:delta-xml</a></span><span class="refpurpose"> - Run the DeltaXML comparitor</span></li>
@@ -272,7 +279,7 @@
                   <div class="list-of-examples">
                      <p><b>List of Examples</b></p>
                      <ul class="toc">
-                        <li>4.1. <a href="langext.html#ex-gv-1">Pipeline that exploits the general values extension</a></li>
+                        <li>5.1. <a href="langext.html#ex-gv-1">Pipeline that exploits the general values extension</a></li>
                         <li>2. <a href="cx-metadata-extractor.html#ex.amaryllis">Amaryllis metadata</a></li>
                         <li>3. <a href="cx-metadata-extractor.html#ex.digicam">Digital Camera metadata</a></li>
                         <li>4. <a href="cx-metadata-extractor.html#ex.png">PNG metadata</a></li>

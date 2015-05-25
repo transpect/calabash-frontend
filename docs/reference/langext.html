@@ -3,7 +3,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
       <title>3. Language Extensions</title>
       <meta charset="utf-8" />
-      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.6" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.8" />
       <link rel="stylesheet" type="text/css" href="css/default.css" />
       <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script><link href="css/prism.css" rel="stylesheet" />
       <link href="css/db-prism.css" rel="stylesheet" />
@@ -14,8 +14,8 @@
             <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
                <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
                   <tr>
-                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="extattr.html" title="2 .  Extension Attributes"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="Chapter  4 .  Extensions" href="extensions.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="4 .  Extension functions" href="extfunc.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
-                     <td align="right"><i>XML Calabash Reference</i> (Version 0.17)
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="extattr.html" title="2 .  Extension Attributes"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="Chapter  5 .  Extensions" href="extensions.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="4 .  Extension functions" href="extfunc.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.19)
                      </td>
                   </tr>
                </table>
@@ -42,10 +42,10 @@
                         nodes from a tree, then those node values will be passed along as the
                         value.
                      </p>
-                     <p>Consider the pipeline in <a href="langext.html#ex-gv-1" title="Pipeline that exploits the general values extension">Example 4.1, “Pipeline that exploits the general values extension”</a>:
+                     <p>Consider the pipeline in <a href="langext.html#ex-gv-1" title="Pipeline that exploits the general values extension">Example 5.1, “Pipeline that exploits the general values extension”</a>:
                      </p>
                      <figure id="ex-gv-1" class="example-wrapper">
-                        <div class="title">Example 4.1. Pipeline that exploits the general values extension</div>
+                        <div class="title">Example 5.1. Pipeline that exploits the general values extension</div>
                         <div class="example"><pre class="programlisting language-xml line-numbers"><code>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc" version="1.0"&gt;
 &lt;p:input port="parameters" kind="parameter"/&gt;
 &lt;p:output port="result"/&gt;
@@ -492,6 +492,24 @@
                         </ol>
                      </div>
                   </section>
+                  <section id="ext.allow-text-results" class="section">
+                     <div class="section-titlepage">
+                        <h3>3.6. Allow text results extension</h3>
+                     </div>
+                     <p>If the allow text results extension is enabled,
+                        <code class="tag-element">p:xquery</code> and
+                        <code class="tag-element">p:xslt</code>
+                        steps may return atomic values and text documents (documents that
+                        aren't XML). These documents will be encoded in XML as
+                        <code class="tag-element">c:result</code> documents with a
+                        <code class="tag-attribute">content-type</code> attribute that identifies
+                        them as being of type
+                        “<code class="literal">text/plain</code>” and a
+                        <code class="tag-attribute">cx:decode</code> attribute with the value
+                        “<code class="literal">true</code>”. The <code class="tag-element">p:store</code> step will serialize
+                        them as text.
+                     </p>
+                  </section>
                </section>
             </div>
          </div>
@@ -505,7 +523,7 @@
                </tr>
                <tr>
                   <td width="40%" align="left">2 .  Extension Attributes </td>
-                  <td width="20%" align="center"><a title="Chapter  4 .  Extensions" href="extensions.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="20%" align="center"><a title="Chapter  5 .  Extensions" href="extensions.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
                   <td width="40%" align="right"> 4 .  Extension functions</td>
                </tr>
             </table>
