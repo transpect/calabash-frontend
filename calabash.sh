@@ -72,7 +72,7 @@ if [ ! -z $SAXON_JAR ]; then
     SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 fi
 
-CLASSPATH="$SAXON_JAR:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.0-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/adaptions/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$CLASSPATH"
+CLASSPATH="$SAXON_JAR:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.2-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.2.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/adaptions/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
