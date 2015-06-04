@@ -10,6 +10,13 @@ git clone --recursive https://github.com/transpect/calabash-frontend calabash
 
 transpect projects usually have their Calabash runtime attached as a submodule or as an svn external. It typically resides in a subdirectory `calabash` of the project. If the project directory is `${pdu}` (in oXygen notation), the Calabash frontend will use an XML catalog `${pdu}/xmlcatalog/catalog.xml` by default. This contains `<nextCatalog>` instructions that read the catalogs of the transpect libraries that the project uses. Catalog resolution is important since the XProc, XSLT, font, … files within the modules will only be addressed by their canonical locations (typically starting with `http//transpect.io`). 
 
+Attaching this and its submodules as a submodule to a git repo works like this:
+
+```
+git submodule add  git@github.com:transpect/calabash-frontend.git calabash --recursive
+git submodule update --recursive --init
+```
+
 If you are using this from an svn-based project, you need to incorporate no less than 5 externals. This is partly because Calabash now is modularized but mainly because we cannot stick `svn:externals` properties to github projects.
 
 The externals are:
