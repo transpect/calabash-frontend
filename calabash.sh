@@ -67,12 +67,12 @@ fi
 
 # SAXON_JAR is the path to a Saxon PE or EE jar file. Its name should match the following
 # regex: /[ehp]e\.jar$/ so that we can extract the substring 'ee', 'he', or 'pe':
-if [ ! -z $SAXON_JAR ]; then
-    echo SJ: $SAXON_JAR
-    SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
+if [ -z $SAXON_JAR ]; then
+    SAXON_JAR=$DIR/saxon/saxon9he.jar
 fi
+SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 
-CLASSPATH="$SAXON_JAR:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.2-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.2.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/adaptions/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$CLASSPATH"
+CLASSPATH="$SAXON_JAR:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.4-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/adaptions/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
