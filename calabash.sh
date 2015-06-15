@@ -24,7 +24,7 @@ EXT_BASE=$DIR/extensions
 DISTRO="$DIR/distro"
 
 if [ -z "$PROJECT_DIR" ]; then
-  PROJECT_DIR=$( real_dir "$DIR/../" )
+  PROJECT_DIR=$( real_dir "$DIR" )
 fi
 
 if [ -z $ADAPTIONS_DIR ]; then
