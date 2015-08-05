@@ -24,7 +24,7 @@ EXT_BASE=$DIR/extensions
 DISTRO="$DIR/distro"
 
 if [ -z "$PROJECT_DIR" ]; then
-  PROJECT_DIR=$( real_dir "$DIR/../" )
+  PROJECT_DIR=$( real_dir "$DIR" )
 fi
 
 if [ -z $ADAPTIONS_DIR ]; then
@@ -72,7 +72,7 @@ if [ -z $SAXON_JAR ]; then
 fi
 SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 
-CLASSPATH="$SAXON_JAR:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.4-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/adaptions/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$CLASSPATH"
+CLASSPATH="$SAXON_JAR:$DIR/saxon/:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.4-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/adaptions/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
