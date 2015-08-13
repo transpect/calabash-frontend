@@ -12,9 +12,9 @@
 @set adaptionsdir=%scriptdir%/../adaptions
 @set localdefs=%adaptionsdir%/common/calabash/localdefs.bat
 
-@set config=%scriptdir%/extensions/ltx/ltx-config.xml
+@set config=%scriptdir%/extensions/transpect/transpect-config.xml
 
-@set classpath=%distro%lib/;%distro%lib/xmlresolver.jar;%distro%xmlcalabash-1.1.2-96.jar;%extensions%saxon/saxon9he.jar;%extensions%ltx/ltx-unzip;%extensions%ltx/ltx-validate-with-rng;%extensions%ltx/ltx-image-identify;%extensions%ltx/ltx-image-identify/commons-imaging-1.0-SNAPSHOT.jar;%extensions%ltx/ltx-image-identify/xmlgraphics-commons-1.5.jar
+@set classpath=%distro%lib/;%distro%lib/xmlresolver.jar;%distro%xmlcalabash-1.1.4-96.jar;%extensions%saxon/saxon9he.jar;%extensions%ltx/ltx-unzip;%extensions%ltx/ltx-validate-with-rng;%extensions%ltx/ltx-image-identify;%extensions%ltx/ltx-image-identify/commons-imaging-1.0-SNAPSHOT.jar;%extensions%ltx/ltx-image-identify/xmlgraphics-commons-1.5.jar
 
 @REM call localdefs batch file to overwrite default values for classpath 
 @REM or xproc-config
