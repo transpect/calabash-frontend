@@ -9,7 +9,7 @@
 @set scriptdir=%sd:\=/%
 @set distro=%scriptdir%/distro/
 @set extensions=%scriptdir%/extensions/
-@set adaptionsdir=%scriptdir%/../adaptions
+@set adaptionsdir=%scriptdir%/../a9y
 @set localdefs=%adaptionsdir%/common/calabash/localdefs.bat
 
 @set config=%scriptdir%/extensions/transpect/transpect-config.xml

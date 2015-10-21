@@ -13,7 +13,7 @@
   <uri name="http://transpect.le-tex.de/rngvalid/rng-schematron.xpl" uri="../extensions/ltx/ltx-validate-with-rng/rng-schematron.xpl" /> 
 
   <!-- Default location for Calabash extensions in importing projects (legacy naming): -->
-  <nextCatalog catalog="../../adaptions/common/calabash/catalog.xml"/>
+  <nextCatalog catalog="../../a9y/common/calabash/catalog.xml"/>
   <!-- Default location for Calabash extensions. The following catalog is project-specific.
 	 If there are other extensions, it should import their catalogs via nextCatalog. -->
   <nextCatalog catalog="../extensions/xmlcatalog/catalog.xml"/>
