@@ -28,7 +28,7 @@ if [ -z "$PROJECT_DIR" ]; then
 fi
 
 if [ -z $ADAPTIONS_DIR ]; then
-    ADAPTIONS_DIR="$PROJECT_DIR/a9y"
+    ADAPTIONS_DIR="$PROJECT_DIR/a9s"
 fi
 if [ -z $LOCALDEFS ]; then
     LOCALDEFS="$ADAPTIONS_DIR/common/calabash/localdefs.sh"
@@ -72,7 +72,7 @@ if [ -z $SAXON_JAR ]; then
 fi
 SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 
-CLASSPATH="$SAXON_JAR:$DIR/saxon/:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.5-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9y/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$CLASSPATH"
+CLASSPATH="$SAXON_JAR:$DIR/saxon/:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.5-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
@@ -86,7 +86,7 @@ fi
 
 # CATALOGS are always semicolon-separated, see 
 # https://github.com/ndw/xmlresolver/blob/e1ea653ae8a98c8a46b7ad017ebd18ea1d2e8fac/src/org/xmlresolver/Configuration.java#L26
-CATALOGS="$CATALOGS;$DIR/xmlcatalog/catalog.xml;$PROJECT_DIR/xmlcatalog/catalog.xml;$PROJECT_DIR/a9y/common/calabash/catalog.xml"
+CATALOGS="$CATALOGS;$DIR/xmlcatalog/catalog.xml;$PROJECT_DIR/xmlcatalog/catalog.xml;$PROJECT_DIR/a9s/common/calabash/catalog.xml"
 # In principle, $DIR/xmlcatalog/catalog.xml should be sufficient since it includes the $PROJECT_DIR catalogs via nextCatalog.
 # If, however, this calabash dir is not a subdir of $PROJECT_DIR, then it makes sense to explicitly include them here.
 # Please note that it is _essential_ that your project contains an xmlcatalog/catalog.xml that includes the catalogs
