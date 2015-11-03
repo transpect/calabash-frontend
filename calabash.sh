@@ -98,6 +98,7 @@ if [ "$DEBUG" == "yes" ]; then
        echo "SAXON_PROCESSOR: $SAXON_PROCESSOR"
        echo "XPROC-CONFIG: $CFG"
        echo "DIR: $DIR"
+       echo "CATALOGS: $CATALOGS"
 fi
 
 $JAVA \
