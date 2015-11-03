@@ -27,11 +27,17 @@ if [ -z "$PROJECT_DIR" ]; then
   PROJECT_DIR=$( real_dir "$DIR" )
 fi
 
-if [ -z $ADAPTIONS_DIR ]; then
-    ADAPTIONS_DIR="$PROJECT_DIR/a9s"
+# try the legacy name for adaptations first:
+if [ -z "$ADAPTATIONS_DIR" ]; then
+    ADAPTATIONS_DIR="$PROJECT_DIR/adaptions"
+fi
+
+# if it doesn't exist, set it to the current canonical name:
+if [ ! -d $ADAPTATIONS_DIR ]; then
+    ADAPTATIONS_DIR="$PROJECT_DIR/a9s"
 fi
 if [ -z $LOCALDEFS ]; then
-    LOCALDEFS="$ADAPTIONS_DIR/common/calabash/localdefs.sh"
+    LOCALDEFS="$ADAPTATIONS_DIR/common/calabash/localdefs.sh"
 fi
 
 DRIVER=Main
@@ -99,6 +105,7 @@ if [ "$DEBUG" == "yes" ]; then
        echo "XPROC-CONFIG: $CFG"
        echo "DIR: $DIR"
        echo "CATALOGS: $CATALOGS"
+       echo "LOCALDEFS: $LOCALDEFS"
 fi
 
 $JAVA \
