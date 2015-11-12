@@ -2,6 +2,7 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" xml:base=".">
 
   <uri name="http://transpect.le-tex.de/calabash-extensions/ltx-lib.xpl" uri="../transpect-lib.xpl"/>
+  <uri name="http://transpect.io/calabash-extensions/transpect-lib.xpl" uri="../transpect-lib.xpl"/>
 
   <nextCatalog catalog="../unzip-extension/xmlcatalog/catalog.xml"/>
   <nextCatalog catalog="../rng-extension/xmlcatalog/catalog.xml"/>
