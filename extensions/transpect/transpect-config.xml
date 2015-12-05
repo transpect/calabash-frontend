@@ -5,5 +5,6 @@
 	<implementation type="letex:unzip tr:unzip" class-name="UnZip"/>
 	<implementation type="letex:validate-with-rng tr:validate-with-rng" class-name="LtxValidateWithRNG"/>
 	<implementation type="letex:image-identify tr:image-identify" class-name="ImageIdentify"/>
-
+	<implementation type="letex:image-transform tr:image-transform" class-name="ImageTransform"/>
+	
 </xproc-config>
