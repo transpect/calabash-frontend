@@ -10,6 +10,6 @@
 [submodule "extensions/transpect/rng-extension"]
 	path = extensions/transpect/rng-extension
 	url = https://github.com/transpect/rng-extension
-[submodule "extensions\\transpect\\image-transform-extension"]
+[submodule "extensions/transpect/image-transform-extension"]
 	path = extensions\\transpect\\image-transform-extension
 	url = https://github.com/transpect/image-transform-extension
