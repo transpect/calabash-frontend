@@ -116,7 +116,7 @@ $JAVA \
    -Duser.language=$UI_LANG \
    $SYSPROPS \
    -Xmx$HEAP -Xss1024k \
-   com.xmlcalabash.drivers.Main \
+   com.xmlcalabash.drivers.$DRIVER \
    -Xtransparent-json \
    -E org.xmlresolver.Resolver \
    -U org.xmlresolver.Resolver \
