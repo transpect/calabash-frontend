@@ -19,5 +19,6 @@
   <nextCatalog catalog="../extensions/xmlcatalog/catalog.xml"/>
 
   <uri name="http://xmlcalabash.com/extension/steps/library-1.0.xpl" uri="../extensions/calabash/library-1.0.xpl"/>
+  <uri name="http://transpect.io/xsdval.xpl" uri="../xpl/xsdval.xpl"/>
   
 </catalog>

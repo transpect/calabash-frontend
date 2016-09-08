@@ -20,6 +20,10 @@
   <p:option name="use-location-hints" select="'true'">
     <p:documentation>Apparently does not work with Calabash 1.1.5 (“Array index out of range: 0”)</p:documentation>
   </p:option>
+  
+  <p:option name="fail-on-error" select="'true'">
+    <p:documentation>Whether to throw an error when validation fails.</p:documentation>
+  </p:option>
 
   <p:import href="http://xmlcalabash.com/extension/steps/library-1.0.xpl" />
 
@@ -59,12 +63,19 @@
           <p:pipe step="catch1" port="error"/>
         </p:input>
       </p:identity>
-
-      <p:error code="tr:XSD1">
-        <p:input port="source">
-          <p:pipe step="catch1" port="error"/>
-        </p:input>
-      </p:error>
+      
+      <p:choose>
+        <p:when test="$fail-on-error = 'true'">
+          <p:error code="tr:XSD1">
+            <p:input port="source">
+              <p:pipe step="catch1" port="error"/>
+            </p:input>
+          </p:error>
+        </p:when>
+        <p:otherwise>
+          <p:identity/>
+        </p:otherwise>
+      </p:choose>
       <p:sink/>
     </p:catch>
   </p:try>
