@@ -2,13 +2,14 @@
 <p:library xmlns:p="http://www.w3.org/ns/xproc"
            xmlns:c="http://www.w3.org/ns/xproc-step"  
            xmlns:tr="http://transpect.io"
+           xmlns:tr-internal="http://transpect.io/internal"
            xmlns:letex="http://www.le-tex.de/namespace"
            version="1.0">
 
   <p:documentation>This is just copied from the master declarations in their corresponding repositories.
   The letex: versions are here for compatibility reasons.</p:documentation>
 
-  <p:declare-step type="tr:unzip">
+  <p:declare-step type="tr-internal:unzip">
     <p:option name="zip" required="true"/>
     <p:option name="dest-dir" required="true"/>
     <p:option name="overwrite" required="false" select="'no'"/>
