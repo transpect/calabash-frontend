@@ -36,3 +36,5 @@ There is a `calabash/calabash.bat` invocation for Windows. Users of Linux, MacOS
 ```
 HEAP=512m DEBUG=yes calabash/calabash.sh calabash/extensions/transpect/image-props-extension/image-identify-example.xpl
 ```
+
+Please look at the comments in calabash.sh for a relatively easy, externals-based way to enable commercial versions of Saxon. You need to have a suitable Saxon license file though.

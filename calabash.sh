@@ -74,11 +74,26 @@ fi
 # SAXON_JAR is the path to a Saxon PE or EE jar file. Its name should match the following
 # regex: /[ehp]e\.jar$/ so that we can extract the substring 'ee', 'he', or 'pe':
 if [ -z $SAXON_JAR ]; then
-    SAXON_JAR=$DIR/saxon/saxon9he.jar
+    if [ -e $PROJECT_DIR/saxon/saxon9ee.jar ]; then
+	SAXON_JAR=$PROJECT_DIR/saxon/saxon9ee.jar
+    elif [ -e $PROJECT_DIR/saxon/saxon9pe.jar ]; then
+        SAXON_JAR=$PROJECT_DIR/saxon/saxon9pe.jar
+    else
+	SAXON_JAR=$DIR/saxon/saxon9he.jar
+    fi
 fi
 SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
+# If you want to use Saxon PE or EE, you'll have to specify SAXON_JAR in your localdefs.sh
+# or as an environment variable. You also need to prepend the directory that contains
+# saxon-license.lic to CLASSPATH.
+# Alternatively, particularly if your project also requires a standalone saxon, you may include
+# https://subversion.le-tex.de/common/saxon-pe96/ or another repo that contains Saxon EE as an external,
+# mounted to $PROJECT_DIR/saxon/ (convention over configuration).
+# Since this Saxon PE repo is public, the license file has to be supplied by different means.
+# Supposing that $ADAPTATIONS_DIR/common/saxon/ stems from a privately hosted repo, it is added
+# to CLASSPATH by default, expecting saxon-license.lic to reside there.
 
-CLASSPATH="$SAXON_JAR:$DIR/saxon/:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.11-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.11-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
