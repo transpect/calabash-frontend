@@ -93,7 +93,7 @@ SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 # Supposing that $ADAPTATIONS_DIR/common/saxon/ stems from a privately hosted repo, it is added
 # to CLASSPATH by default, expecting saxon-license.lic to reside there.
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.11-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$EXT_BASE/transpect/rng-extension/jing.jar:$DISTRO/xmlcalabash-1.1.14-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$EXT_BASE/transpect/rng-extension/:$EXT_BASE/transpect/unzip-extension/:$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/commons-imaging-1.0-SNAPSHOT.jar:$EXT_BASE/transpect/image-props-extension/xmlgraphics-commons-1.5.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
