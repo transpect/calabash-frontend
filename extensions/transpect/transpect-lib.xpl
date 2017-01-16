@@ -4,7 +4,6 @@
            xmlns:tr="http://transpect.io"
            xmlns:tr-internal="http://transpect.io/internal"
            xmlns:letex="http://www.le-tex.de/namespace"
-           xmlns:ex="http://example.org/xmlcalabash/steps"
            version="1.0">
 
   <p:documentation>This is just copied from the master declarations in their corresponding repositories.
