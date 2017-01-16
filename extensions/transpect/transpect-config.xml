@@ -1,11 +1,11 @@
-<xproc-config xmlns="http://xmlcalabash.com/ns/configuration"
-  xmlns:letex="http://www.le-tex.de/namespace"
+<xproc-config xmlns="http://xmlcalabash.com/ns/configuration" 
+  xmlns:letex="http://www.le-tex.de/namespace" 
   xmlns:tr="http://transpect.io"
   xmlns:tr-internal="http://transpect.io/internal">
 
-	<implementation type="letex:unzip tr-internal:unzip" class-name="UnZip"/>
-	<implementation type="letex:validate-with-rng tr:validate-with-rng" class-name="LtxValidateWithRNG"/>
-	<implementation type="letex:image-identify tr:image-identify" class-name="ImageIdentify"/>
-	<implementation type="letex:image-transform tr:image-transform" class-name="ImageTransform"/>
-	
+  <implementation type="letex:unzip tr-internal:unzip" class-name="UnZip"/>
+  <implementation type="letex:validate-with-rng tr:validate-with-rng" class-name="LtxValidateWithRNG"/>
+  <implementation type="letex:image-identify tr:image-identify" class-name="ImageIdentify"/>
+  <implementation type="letex:image-transform tr:image-transform" class-name="ImageTransform"/>
+
 </xproc-config>
