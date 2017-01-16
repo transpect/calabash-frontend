@@ -4,6 +4,7 @@
            xmlns:tr="http://transpect.io"
            xmlns:tr-internal="http://transpect.io/internal"
            xmlns:letex="http://www.le-tex.de/namespace"
+           xmlns:ex="http://example.org/xmlcalabash/steps"
            version="1.0">
 
   <p:documentation>This is just copied from the master declarations in their corresponding repositories.
@@ -39,6 +40,11 @@
     <p:output port="result" primary="true"/>
   </p:declare-step>
 
+  <p:declare-step type="tr:epubcheck">
+    <p:output port="result" primary="true" sequence="false"/>
+    <p:option name="href"/>
+  </p:declare-step>
+  
   <p:declare-step type="letex:validate-with-rng">
     <p:input port="source" primary="true"/>	
     <p:input port="schema"/>	
@@ -52,6 +58,5 @@
     <p:output port="report" sequence="true"/>
     <p:option name="href"/>
   </p:declare-step>
-
+    
 </p:library>
-
