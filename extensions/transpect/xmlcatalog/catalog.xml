@@ -7,5 +7,6 @@
   <nextCatalog catalog="../unzip-extension/xmlcatalog/catalog.xml"/>
   <nextCatalog catalog="../rng-extension/xmlcatalog/catalog.xml"/>
   <nextCatalog catalog="../image-props-extension/xmlcatalog/catalog.xml"/>
+  <nextCatalog catalog="../epubcheck-extension/xmlcatalog/catalog.xml"/>
 
 </catalog>
