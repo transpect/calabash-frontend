@@ -7,5 +7,6 @@
   <implementation type="letex:validate-with-rng tr:validate-with-rng" class-name="LtxValidateWithRNG"/>
   <implementation type="letex:image-identify tr:image-identify" class-name="ImageIdentify"/>
   <implementation type="letex:image-transform tr:image-transform" class-name="ImageTransform"/>
+  <implementation type="tr:epubcheck" class-name="EpubCheckExtension"/>
 
 </xproc-config>
