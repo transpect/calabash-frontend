@@ -8,5 +8,8 @@
   <implementation type="letex:image-identify tr:image-identify" class-name="ImageIdentify"/>
   <implementation type="letex:image-transform tr:image-transform" class-name="ImageTransform"/>
   <implementation type="tr:epubcheck" class-name="EpubCheckExtension"/>
-
+  <implementation type="tr:javascript" class-name="JavaScriptExtension"/>
+  
+  <html-parser value="tagsoup"/>
+  
 </xproc-config>
