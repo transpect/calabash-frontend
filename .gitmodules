@@ -13,3 +13,6 @@
 [submodule "extensions/transpect/image-transform-extension"]
 	path = extensions/transpect/image-transform-extension
 	url = https://github.com/transpect/image-transform-extension
+[submodule "extensions/transpect/epubcheck-extension"]
+	path = extensions/transpect/epubcheck-extension
+	url = https://github.com/transpect/epubcheck-extension
