@@ -3,12 +3,12 @@
   xmlns:tr="http://transpect.io"
   xmlns:tr-internal="http://transpect.io/internal">
 
-  <implementation type="letex:unzip tr-internal:unzip" class-name="UnZip"/>
-  <implementation type="letex:validate-with-rng tr:validate-with-rng" class-name="LtxValidateWithRNG"/>
-  <implementation type="letex:image-identify tr:image-identify" class-name="ImageIdentify"/>
-  <implementation type="letex:image-transform tr:image-transform" class-name="ImageTransform"/>
-  <implementation type="tr:epubcheck" class-name="EpubCheckExtension"/>
-  <implementation type="tr:javascript" class-name="JavaScriptExtension"/>
+  <implementation type="letex:unzip tr-internal:unzip" class-name="io.transpect.calabash.extensions.UnZip"/>
+  <implementation type="letex:validate-with-rng tr:validate-with-rng" class-name="io.transpect.calabash.extensions.ValidateWithRelaxNG"/>
+  <implementation type="letex:image-identify tr:image-identify" class-name="io.transpect.calabash.extensions.ImageIdentify"/>
+  <implementation type="letex:image-transform tr:image-transform" class-name="io.transpect.calabash.extensions.ImageTransform"/>
+  <implementation type="tr:epubcheck" class-name="io.transpect.calabash.extensions.EpubCheckExtension"/>
+  <implementation type="tr:javascript" class-name="io.transpect.calabash.extensions.JavaScriptExtension"/>
   
   <html-parser value="tagsoup"/>
   
