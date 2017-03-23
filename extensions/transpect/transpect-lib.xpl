@@ -57,5 +57,15 @@
     <p:output port="report" sequence="true"/>
     <p:option name="href"/>
   </p:declare-step>
+
+  <p:declare-step type="tr:mathtype2mml">
+	 <p:output port="result" primary="true" sequence="true"/>
+	 <p:option name="href"/>
+  </p:declare-step>
+
+  <p:declare-step type="tr:mtef2xml">
+	 <p:output port="result" primary="true" sequence="true"/>
+	 <p:option name="href"/>
+  </p:declare-step>
     
 </p:library>

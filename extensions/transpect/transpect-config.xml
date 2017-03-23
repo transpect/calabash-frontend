@@ -9,6 +9,7 @@
   <implementation type="letex:image-transform tr:image-transform" class-name="io.transpect.calabash.extensions.ImageTransform"/>
   <implementation type="tr:epubcheck" class-name="io.transpect.calabash.extensions.EpubCheckExtension"/>
   <implementation type="tr:javascript" class-name="io.transpect.calabash.extensions.JavaScriptExtension"/>
+  <implementation type="tr:mtef2xml" class-name="io.transpect.calabash.extensions.Mtef2Xml"/>
   
   <html-parser value="tagsoup"/>
   
