@@ -102,7 +102,7 @@ RNGVALID_EXT="$EXT_BASE/transpect/rng-extension:$EXT_BASE/transpect/rng-extensio
 UNZIP_EXT="$EXT_BASE/transpect/unzip-extension"
 MATHTYPE_EXT="$EXT_BASE/transpect/mathtype-extension/lib/jruby-complete-9.1.8.0.jar:$EXT_BASE/transpect/mathtype-extension/java:$EXT_BASE/transpect/mathtype-extension/ruby/ruby-ole-1.2.12.1/lib:$EXT_BASE/transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib:$EXT_BASE/transpect/mathtype-extension/ruby/bindata-2.3.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/mathtype-0.0.7.4/lib"
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/::$DISTRO/xmlcalabash-1.1.15-97.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$RNGVALID_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/::$DISTRO/xmlcalabash-1.1.15-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$RNGVALID_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
