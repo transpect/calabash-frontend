@@ -18,10 +18,11 @@
 @set imagetransformext=%extensions%transpect/image-transform-extension;%extensions%transpect/image-transform-extension/lib/*
 @set rngvalidext=%extensions%transpect/rng-extension;%extensions%transpect/rng-extension/lib/*
 @set unzipext=%extensions%transpect/unzip-extension
-@set mathtypeext=%extensions%transpect/mathtype-extension/lib/jruby-complete-9.1.8.0.jar;%extensions%transpect/mathtype-extension/java;%extensions%transpect/mathtype-extension/ruby/ruby-ole-1.2.12.1/lib;%extensions%transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib;%extensions%transpect/mathtype-extension/ruby/bindata-2.3.5/lib;%extensions%transpect/mathtype-extension/ruby/mathtype-0.0.7.4/lib
+@set mathtypeext=%extensions%transpect/mathtype-extension;%extensions%transpect/mathtype-extension/lib/*;%extensions%transpect/mathtype-extension/ruby/bindata-2.3.5/lib;%extensions%transpect/mathtype-extension/ruby/mathtype-0.0.7.4/lib;%extensions%transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib;%extensions%transpect/mathtype-extension/ruby/ruby-ole-1.2.12.1/lib
+
 @set config=%scriptdir%extensions/transpect/transpect-config.xml
 
-@set classpath=%scriptdir%saxon/saxon9he.jar;%distro%lib/;%distro%lib/xmlresolver-0.12.3.jar;%distro%lib/htmlparser-1.4.jar;%distro%xmlcalabash-1.1.15-97.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%rngvalidext%;%unzipext%;%mathtypeext%
+@set classpath=%scriptdir%saxon/saxon9he.jar;%distro%lib/;%distro%lib/xmlresolver-0.12.3.jar;%distro%lib/htmlparser-1.4.jar;%distro%xmlcalabash-1.1.15-96.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%rngvalidext%;%unzipext%;%mathtypeext%
 
 @REM call localdefs batch file to overwrite default values for classpath 
 @REM or xproc-config
