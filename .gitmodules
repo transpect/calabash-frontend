@@ -16,6 +16,3 @@
 [submodule "extensions/transpect/epubcheck-extension"]
 	path = extensions/transpect/epubcheck-extension
 	url = https://github.com/transpect/epubcheck-extension
-[submodule "extensions/transpect/mathtype-extension"]
-	path = extensions/transpect/mathtype-extension
-	url = https://github.com/transpect/mathtype-extension
