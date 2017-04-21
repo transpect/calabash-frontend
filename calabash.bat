@@ -22,7 +22,7 @@
 
 @set config=%scriptdir%extensions/transpect/transpect-config.xml
 
-@set classpath=%scriptdir%saxon/saxon9he.jar;%distro%lib/;%distro%lib/xmlresolver-0.12.3.jar;%distro%lib/htmlparser-1.4.jar;%distro%xmlcalabash-1.1.15-96.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%rngvalidext%;%unzipext%;%mathtypeext%
+@set classpath=%scriptdir%saxon/saxon9he.jar;%rngvalidext%;%distro%lib/;%distro%lib/xmlresolver-0.12.3.jar;%distro%lib/htmlparser-1.4.jar;%distro%xmlcalabash-1.1.15-96.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%
 
 @REM call localdefs batch file to overwrite default values for classpath 
 @REM or xproc-config
