@@ -28,16 +28,14 @@
 @REM or xproc-config
 @if exist {%localdefs%} {call %localdefs%}
 
-
-@java ^
+@set CALABASH=java ^
    -cp %classpath% ^
    -Dfile.encoding=UTF8 ^
-   -Dxml.catalog.files=file:///%scriptdir%xmlcatalog/catalog.xml ^
-   -Dxml.catalog.catalog-class-name=org.apache.xml.resolver.Resolver ^
+   -Dxml.catalog.files="file:///%scriptdir%xmlcatalog/catalog.xml" ^
    -Xmx%heap% -Xss1024k ^
    com.xmlcalabash.drivers.Main ^
    -E org.xmlresolver.Resolver ^
    -U org.xmlresolver.Resolver ^
-   -c %config% ^
-   %*
+   -c %config% 
 
+%CALABASH% %*
