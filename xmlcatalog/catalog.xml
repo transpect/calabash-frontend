@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
 
+  <!-- default URI of transpect projects, override this in the xml catalog of your project -->
+  <rewriteURI uriStartString="http://this.transpect.io/" rewritePrefix="../../"/>
+  
   <!-- Catalog of the importing project: -->
   <nextCatalog catalog="../../xmlcatalog/catalog.xml"/>
 
