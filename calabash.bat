@@ -4,7 +4,9 @@
 @REM variable manually (with forward slashes and with a trailing slash), e.g.
 @REM set scriptdir=C:/Users/joe/myproject/calabash/
 
+@if not defined heap (
 @set heap=1024m
+)
 @set sd=%~dp0
 @set scriptdir=%sd:\=/%
 @set distro=%scriptdir%/distro/
