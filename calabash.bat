@@ -11,8 +11,9 @@
 @set scriptdir=%sd:\=/%
 @set distro=%scriptdir%/distro/
 @set extensions=%scriptdir%/extensions/
-@set adaptionsdir=%scriptdir%/../a9s
-@set localdefs=%adaptionsdir%/common/calabash/localdefs.bat
+@set projectdir=%scriptdir%/../
+@set adaptationsdir=%projectdir%a9s/
+@set localdefs=%adaptationsdir%/common/calabash/localdefs.bat
 
 @set javascriptext=%extensions%transpect/javascript-extension;%extensions%transpect/javascript-extension/lib/*
 @set epubckeckext=%extensions%transpect/epubcheck-extension/;%extensions%transpect/epubcheck-extension/lib/*
@@ -24,7 +25,7 @@
 
 @set config=%scriptdir%extensions/transpect/transpect-config.xml
 
-@set classpath=%scriptdir%saxon/saxon9he.jar;%rngvalidext%;%distro%lib/;%distro%lib/xmlresolver-0.12.3.jar;%distro%lib/htmlparser-1.4.jar;%distro%xmlcalabash-1.1.15-96.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%
+@set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%rngvalidext%;%distro%lib/;%distro%lib/xmlresolver-0.12.3.jar;%distro%lib/htmlparser-1.4.jar;%distro%xmlcalabash-1.1.15-96.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%
 
 @REM call localdefs batch file to overwrite default values for classpath 
 @REM or xproc-config
