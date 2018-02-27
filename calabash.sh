@@ -138,6 +138,7 @@ $JAVA \
    -Dfile.encoding=UTF-8 \
    "-Dxml.catalog.files=$CATALOGS" \
    -Dxml.catalog.staticCatalog=1 \
+   -Djruby.compile.mode=OFF \
    -Duser.language=$UI_LANG \
    $SYSPROPS \
    -Xmx$HEAP -Xss1024k \
