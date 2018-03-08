@@ -9,5 +9,6 @@
   <nextCatalog catalog="../image-props-extension/xmlcatalog/catalog.xml"/>
   <nextCatalog catalog="../epubcheck-extension/xmlcatalog/catalog.xml"/>
   <nextCatalog catalog="../mathtype-extension/xmlcatalog/catalog.xml"/>
-
+  <nextCatalog catalog="../svn-extension/xmlcatalog/catalog.xml"/>
+  
 </catalog>
