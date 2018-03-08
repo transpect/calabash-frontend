@@ -1,15 +1,17 @@
 <xproc-config xmlns="http://xmlcalabash.com/ns/configuration" 
   xmlns:letex="http://www.le-tex.de/namespace" 
   xmlns:tr="http://transpect.io"
+  xmlns:svn="http://transpect.io/svn"
   xmlns:tr-internal="http://transpect.io/internal">
 
-  <implementation type="letex:unzip tr-internal:unzip" class-name="io.transpect.calabash.extensions.UnZip"/>
+  <implementation type="letex:unzip tr-internal:unzip"                class-name="io.transpect.calabash.extensions.UnZip"/>
   <implementation type="letex:validate-with-rng tr:validate-with-rng" class-name="io.transpect.calabash.extensions.ValidateWithRelaxNG"/>
-  <implementation type="letex:image-identify tr:image-identify" class-name="io.transpect.calabash.extensions.ImageIdentify"/>
-  <implementation type="letex:image-transform tr:image-transform" class-name="io.transpect.calabash.extensions.ImageTransform"/>
-  <implementation type="tr:epubcheck" class-name="io.transpect.calabash.extensions.EpubCheckExtension"/>
-  <implementation type="tr:javascript" class-name="io.transpect.calabash.extensions.JavaScriptExtension"/>
-  <implementation type="tr:mtef2xml" class-name="io.transpect.calabash.extensions.Mtef2Xml"/>
+  <implementation type="letex:image-identify tr:image-identify"       class-name="io.transpect.calabash.extensions.ImageIdentify"/>
+  <implementation type="letex:image-transform tr:image-transform"     class-name="io.transpect.calabash.extensions.ImageTransform"/>
+  <implementation type="tr:epubcheck"                                 class-name="io.transpect.calabash.extensions.EpubCheckExtension"/>
+  <implementation type="tr:font-obfuscate"                            class-name="io.transpect.calabash.extensions.FontObfuscate"/>
+  <implementation type="tr:mtef2xml"                                  class-name="io.transpect.calabash.extensions.Mtef2Xml"/>
+  <implementation type="svn:info"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnInfo"/>
   
   <html-parser value="tagsoup"/>
   
