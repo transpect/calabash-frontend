@@ -102,8 +102,9 @@ RNGVALID_EXT="$EXT_BASE/transpect/rng-extension:$EXT_BASE/transpect/rng-extensio
 UNZIP_EXT="$EXT_BASE/transpect/unzip-extension"
 MATHTYPE_EXT="$EXT_BASE/transpect/mathtype-extension:$EXT_BASE/transpect/mathtype-extension/lib/*:$EXT_BASE/transpect/mathtype-extension/ruby/bindata-2.3.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib:$EXT_BASE/transpect/mathtype-extension/ruby/ruby-ole-1.2.12.1/lib"
 MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calabash/lib/javax.mail.jar"
+SVN_EXT="$EXT_BASE/transpect/svn-extension:$EXT_BASE/transpect/svn-extension/lib/*"
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.15-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.15-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
@@ -137,8 +138,8 @@ $JAVA \
    -cp "$CLASSPATH" \
    -Dfile.encoding=UTF-8 \
    "-Dxml.catalog.files=$CATALOGS" \
-   -Dxml.catalog.staticCatalog=1 \
    -Djruby.compile.mode=OFF \
+   -Dxml.catalog.staticCatalog=1 \
    -Duser.language=$UI_LANG \
    $SYSPROPS \
    -Xmx$HEAP -Xss1024k \
