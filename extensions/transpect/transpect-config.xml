@@ -12,6 +12,11 @@
   <implementation type="tr:font-obfuscate"                            class-name="io.transpect.calabash.extensions.FontObfuscate"/>
   <implementation type="tr:mtef2xml"                                  class-name="io.transpect.calabash.extensions.Mtef2Xml"/>
   <implementation type="svn:info"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnInfo"/>
+  <implementation type="svn:mkdir"                                    class-name="io.transpect.calabash.extensions.subversion.XSvnMkDir"/>
+  <implementation type="svn:delete"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnDelete"/>
+  <implementation type="svn:add"                                      class-name="io.transpect.calabash.extensions.subversion.XSvnAdd"/>
+  <implementation type="svn:commit"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnCommit"/>
+  <implementation type="svn:update"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnUpdate"/>
   
   <html-parser value="tagsoup"/>
   
