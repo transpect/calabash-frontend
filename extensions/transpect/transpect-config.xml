@@ -11,6 +11,7 @@
   <implementation type="tr:epubcheck"                                 class-name="io.transpect.calabash.extensions.EpubCheckExtension"/>
   <implementation type="tr:font-obfuscate"                            class-name="io.transpect.calabash.extensions.FontObfuscate"/>
   <implementation type="tr:mtef2xml"                                  class-name="io.transpect.calabash.extensions.Mtef2Xml"/>
+  <implementation type="tr:javascript"                                class-name="io.transpect.calabash.extensions.JavaScriptExtension"/>
   <implementation type="svn:info"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnInfo"/>
   <implementation type="svn:mkdir"                                    class-name="io.transpect.calabash.extensions.subversion.XSvnMkDir"/>
   <implementation type="svn:delete"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnDelete"/>
