@@ -94,15 +94,18 @@ SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 # to CLASSPATH by default, expecting saxon-license.lic to reside there.
 
 # The class paths of the custom Calabash extension steps
-IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/*"
-IMAGETRANSFORM_EXT="$EXT_BASE/transpect/image-transform-extension::$EXT_BASE/transpect/image-transform-extension/lib/*"
-JAVASCRIPT_EXT="$EXT_BASE/transpect/javascript-extension:$EXT_BASE/transpect/javascript-extension/lib/*"
-EPUBCHECK_EXT="$EXT_BASE/transpect/epubcheck-extension:$EXT_BASE/transpect/epubcheck-extension/lib/*"
+IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/"
+IMAGETRANSFORM_EXT="$EXT_BASE/transpect/image-transform-extension::$EXT_BASE/transpect/image-transform-extension/lib/"
+JAVASCRIPT_EXT="$EXT_BASE/transpect/javascript-extension:$EXT_BASE/transpect/javascript-extension/lib/"
+EPUBCHECK_EXT="$EXT_BASE/transpect/epubcheck-extension:$EXT_BASE/transpect/epubcheck-extension/lib/"
 RNGVALID_EXT="$EXT_BASE/transpect/rng-extension:$EXT_BASE/transpect/rng-extension/lib/jing.jar"
 UNZIP_EXT="$EXT_BASE/transpect/unzip-extension"
-MATHTYPE_EXT="$EXT_BASE/transpect/mathtype-extension:$EXT_BASE/transpect/mathtype-extension/lib/*:$EXT_BASE/transpect/mathtype-extension/ruby/bindata-2.3.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib:$EXT_BASE/transpect/mathtype-extension/ruby/ruby-ole-1.2.12.1/lib"
-MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calabash/lib/javax.mail.jar"
-SVN_EXT="$EXT_BASE/transpect/svn-extension:$EXT_BASE/transpect/svn-extension/lib/*"
+MATHTYPE_EXT="$EXT_BASE/transpect/mathtype-extension:$EXT_BASE/transpect/mathtype-extension/lib/:$EXT_BASE/transpect/mathtype-extension/ruby/bindata-2.3.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib:$EXT_BASE/transpect/mathtype-extension/ruby/ruby-ole-1.2.12.1/lib"
+SVN_EXT="$EXT_BASE/transpect/svn-extension:$EXT_BASE/transpect/svn-extension/lib/"
+# javax issue with java 9
+if ! java -version 2>&1 | grep -q 'version "9.'; then
+    MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calabash/lib/javax.mail.jar"
+fi
 
 CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.15-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$CLASSPATH"
 
