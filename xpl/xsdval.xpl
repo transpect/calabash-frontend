@@ -25,8 +25,6 @@
     <p:documentation>Whether to throw an error when validation fails.</p:documentation>
   </p:option>
 
-  <p:import href="http://xmlcalabash.com/extension/steps/library-1.0.xpl" />
-
   <p:variable name="var-file-uri" select="base-uri()"/>
 
   <p:try name="validate">
