@@ -16,3 +16,7 @@
 [submodule "extensions/transpect/mathtype-extension"]
 	path = extensions/transpect/mathtype-extension
 	url = https://github.com/transpect/mathtype-extension
+[submodule "distro"]
+	path = distro
+	url = https://github.com/transpect/calabash-distro
+	branch = saxon98
