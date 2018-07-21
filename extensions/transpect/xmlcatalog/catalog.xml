@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" xml:base=".">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
 
   <uri name="http://transpect.le-tex.de/calabash-extensions/ltx-lib.xpl" uri="../transpect-lib.xpl"/>
   <uri name="http://transpect.io/calabash-extensions/transpect-lib.xpl" uri="../transpect-lib.xpl"/>
