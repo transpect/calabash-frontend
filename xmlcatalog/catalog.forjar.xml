@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <!-- This is a modified variant of https://github.com/transpect/calabash-frontend/blob/master/xmlcatalog/catalog.xml
+       that is meant for inclusion in a jar at the location /META-INF/catalog.xml
+       The Jar must also contain aforementioned repo calabash-frontend as calabash,
+       and standard transpect directories/files such as a9s and xmlcatalog/catalog.xml
+ -->
+  
+  <!-- default URI of transpect projects, override this in the xml catalog of your project -->
+  <rewriteURI uriStartString="http://this.transpect.io/" rewritePrefix="../"/>
+  
+  <!-- Catalog of the importing project: -->
+  <nextCatalog catalog="../xmlcatalog/catalog.xml"/>
+
+  <!-- resolve xml catalogs -->
+<!--  <nextCatalog catalog="../calabash/distro/schemas/xmlcatalog/catalog.xml"/>-->
+<!--<rewriteURI uriStartString="http://foo.bar/" rewritePrefix="../calabash/extensions/transpect/"/>-->
+  <!-- transpect extensions (unzip, rng, image-props): -->
+  <nextCatalog catalog="../calabash/extensions/transpect/xmlcatalog/catalog.xml"/>
+
+  <nextCatalog catalog="../calabash/schemas/xmlcatalog/catalog.xml"/>
+
+  <!-- Default location for Calabash extensions in importing projects (legacy naming): -->
+  <nextCatalog catalog="../a9s/common/calabash/catalog.xml"/>
+  <!-- Default location for Calabash extensions. The following catalog is project-specific.
+	 If there are other extensions, it should import their catalogs via nextCatalog. -->
+  <nextCatalog catalog="../calabash/extensions/xmlcatalog/catalog.xml"/>
+
+  <uri name="http://xmlcalabash.com/extension/steps/library-1.0.xpl" uri="../calabash/extensions/calabash/library-1.0.xpl"/>
+  <uri name="http://transpect.io/xsdval.xpl" uri="../calabash/xpl/xsdval.xpl"/>
+  
+</catalog>
