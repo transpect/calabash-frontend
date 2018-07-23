@@ -8,22 +8,27 @@ win_path = $(shell readlink -m "$(1)")
 uri = $(shell echo file:$(abspath $(1))  | sed -r 's/ /%20/g')
 endif
 
-JAVAC		= javac
+# Override these variables by declaring them before you include this Makefile from your project’s Makefile.
+JAVAC		?= javac
 # Since this Makefile will be included, the . directory will be your transpect project directory:
-TR_PROJ		= .
-BUILD_DIR	= $(TR_PROJ)/build
-OUT_DIR		= $(TR_PROJ)/jar
+TR_PROJ		?= .
+BUILD_DIR	?= $(TR_PROJ)/build
 # All non-jar files in these directories (relative to the parent directory, i.e., the transpect project dir)
 # will be copied to the build directory. Overwrite in your Makefile.
-DIRS            = calabash a9s cascade conf htmlreports schema schematron xmlcatalog xpl xproc-util xsl xslt-util
+DIRS            ?= calabash a9s cascade conf htmlreports schema schematron xmlcatalog xpl xproc-util xsl xslt-util
 MAIN_CLASS	?= MyWrapper
-WRAPPER_DIR	= $(TR_PROJ)/JarWrapper
+WRAPPER_DIR	?= $(TR_PROJ)/JarWrapper
 # Assuming that it is in no package for the time being:
-MAIN_CLASS_FILE	= $(WRAPPER_DIR)/src/$(MAIN_CLASS).class
-JAR_MANIFEST	= $(WRAPPER_DIR)/src/Manifest.txt
+MAIN_CLASS_FILE	?= $(WRAPPER_DIR)/src/$(MAIN_CLASS).class
+JAR_MANIFEST	?= $(WRAPPER_DIR)/src/Manifest.txt
+
+# These variables pertain to contents of this calabash-frontend repo and should not need be overwritten in your project:
+PATCHES_DIR	= $(MAKEFILEDIR)/patches/monolithic-jar-builder/java
+PATCHED_CLASSES	= $(addprefix $(PATCHES_DIR)/,com/xmlcalabash/io/URLDataStore.class)
 DISTRO		= $(MAKEFILEDIR)/distro
 TR_EXT		= $(MAKEFILEDIR)/extensions/transpect
-# We omit jing-2009111.jar from CALABASH_JARS since a patched jing.jar is contained in RNG_EXTENSION_JARS
+# We omit jing-2009111.jar from CALABASH_JARS since a patched jing.jar is contained in RNG_EXTENSION_JARS.
+# This one is needed for parsing the command line options of the resulting monolithic Jar:
 WRAPPER_JARS	= $(MAKEFILEDIR)/lib/commons-cli-1.4.jar
 CALABASH_JARS	=  $(DISTRO)/lib/ant-1.9.4.jar \
  $(DISTRO)/lib/ant-launcher-1.9.4.jar \
@@ -60,10 +65,12 @@ SAXON_JARS		= $(MAKEFILEDIR)/saxon/saxon9he.jar
 RNG_EXTENSION_JARS	= $(TR_EXT)/rng-extension/jar/ValidateWithRelaxNG.jar \
  $(TR_EXT)/rng-extension/lib/jing.jar
 UNZIP_EXTENSION_JARS	= $(TR_EXT)/unzip-extension/jar/UnZip.jar
-# This also needs to be configured in the including Makefile:
-JARS			= $(WRAPPER_JARS) $(CALABASH_JARS) $(SAXON_JARS) $(RNG_EXTENSION_JARS) $(UNZIP_EXTENSION_JARS)
+# More extensions will go here...
 
-.PHONY: build_jar clean unzip_jars copy_dirs
+# This variable may be configured again in the including Makefile:
+JARS			?= $(WRAPPER_JARS) $(CALABASH_JARS) $(SAXON_JARS) $(RNG_EXTENSION_JARS) $(UNZIP_EXTENSION_JARS)
+
+.PHONY: build_jar clean unzip_jars copy_dirs monolithic_jar_patches
 
 usage_jarbuild:
 	@echo "The purpose of this Makefile is to build a monolithic Jar of your transpect project."
@@ -76,7 +83,7 @@ usage_jarbuild:
 	@echo "Some customization (overwriting the JARS, DIRS, and MAIN_CLASS variables, for example) will be inevitable."
 	@echo "You need to create a source file for the main class in the first place. There is no public example yet."
 
-build_jar: $(BUILD_DIR) unzip_jars $(MAIN_CLASS_FILE) copy_dirs $(BUILD_DIR)/META-INF/catalog.xml
+build_jar: $(BUILD_DIR) unzip_jars monolithic_jar_patches $(MAIN_CLASS_FILE) copy_dirs $(BUILD_DIR)/META-INF/catalog.xml
 	jar cfm $(call win_path,$(WRAPPER_DIR)/$(MAIN_CLASS).jar) $(call win_path,$(JAR_MANIFEST)) -C $(call win_path,$(BUILD_DIR)/) .
 
 $(BUILD_DIR):
@@ -86,9 +93,15 @@ $(BUILD_DIR)/META-INF/catalog.xml: $(MAKEFILEDIR)/xmlcatalog/catalog.forjar.xml
 	-mkdir $(dir $@)
 	cp $< $@
 
-%.class: %.java
-# Will be created in no package dir, i.e., in the build directory
+$(BUILD_DIR)/%.class: $(WRAPPER_DIR)/src/%.java
+# Will be created in no package dir, i.e., immediately in the build directory
 	$(JAVAC) -cp '$(call win_path,$(BUILD_DIR))' -Xlint:-options -source 1.7 $< -d '$(call win_path,$(BUILD_DIR))/' -target 1.7
+
+monolithic_jar_patches: $(PATCHED_CLASSES)
+	cd $(MAKEFILEDIR)/patches/monolithic-jar-builder/java && find . -name '*.class' -exec cp -u --parents {} $(abspath $(BUILD_DIR)) \;
+
+%.class: %.java
+	cd $(MAKEFILEDIR)/patches/monolithic-jar-builder/java && $(JAVAC) -cp '$(call win_path,$(BUILD_DIR))' -Xlint:-options -source 1.7 $(call win_path,$<) -target 1.7
 
 unzip_jars: $(JARS)
 	$(foreach jar,$(JARS),unzip -u -n $(jar) -x META-INF/MANIFEST.MF META-INF/INDEX.LIST META-INF/*.SF -d "$(BUILD_DIR)";)
@@ -98,4 +111,5 @@ copy_dirs:
 
 clean:
 	-rm -r $(BUILD_DIR)/*
+	find $(MAKEFILEDIR)/patches/monolithic-jar-builder/java -name '*.class' -exec rm {} \;
 
