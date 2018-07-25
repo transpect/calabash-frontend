@@ -108,7 +108,7 @@ public class URLDataStore implements DataStore {
                     type = "image/jpeg"; break;
                 case "svg" :
                 case "SVG" :
-                    type = "application/octet-stream"; break;
+                    type = "image/svg+xml"; break;
                 default:
                     type = "application/octet-stream";
                 }
