@@ -7,6 +7,9 @@
 @if not defined heap (
 @set heap=1024m
 )
+@if not defined entityexpansionlimit (
+@set entityexpansionlimit=2147483647
+)
 @set sd=%~dp0
 @set scriptdir=%sd:\=/%
 @set distro=%scriptdir%/distro/
@@ -37,6 +40,7 @@
    -cp %classpath% ^
    -Dfile.encoding=UTF8 ^
    -Dxml.catalog.files="file:///%scriptdir%xmlcatalog/catalog.xml" ^
+   -Djdk.xml.entityExpansionLimit=%entityexpansionlimit% ^
    -Xmx%heap% -Xss1024k ^
    com.xmlcalabash.drivers.Main ^
    -E org.xmlresolver.Resolver ^

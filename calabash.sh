@@ -63,6 +63,13 @@ if [ -z $HEAP ]; then
     HEAP=1024m
 fi
 
+if [ -z $ENTITYEXPANSIONLIMIT ]; then
+    # 2**31 - 1
+    # Set to 0 if unlimited, JVM default is probably 64000.
+    # Applies only to source documents with many character entity references.
+    ENTITYEXPANSIONLIMIT=2147483647
+fi
+
 if [ -z $UI_LANG ]; then
     UI_LANG=en
 fi
@@ -135,6 +142,7 @@ if [ "$DEBUG" == "yes" ]; then
        echo "DIR: $DIR"
        echo "CATALOGS: $CATALOGS"
        echo "LOCALDEFS: $LOCALDEFS"
+       echo "ENTITYEXPANSIONLIMIT: $ENTITYEXPANSIONLIMIT"
 fi
 
 $JAVA \
@@ -143,6 +151,7 @@ $JAVA \
    "-Dxml.catalog.files=$CATALOGS" \
    -Djruby.compile.mode=OFF \
    -Dxml.catalog.staticCatalog=1 \
+   -Djdk.xml.entityExpansionLimit=$ENTITYEXPANSIONLIMIT \
    -Duser.language=$UI_LANG \
    $SYSPROPS \
    -Xmx$HEAP -Xss1024k \
