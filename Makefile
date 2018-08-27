@@ -57,7 +57,6 @@ CALABASH_JARS	=  $(DISTRO)/lib/ant-1.9.4.jar \
  $(DISTRO)/lib/relaxngDatatype-20020414.jar \
  $(DISTRO)/lib/slf4j-api-1.7.10.jar \
  $(DISTRO)/lib/tagsoup-1.2.1.jar \
- $(DISTRO)/lib/xmlprojector-1.4.8.jar \
  $(DISTRO)/lib/xmlresolver-0.14.0.jar \
  $(DISTRO)/lib/xsdlib-2013.6.1.jar \
  $(DISTRO)/xmlcalabash-1.1.21-98.jar
