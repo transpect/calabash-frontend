@@ -63,6 +63,10 @@ if [ -z $HEAP ]; then
     HEAP=1024m
 fi
 
+if [ -z $JAVA_FILE_ENCODING ]; then
+    JAVA_FILE_ENCODING=utf-8
+fi
+
 if [ -z $UI_LANG ]; then
     UI_LANG=en
 fi
@@ -139,7 +143,7 @@ fi
 
 $JAVA \
    -cp "$CLASSPATH" \
-   -Dfile.encoding=UTF-8 \
+   -Dfile.encoding=$JAVA_FILE_ENCODING \
    "-Dxml.catalog.files=$CATALOGS" \
    -Djruby.compile.mode=OFF \
    -Dxml.catalog.staticCatalog=1 \
