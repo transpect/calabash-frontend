@@ -20,6 +20,3 @@
 	path = distro
 	url = https://github.com/transpect/calabash-distro
 	branch = saxon98
-[submodule "epubcheck-extension"]
-	path = epubcheck-extension
-	url = https://github.com/transpect/epubcheck-extension
