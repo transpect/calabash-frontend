@@ -118,7 +118,7 @@ if ! java -version 2>&1 | grep -q 'version "9.'; then
     MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calabash/lib/javax.mail.jar"
 fi
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.25-99.jar:$DISTRO/lib/:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.26-99.jar:$DISTRO/lib/:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then

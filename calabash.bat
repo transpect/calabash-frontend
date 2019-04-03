@@ -30,7 +30,7 @@
 
 @set config=%scriptdir%extensions/transpect/transpect-config.xml
 
-@set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%rngvalidext%;%distro%lib/;%mailext%;%distro%xmlcalabash-1.1.25-99.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%
+@set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%rngvalidext%;%distro%lib/;%mailext%;%distro%xmlcalabash-1.1.26-99.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%
 
 @REM call localdefs batch file to overwrite default values for classpath 
 @REM or xproc-config
