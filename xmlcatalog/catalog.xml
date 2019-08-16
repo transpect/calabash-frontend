@@ -23,5 +23,9 @@
 
   <uri name="http://xmlcalabash.com/extension/steps/library-1.0.xpl" uri="../extensions/calabash/library-1.0.xpl"/>
   <uri name="http://transpect.io/xsdval.xpl" uri="../xpl/xsdval.xpl"/>
-  
+
+  <!-- http://transpect.io/subpage does redirect to http://transpect.github.io , not http://transpect.github.io/subpage -->
+  <!-- to avoid a lot of failing requests and blocking by github, redirect to this dir (xmlcatalog)  -->
+  <!-- loading the uri will still fail this way -->
+  <rewriteURI uriStartString="http://transpect.io/" rewritePrefix="empty"/>
 </catalog>
