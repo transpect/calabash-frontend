@@ -24,5 +24,5 @@
   <uri name="http://xmlcalabash.com/extension/steps/library-1.0.xpl" uri="../extensions/calabash/library-1.0.xpl"/>
   <uri name="http://transpect.io/xsdval.xpl" uri="../xpl/xsdval.xpl"/>
   
-  <uri name="http://transpect.io" uri="nonexistent-fallback-resolution"/>
+  <rewriteURI uriStartString="http://transpect.io" rewritePrefix="nonexistent-fallback-resolution"/>
 </catalog>
