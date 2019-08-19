@@ -9,9 +9,6 @@
   <!-- default URI of transpect projects, override this in the xml catalog of your project -->
   <rewriteURI uriStartString="http://this.transpect.io/" rewritePrefix="../"/>
   
-  <!-- Catalog of the importing project: -->
-  <nextCatalog catalog="../xmlcatalog/catalog.xml"/>
-
   <!-- resolve xml catalogs -->
 <!--  <nextCatalog catalog="../calabash/distro/schemas/xmlcatalog/catalog.xml"/>-->
 <!--<rewriteURI uriStartString="http://foo.bar/" rewritePrefix="../calabash/extensions/transpect/"/>-->
@@ -29,5 +26,17 @@
   <uri name="http://xmlcalabash.com/extension/steps/library-1.0.xpl" uri="../calabash/extensions/calabash/library-1.0.xpl"/>
   <uri name="http://transpect.io/xsdval.xpl" uri="../calabash/xpl/xsdval.xpl"/>
   
+  <!-- Catalog of the importing project. Must come next-to-last, before the catalog that nils http://transpect.io
+  as a fallback, that is, it maps http://transpect.io to a non-existent local URI.
+  A similar nextCatalog entry should be present as the last entry in this imported project catalog. 
+  The reason is that the XSLT-based catalog resolver defaults to reading the project’s catalog. 
+  This is because libraries that use the XSLT-based catalog resolver shouldn’t import a catalog that is specific 
+  to an XProc processor, like the one that is imported last from this Calabash-specific catalog. 
+  A default catalog is available at https://github.com/transpect/xslt-util/blob/master/xmlcatalog/transpect.io.catalog.xml. 
+  If you use xslt-util as a submodule or external below the project’s main directory, you can import this catalog with
+  <nextCatalog catalog="../xslt-util/xmlcatalog/transpect.io.catalog.xml"/>
+  from your project’s catalog. -->
+  <nextCatalog catalog="../xmlcatalog/catalog.xml"/>
+
   <nextCatalog catalog="transpect.io.catalog.xml"/>
 </catalog>
