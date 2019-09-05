@@ -20,3 +20,4 @@
 	path = distro
 	url = https://github.com/transpect/calabash-distro
 	branch = saxon98
+        update = rebase
