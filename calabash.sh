@@ -93,7 +93,9 @@ if [ -z $SAXON_JAR ]; then
 	SAXON_JAR=$DIR/saxon/saxon9he.jar
     fi
 fi
-SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
+if [ -z $SAXON_PROCESSOR ]; then
+    SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
+fi
 # If you want to use Saxon PE or EE, you'll have to specify SAXON_JAR in your localdefs.sh
 # or as an environment variable. You also need to prepend the directory that contains
 # saxon-license.lic to CLASSPATH.
@@ -103,6 +105,9 @@ SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 # Since this Saxon PE repo is public, the license file has to be supplied by different means.
 # Supposing that $ADAPTATIONS_DIR/common/saxon/ stems from a privately hosted repo, it is added
 # to CLASSPATH by default, expecting saxon-license.lic to reside there.
+# If you need a Saxon configuration file, you can prepend, for ex.,
+# SAXON_PROCESSOR="--saxon-configuration a9s/common/calabash/saxon-conf.xml"
+# to the calabash/calabash.sh invocation.
 
 # The class paths of the custom Calabash extension steps
 IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/xmlgraphics-commons-1.5.jar:$EXT_BASE/transpect/image-props-extension/lib/commons-imaging-1.0-SNAPSHOT.jar"
@@ -167,3 +172,4 @@ $JAVA \
    -c $CFG \
    $PIPERACK_PORT \
    "$@"
+
