@@ -93,7 +93,7 @@ if [ -z $SAXON_JAR ]; then
 	SAXON_JAR=$DIR/saxon/saxon9he.jar
     fi
 fi
-if [ -z $SAXON_PROCESSOR ]; then
+if [ -z "$SAXON_PROCESSOR" ]; then
     SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 fi
 # If you want to use Saxon PE or EE, you'll have to specify SAXON_JAR in your localdefs.sh
