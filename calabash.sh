@@ -67,6 +67,13 @@ if [ -z $JAVA_FILE_ENCODING ]; then
     JAVA_FILE_ENCODING=utf-8
 fi
 
+if [ -z $ENTITYEXPANSIONLIMIT ]; then
+    # 2**31 - 1
+    # Set to 0 if unlimited, JVM default is probably 64000.
+    # Applies only to source documents with many character entity references.
+    ENTITYEXPANSIONLIMIT=2147483647
+fi
+
 if [ -z $UI_LANG ]; then
     UI_LANG=en
 fi
@@ -86,7 +93,9 @@ if [ -z $SAXON_JAR ]; then
 	SAXON_JAR=$DIR/saxon/saxon9he.jar
     fi
 fi
-SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
+if [ -z "$SAXON_PROCESSOR" ]; then
+    SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
+fi
 # If you want to use Saxon PE or EE, you'll have to specify SAXON_JAR in your localdefs.sh
 # or as an environment variable. You also need to prepend the directory that contains
 # saxon-license.lic to CLASSPATH.
@@ -96,9 +105,12 @@ SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 # Since this Saxon PE repo is public, the license file has to be supplied by different means.
 # Supposing that $ADAPTATIONS_DIR/common/saxon/ stems from a privately hosted repo, it is added
 # to CLASSPATH by default, expecting saxon-license.lic to reside there.
+# If you need a Saxon configuration file, you can prepend, for ex.,
+# SAXON_PROCESSOR="--saxon-configuration a9s/common/calabash/saxon-conf.xml"
+# to the calabash/calabash.sh invocation.
 
 # The class paths of the custom Calabash extension steps
-IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/xmlgraphics-commons-1.5.jar:$EXT_BASE/transpect/image-props-extension/lib/commons-imaging-1.0-SNAPSHOT.jar"
+IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/xmlgraphics-commons-1.5.jar:$EXT_BASE/transpect/image-props-extension/lib/commons-imaging-1.0-alpha1.jar"
 IMAGETRANSFORM_EXT="$EXT_BASE/transpect/image-transform-extension:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-image-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-io-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-lang-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-core-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-jpeg-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-metadata-3.2-SNAPSHOT.jar"
 JAVASCRIPT_EXT="$EXT_BASE/transpect/javascript-extension:$EXT_BASE/transpect/javascript-extension/lib/rhino-1.7.8.jar:$EXT_BASE/transpect/javascript-extension/lib/trireme.0.9.1.jar"
 EPUBCHECK_EXT="$EXT_BASE/transpect/epubcheck-extension:$EXT_BASE/transpect/epubcheck-extension/lib"
@@ -111,7 +123,7 @@ if ! java -version 2>&1 | grep -q 'version "9.'; then
     MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calabash/lib/javax.mail.jar"
 fi
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.15-96.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.12.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/xmlprojector-1.4.8.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.26-99.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-1.0.1.jar:$DISTRO/lib/commons-fileupload-1.3.3.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
@@ -139,6 +151,7 @@ if [ "$DEBUG" == "yes" ]; then
        echo "DIR: $DIR"
        echo "CATALOGS: $CATALOGS"
        echo "LOCALDEFS: $LOCALDEFS"
+       echo "ENTITYEXPANSIONLIMIT: $ENTITYEXPANSIONLIMIT"
 fi
 
 $JAVA \
@@ -147,6 +160,7 @@ $JAVA \
    "-Dxml.catalog.files=$CATALOGS" \
    -Djruby.compile.mode=OFF \
    -Dxml.catalog.staticCatalog=1 \
+   -Djdk.xml.entityExpansionLimit=$ENTITYEXPANSIONLIMIT \
    -Duser.language=$UI_LANG \
    $SYSPROPS \
    -Xmx$HEAP -Xss1024k \
@@ -158,3 +172,4 @@ $JAVA \
    -c $CFG \
    $PIPERACK_PORT \
    "$@"
+
