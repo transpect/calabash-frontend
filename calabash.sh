@@ -124,7 +124,7 @@ if ! java -version 2>&1 | grep -q 'version "9.'; then
 fi
 JAF="$DIR/lib/commons-cli-1.4.jar:$DIR/lib/javax.activation-api.jar"
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.22-98.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.14.0.jar:$DISTRO/lib/commons-fileupload-1.3.3.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.26-99.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.14.0.jar:$DISTRO/lib/commons-fileupload-1.3.3.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
