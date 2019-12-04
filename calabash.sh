@@ -37,7 +37,7 @@ if [ ! -d $ADAPTATIONS_DIR ]; then
     ADAPTATIONS_DIR="$PROJECT_DIR/a9s"
 fi
 if [ -z $LOCALDEFS ]; then
-    LOCALDEFS="$ADAPTATIONS_DIR/common/calabash/localdefs.sh"
+    LOCALDEFS="$ADAPTATIONS_DIR/*/calabash/localdefs.sh"
 fi
 
 DRIVER=Main
