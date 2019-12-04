@@ -13,7 +13,7 @@
 @set extensions=%scriptdir%/extensions/
 @set projectdir=%scriptdir%/../
 @set adaptationsdir=%projectdir%a9s/
-@set localdefs=%adaptationsdir%/*/calabash/localdefs.bat
+@set localdefs=%adaptationsdir%/common/calabash/localdefs.bat
 
 @set javascriptext=%extensions%transpect/javascript-extension;%extensions%transpect/javascript-extension/lib/*
 @set epubckeckext=%extensions%transpect/epubcheck-extension/;%extensions%transpect/epubcheck-extension/lib/*
