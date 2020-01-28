@@ -119,10 +119,14 @@ UNZIP_EXT="$EXT_BASE/transpect/unzip-extension"
 MATHTYPE_EXT="$EXT_BASE/transpect/mathtype-extension:$EXT_BASE/transpect/mathtype-extension/lib/jruby-complete-9.1.8.0.jar:$EXT_BASE/transpect/mathtype-extension/ruby/bindata-2.3.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib:$EXT_BASE/transpect/mathtype-extension/ruby/ruby-ole-1.2.12.1/lib"
 SVN_EXT="$EXT_BASE/transpect/svn-extension:$EXT_BASE/transpect/svn-extension/lib/antlr-runtime-3.4.jar:$EXT_BASE/transpect/svn-extension/lib/jna-4.1.0.jar:$EXT_BASE/transpect/svn-extension/lib/jna-platform-4.1.0.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.connector-factory-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.core-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.pageant-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.sshagent-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.svnkit-trilead-ssh2-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.usocket-jna-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.usocket-nc-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/sequence-library-1.0.3.jar:$EXT_BASE/transpect/svn-extension/lib/sqljet-1.1.11.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-1.9.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-cli-1.9.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.9.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.9.1-javadoc.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.9.1-sources.jar:$EXT_BASE/transpect/svn-extension/lib/trilead-ssh2-1.0.0-build221.jar"
 # javax issue with java 9
-if ! java -version 2>&1 | grep -q 'version "9.'; then
+if ! java -version 2>&1 | grep -q 'version "\(9\|13\).'; then
     MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calabash/lib/javax.mail.jar"
 fi
-
+if java -version 2>&1 | grep -q 'version "11'; then
+    echo Java 11 will not work. Upgrade to 13 or downgrade to 8 or 9.
+    exit 1
+fi
+    
 CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.1.22-98.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-0.14.0.jar:$DISTRO/lib/commons-fileupload-1.3.3.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$CLASSPATH"
 
 OSDIR=$DIR
