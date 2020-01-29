@@ -3,7 +3,9 @@
 @REM in Windows versions prior to Windows 7. You need to set the scriptdir
 @REM variable manually (with forward slashes and with a trailing slash), e.g.
 @REM set scriptdir=C:/Users/joe/myproject/calabash/
-
+@if not defined entityexpansionlimit (
+@set entityexpansionlimit=2147483647
+)
 @if not defined heap (
 @set heap=1024m
 )
@@ -27,7 +29,7 @@ set svnext=%extensions%transpect/svn-extension
 @set jaf=%scriptdir%/lib/javax.activation.jar
 @set config=%scriptdir%extensions/transpect/transpect-config.xml
 
-@set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%rngvalidext%;%distro%lib/;%distro%lib/xmlresolver-0.12.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.1.26-99.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
+@set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%rngvalidext%;%distro%lib/;%distro%lib/xmlresolver-0.14.0.jar;%distro%lib/commons-fileupload-1.3.3.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.1.22-98.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
 
 @REM call localdefs batch file to overwrite default values for classpath 
 @REM or xproc-config
@@ -36,7 +38,9 @@ set svnext=%extensions%transpect/svn-extension
 @set CALABASH=java ^
    -cp %classpath% ^
    -Dfile.encoding=UTF8 ^
+   -Dsun.jnu.encoding=UTF-8 ^
    -Dxml.catalog.files="file:///%scriptdir%xmlcatalog/catalog.xml" ^
+   -Djdk.xml.entityExpansionLimit=%entityexpansionlimit% ^
    -Xmx%heap% -Xss1024k ^
    com.xmlcalabash.drivers.Main ^
    -E org.xmlresolver.Resolver ^
