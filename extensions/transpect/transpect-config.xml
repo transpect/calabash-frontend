@@ -2,6 +2,7 @@
   xmlns:letex="http://www.le-tex.de/namespace" 
   xmlns:tr="http://transpect.io"
   xmlns:svn="http://transpect.io/svn"
+  xmlns:cx="http://xmlcalabash.com/ns/extensions"
   xmlns:tr-internal="http://transpect.io/internal">
 
   <implementation type="letex:unzip tr-internal:unzip"                class-name="io.transpect.calabash.extensions.UnZip"/>
@@ -20,7 +21,8 @@
   <implementation type="svn:update"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnUpdate"/>
   <implementation type="svn:checkout"                                 class-name="io.transpect.calabash.extensions.subversion.XSvnCheckout"/>
   <implementation type="svn:list"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnList"/>
-  
+  <implementation type="cx:send-mail"                                 class-name="com.xmlcalabash.extensions.SendMail"/>
+
   <html-parser value="tagsoup"/>
   
 </xproc-config>
