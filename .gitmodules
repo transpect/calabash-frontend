@@ -19,3 +19,6 @@
 [submodule "extensions/transpect/mathtype-extension"]
 	path = extensions/transpect/mathtype-extension
 	url = https://github.com/transpect/mathtype-extension
+[submodule "extensions/transpect/svn-extension"]
+	path = extensions/transpect/svn-extension
+	url = https://github.com/transpect/svn-extension
