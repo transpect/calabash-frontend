@@ -19,6 +19,7 @@
   <implementation type="svn:commit"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnCommit"/>
   <implementation type="svn:update"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnUpdate"/>
   <implementation type="svn:checkout"                                 class-name="io.transpect.calabash.extensions.subversion.XSvnCheckout"/>
+  <implementation type="svn:list"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnList"/>
   
   <html-parser value="tagsoup"/>
   
