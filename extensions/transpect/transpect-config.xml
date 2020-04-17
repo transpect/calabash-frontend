@@ -18,6 +18,7 @@
   <implementation type="svn:delete"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnDelete"/>
   <implementation type="svn:add"                                      class-name="io.transpect.calabash.extensions.subversion.XSvnAdd"/>
   <implementation type="svn:commit"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnCommit"/>
+  <implementation type="svn:copy"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnCopy"/>
   <implementation type="svn:update"                                   class-name="io.transpect.calabash.extensions.subversion.XSvnUpdate"/>
   <implementation type="svn:checkout"                                 class-name="io.transpect.calabash.extensions.subversion.XSvnCheckout"/>
   <implementation type="svn:list"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnList"/>
