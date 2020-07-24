@@ -64,7 +64,7 @@ if [ -z $HEAP ]; then
 fi
 
 if [ -z $JAVA_FILE_ENCODING ]; then
-    JAVA_FILE_ENCODING=utf-8
+    JAVA_FILE_ENCODING=UTF8
 fi
 
 if [ -z $ENTITYEXPANSIONLIMIT ]; then
@@ -110,7 +110,7 @@ fi
 # to the calabash/calabash.sh invocation.
 
 # The class paths of the custom Calabash extension steps
-IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/xmlgraphics-commons-1.5.jar:$EXT_BASE/transpect/image-props-extension/lib/commons-imaging-1.0-alpha1.jar"
+IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/xmlgraphics-commons-1.5.jar:$EXT_BASE/transpect/image-props-extension/lib/commons-imaging-1.0-alpha1.jar:$EXT_BASE/transpect/image-props-extension/lib/metadata-extractor-2.14.0.jar:$EXT_BASE/transpect/image-props-extension/lib/xmpcore-6.0.6.jar"
 IMAGETRANSFORM_EXT="$EXT_BASE/transpect/image-transform-extension:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-image-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-io-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-lang-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-core-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-jpeg-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-metadata-3.2-SNAPSHOT.jar"
 JAVASCRIPT_EXT="$EXT_BASE/transpect/javascript-extension:$EXT_BASE/transpect/javascript-extension/lib/rhino-1.7.8.jar:$EXT_BASE/transpect/javascript-extension/lib/trireme.0.9.1.jar"
 EPUBCHECK_EXT="$EXT_BASE/transpect/epubcheck-extension:$EXT_BASE/transpect/epubcheck-extension/lib"
