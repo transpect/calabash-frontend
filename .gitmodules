@@ -21,3 +21,6 @@
 	url = https://github.com/transpect/calabash-distro
 	branch = saxon98
         update = rebase
+[submodule "extensions/transpect/svn-extension"]
+	path = extensions/transpect/svn-extension
+	url = https://github.com/transpect/svn-extension
