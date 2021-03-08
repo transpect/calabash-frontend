@@ -1,3 +1,5 @@
+@setlocal ENABLEDELAYEDEXPANSION
+@set escapedspace=%%20
 
 @REM The variable %~dp0 (the current script's directory) is not available
 @REM in Windows versions prior to Windows 7. You need to set the scriptdir
@@ -11,6 +13,7 @@
 )
 @set sd=%~dp0
 @set scriptdir=%sd:\=/%
+@set scriptdir_uri=file:///%scriptdir: =!escapedspace!%
 @set distro=%scriptdir%/distro/
 @set extensions=%scriptdir%/extensions/
 @set projectdir=%scriptdir%/../
@@ -36,15 +39,15 @@ set svnext=%extensions%transpect/svn-extension
 @if exist {%localdefs%} {call %localdefs%}
 
 @set CALABASH=java ^
-   -cp %classpath% ^
+   -cp "%classpath%" ^
    -Dfile.encoding=UTF8 ^
    -Dsun.jnu.encoding=UTF-8 ^
-   -Dxml.catalog.files="file:///%scriptdir%xmlcatalog/catalog.xml" ^
+   -Dxml.catalog.files=%scriptdir_uri%xmlcatalog/catalog.xml ^
    -Djdk.xml.entityExpansionLimit=%entityexpansionlimit% ^
    -Xmx%heap% -Xss1024k ^
    com.xmlcalabash.drivers.Main ^
    -E org.xmlresolver.Resolver ^
    -U org.xmlresolver.Resolver ^
-   -c %config% 
+   -c "%config%"
 
 %CALABASH% %*
