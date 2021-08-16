@@ -1,0 +1,173 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>cx:mathml-to-svg</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="cx-java-properties.html" title="cx:java-properties"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="cx:message" href="cx-message.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <article id="cx-mathml-to-svg" class="refentry">
+                  <div class="content">
+                     <div class="refnamediv">
+                        <h2>Name</h2>
+                        <p><span class="refname">cx:mathml-to-svg</span><span class="refpurpose"><span class="refpurpose-sep"> — </span><span class="refpurpose-text">Convert MathML to SVG</span><span class="refpurpose-punc">.</span></span></p>
+                     </div>
+                     <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="refsynopsisdiv">
+                        <h2>Synopsis</h2>
+                        <p class="element-syntax element-syntax-declare-step-opt"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cx:mathml-to-svg</code><code>"</code> <code class="attr xmlns-attr">xmlns:cx</code><code>="</code><code class="value xmlns-value">http://xmlcalabash.com/ns/extensions</code><code>"</code><code>&gt;</code></span><br />     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">false</code><code>"</code><code>/&gt;</code></span><br />     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">parameters</code><code>"</code> <code class="attr kind-attr">kind</code><code>="</code><code class="value kind-value">parameter</code><code>"</code><code>/&gt;</code></span><br />     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">false</code><code>"</code><code>/&gt;</code></span><br /><code>&lt;/p:declare-step&gt;</code></p>
+                        <p>Introduced in 
+                           <productname>XML Calabash</productname> version 1.0.25.</p>
+                     </div>
+                     <div class="refsection">
+                        <div class="refsection-titlepage">
+                           <h2>Description</h2>
+                        </div>
+                        <div class="content">
+                           
+                           
+                           
+                           <p>This step is a wrapper for the
+                              <a href="http://jeuclid.sourceforge.net/">JEuclid</a>
+                              library. It converts MathML markup to SVG.</p>
+                           
+                           
+                           <p>The following parameters are recognized:
+                              <span class="simplelist"><span class="member">antialias</span>, <span class="member">antialias-minsize</span>, <span class="member">debug</span>, <span class="member">display</span>, <span class="member">fonts-doublestruck</span>, <span class="member">fonts-fraktur</span>, <span class="member">fonts-monospaced</span>, <span class="member">fonts-sansserif</span>, <span class="member">fonts-script</span>, <span class="member">fonts-serif</span>, <span class="member">mathbackground</span>, <span class="member">mathcolor</span>, <span class="member">mathsize</span>, <span class="member">mfrac-keep-scriptlevel</span>, <span class="member">scriptlevel</span>, <span class="member">scriptminsize</span>, <span class="member">scriptsizemultiplie</span></span>. They map to the underlying JEuclid parameters
+                              in the obvious way. The string value specified for each parameter is
+                              interpreted directly by JEuclid through the
+                              <code class="methodname">fromString</code> method.
+                              </p>
+                           
+                           
+                           <p>Here's an example:</p>
+                           
+                           
+                           <pre class="programlisting language-none line-numbers"><code>&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;
+&lt;apply&gt;
+  &lt;int/&gt;
+  &lt;bvar&gt;
+    &lt;ci&gt;x&lt;/ci&gt;
+  &lt;/bvar&gt;
+  &lt;interval&gt;
+    &lt;ci&gt;a&lt;/ci&gt;
+    &lt;ci&gt;b&lt;/ci&gt;
+  &lt;/interval&gt;
+  &lt;apply&gt;&lt;cos/&gt;
+    &lt;ci&gt;x&lt;/ci&gt;
+  &lt;/apply&gt;
+&lt;/apply&gt;
+&lt;/math&gt;</code></pre>
+                           
+                           
+                           <p>Running this through <code class="tag-element">cx:mathml-to-svg</code> with a
+                              “mathsize” parameter of “25f” produces:</p>
+                           
+                           
+                           <figure id="cx-mathml-to-svg.4.7" class="equation-wrapper">
+                              <div class="equation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" stroke-dasharray="none" shape-rendering="auto" font-family="'Dialog'" width="125" text-rendering="auto" fill-opacity="1" contentScriptType="text/ecmascript" color-interpolation="auto" color-rendering="auto" preserveAspectRatio="xMidYMid meet" font-size="12" fill="black" stroke="black" image-rendering="auto" stroke-miterlimit="10" zoomAndPan="magnify" version="1.0" stroke-linecap="square" stroke-linejoin="miter" contentStyleType="text/css" font-style="normal" height="42" stroke-width="1" stroke-dashoffset="0" font-weight="normal" stroke-opacity="1"><!--Converted from MathML using JEuclid-->
+                                    <defs id="genericDefs"></defs>
+                                    <g>
+                                       <g text-rendering="optimizeLegibility" transform="translate(-0.6875,30.8117) matrix(1,0,0,1.0346,0,0)" color-rendering="optimizeQuality" color-interpolation="linearRGB" image-rendering="optimizeQuality">
+                                          <path d="M4.5625 3.8438 Q6.1094 3.8438 6.3125 -6.2344 Q6.3438 -7.8281 6.3594 -8.6562 Q6.5312 -16.2031 7.9219 -19.4531 Q9.3125 -22.7031 12.2812 -22.7031 Q13.4531 -22.7031 14.1719 -22.0781 Q14.9062 -21.4688 14.9062 -20.5156 Q14.9062 -19.7344 14.4375 -19.2656 Q13.9688 -18.8125 13.1719 -18.8125 Q12.5469 -18.8125 12.1406 -19.0781 Q11.7344 -19.3594 11.5625 -19.875 Q11.4688 -20.0938 11.4062 -20.625 Q11.3438 -21.1562 11.1094 -21.1562 Q9.5312 -21.1562 9.3281 -12.0781 Q9.2656 -9.2656 9.2188 -7.6406 Q8.9688 -0.625 7.5781 2.4062 Q6.2031 5.4375 3.3281 5.4375 Q2.1719 5.4375 1.4219 4.8281 Q0.6875 4.2188 0.6875 3.2656 Q0.6875 2.4531 1.1875 1.9844 Q1.6875 1.5312 2.5781 1.5312 Q3.0625 1.5312 3.4062 1.7344 Q3.7656 1.9531 3.9844 2.3594 Q4.125 2.625 4.2031 3.2344 Q4.2812 3.8438 4.5625 3.8438 Z" stroke="none"></path>
+                                       </g>
+                                       <g text-rendering="optimizeLegibility" transform="translate(14.2188,41.1094)" color-rendering="optimizeQuality" color-interpolation="linearRGB" image-rendering="optimizeQuality">
+                                          <path d="M7.7812 -2.9375 L8.2031 -4.9062 L6.125 -4.9062 Q4.9219 -4.9062 4.2188 -4.3906 Q3.5312 -3.875 3.2969 -2.7969 Q3.0938 -1.8281 3.5625 -1.25 Q4.0312 -0.6875 5.0469 -0.6875 Q6.0625 -0.6875 6.8125 -1.3125 Q7.5625 -1.9375 7.7812 -2.9375 ZM10.0156 -5.8438 L8.9844 -0.9375 L10.4219 -0.9375 L10.2188 0 L7.1562 0 L7.375 -1.0156 Q6.7031 -0.3594 5.9375 -0.0469 Q5.1719 0.25 4.2344 0.25 Q2.6719 0.25 1.9219 -0.5625 Q1.1875 -1.3906 1.4844 -2.7969 Q1.7969 -4.25 3.0156 -5.0469 Q4.2344 -5.8594 6.1406 -5.8594 L8.4062 -5.8594 L8.5312 -6.5 Q8.7656 -7.5625 8.25 -8.1406 Q7.7344 -8.7344 6.5625 -8.7344 Q5.5938 -8.7344 4.9219 -8.2812 Q4.2656 -7.8438 3.9375 -6.9844 L3.1094 -6.9844 L3.5156 -8.875 Q4.4375 -9.2344 5.2656 -9.4062 Q6.0938 -9.5938 6.8594 -9.5938 Q8.7969 -9.5938 9.5938 -8.625 Q10.4062 -7.6719 10.0156 -5.8438 Z" stroke="none"></path>
+                                       </g>
+                                       <g text-rendering="optimizeLegibility" transform="translate(14.2188,14.0334)" color-rendering="optimizeQuality" color-interpolation="linearRGB" image-rendering="optimizeQuality">
+                                          <path d="M2.2812 -0.9375 L4.7812 -12.75 L3.2188 -12.75 L3.4219 -13.6719 L6.5938 -13.6719 L5.3594 -7.8906 Q6.0312 -8.7656 6.8594 -9.1719 Q7.6875 -9.5938 8.7656 -9.5938 Q10.4844 -9.5938 11.2812 -8.2344 Q12.0938 -6.875 11.625 -4.6719 Q11.1562 -2.4844 9.7656 -1.1094 Q8.3906 0.25 6.6719 0.25 Q5.5938 0.25 4.9375 -0.1562 Q4.2969 -0.5781 4 -1.4531 L3.6875 0 L0.5156 0 L0.7188 -0.9375 L2.2812 -0.9375 ZM4.5781 -4.2031 Q4.2188 -2.5156 4.6719 -1.625 Q5.1406 -0.75 6.375 -0.75 Q7.6094 -0.75 8.4531 -1.75 Q9.3125 -2.75 9.7344 -4.6719 Q10.1406 -6.625 9.7031 -7.6094 Q9.2812 -8.5938 8.0469 -8.5938 Q6.8125 -8.5938 5.9688 -7.7031 Q5.1406 -6.8125 4.7812 -5.1406 L4.5781 -4.2031 Z" stroke="none"></path>
+                                       </g>
+                                       <g text-rendering="optimizeLegibility" transform="translate(26.0156,31)" color-rendering="optimizeQuality" color-interpolation="linearRGB" image-rendering="optimizeQuality">
+                                          <path d="M12.8594 -3.8906 Q12.375 -1.8125 11.0156 -0.7188 Q9.6719 0.3594 7.5156 0.3594 Q4.6875 0.3594 2.9688 -1.5156 Q1.25 -3.3906 1.25 -6.5 Q1.25 -9.6094 2.9688 -11.4688 Q4.6875 -13.3281 7.5156 -13.3281 Q8.75 -13.3281 9.9688 -13.0312 Q11.1875 -12.75 12.4219 -12.1719 L12.4219 -8.8438 L11.125 -8.8438 Q10.8594 -10.5625 10 -11.3438 Q9.1406 -12.125 7.5469 -12.125 Q5.7188 -12.125 4.7969 -10.7031 Q3.875 -9.2969 3.875 -6.5 Q3.875 -3.6875 4.7969 -2.2656 Q5.7188 -0.8594 7.5469 -0.8594 Q9 -0.8594 9.8594 -1.6094 Q10.7344 -2.375 11.0469 -3.8906 L12.8594 -3.8906 ZM21.5156 -0.8594 Q23.3281 -0.8594 24.25 -2.2812 Q25.1719 -3.7188 25.1719 -6.5 Q25.1719 -9.2812 24.25 -10.7031 Q23.3281 -12.125 21.5156 -12.125 Q19.7188 -12.125 18.7969 -10.7031 Q17.875 -9.2812 17.875 -6.5 Q17.875 -3.7188 18.7969 -2.2812 Q19.7188 -0.8594 21.5156 -0.8594 ZM21.5156 0.3594 Q18.6875 0.3594 16.9688 -1.5156 Q15.25 -3.3906 15.25 -6.5 Q15.25 -9.5938 16.9531 -11.4531 Q18.6719 -13.3281 21.5156 -13.3281 Q24.3594 -13.3281 26.0781 -11.4531 Q27.7969 -9.5938 27.7969 -6.5 Q27.7969 -3.3906 26.0781 -1.5156 Q24.3594 0.3594 21.5156 0.3594 ZM30.4062 -0.7188 L30.4062 -3.75 L31.7031 -3.75 Q31.75 -2.2969 32.6094 -1.5781 Q33.4688 -0.8594 35.1562 -0.8594 Q36.6719 -0.8594 37.4531 -1.4219 Q38.25 -1.9844 38.25 -3.0781 Q38.25 -3.9375 37.6719 -4.4531 Q37.0938 -4.9844 35.2188 -5.5781 L33.6094 -6.125 Q31.9375 -6.6719 31.1719 -7.4688 Q30.4219 -8.2812 30.4219 -9.5156 Q30.4219 -11.2969 31.7344 -12.3125 Q33.0469 -13.3281 35.3438 -13.3281 Q36.375 -13.3281 37.5 -13.0625 Q38.6406 -12.7969 39.8594 -12.2812 L39.8594 -9.4531 L38.5625 -9.4531 Q38.5156 -10.7031 37.6719 -11.4062 Q36.8438 -12.125 35.4219 -12.125 Q34 -12.125 33.2656 -11.625 Q32.5469 -11.125 32.5469 -10.125 Q32.5469 -9.2969 33.0938 -8.7969 Q33.6562 -8.3125 35.2969 -7.7969 L37.0781 -7.25 Q38.9219 -6.6719 39.7344 -5.8125 Q40.5469 -4.9531 40.5469 -3.5938 Q40.5469 -1.7656 39.1406 -0.7031 Q37.7344 0.3594 35.25 0.3594 Q34 0.3594 32.7969 0.0781 Q31.5938 -0.1875 30.4062 -0.7188 Z" stroke="none"></path>
+                                       </g>
+                                       <g text-rendering="optimizeLegibility" transform="translate(66.5625,31)" color-rendering="optimizeQuality" color-interpolation="linearRGB" image-rendering="optimizeQuality">
+                                          <path d="M8.9688 -7.9219 L12.4844 -11.6719 L10.7344 -11.6719 L11 -12.9688 L16 -12.9688 L15.7344 -11.6719 L14.0156 -11.6719 L9.5156 -6.875 L12.375 -1.2969 L14.0781 -1.2969 L13.7969 0 L7.7969 0 L8.0781 -1.2969 L9.7344 -1.2969 L7.7188 -5.1719 L4.0781 -1.2969 L5.7656 -1.2969 L5.4844 0 L0.5469 0 L0.8281 -1.2969 L2.5469 -1.2969 L7.1719 -6.2188 L4.3906 -11.6719 L2.7969 -11.6719 L3.0625 -12.9688 L8.8594 -12.9688 L8.5938 -11.6719 L7.0312 -11.6719 L8.9688 -7.9219 Z" stroke="none"></path>
+                                       </g>
+                                       <g text-rendering="optimizeLegibility" transform="translate(87.1381,31)" color-rendering="optimizeQuality" color-interpolation="linearRGB" image-rendering="optimizeQuality">
+                                          <path d="M13.125 -1.2969 L15.2656 -1.2969 L15.2656 0 L10.875 0 L10.875 -2.0312 Q10.2188 -0.8125 9.1875 -0.2188 Q8.1719 0.3594 6.6719 0.3594 Q4.2812 0.3594 2.7656 -1.5312 Q1.25 -3.4375 1.25 -6.5 Q1.25 -9.5469 2.75 -11.4375 Q4.2656 -13.3281 6.6719 -13.3281 Q8.1719 -13.3281 9.1875 -12.75 Q10.2188 -12.1719 10.875 -10.9531 L10.875 -17.7031 L8.75 -17.7031 L8.75 -19 L13.125 -19 L13.125 -1.2969 ZM10.875 -5.8438 L10.875 -7.125 Q10.875 -9.4531 9.9688 -10.6875 Q9.0781 -11.9219 7.375 -11.9219 Q5.6406 -11.9219 4.75 -10.5469 Q3.875 -9.1875 3.875 -6.5 Q3.875 -3.8125 4.75 -2.4219 Q5.6406 -1.0469 7.375 -1.0469 Q9.0781 -1.0469 9.9688 -2.2656 Q10.875 -3.5 10.875 -5.8438 Z" stroke="none"></path>
+                                       </g>
+                                       <g text-rendering="optimizeLegibility" transform="translate(108.2294,31)" color-rendering="optimizeQuality" color-interpolation="linearRGB" image-rendering="optimizeQuality">
+                                          <path d="M8.9688 -7.9219 L12.4844 -11.6719 L10.7344 -11.6719 L11 -12.9688 L16 -12.9688 L15.7344 -11.6719 L14.0156 -11.6719 L9.5156 -6.875 L12.375 -1.2969 L14.0781 -1.2969 L13.7969 0 L7.7969 0 L8.0781 -1.2969 L9.7344 -1.2969 L7.7188 -5.1719 L4.0781 -1.2969 L5.7656 -1.2969 L5.4844 0 L0.5469 0 L0.8281 -1.2969 L2.5469 -1.2969 L7.1719 -6.2188 L4.3906 -11.6719 L2.7969 -11.6719 L3.0625 -12.9688 L8.8594 -12.9688 L8.5938 -11.6719 L7.0312 -11.6719 L8.9688 -7.9219 Z" stroke="none"></path>
+                                       </g>
+                                    </g></svg></div>
+                           </figure>
+                           
+                           
+                           <p>(Assuming your user agent can display SVG.)</p>
+                           
+                           
+                           <p>The <code class="tag-element">cx:mathml-to-svg</code> step is often used in
+                              a <code class="tag-element">p:viewport</code>, for example:</p>
+                           
+                           
+                           <pre class="programlisting language-none line-numbers"><code>&lt;p:viewport match="mml:*"&gt;
+  &lt;cx:mathml-to-svg&gt;
+    &lt;p:input port="parameters"&gt;
+      &lt;p:empty/&gt;
+    &lt;/p:input&gt;
+    &lt;p:with-param name="mathsize" select="'25f'"/&gt;
+  &lt;/cx:mathml-to-svg&gt;
+&lt;/p:viewport&gt;</code></pre>
+                           </div>
+                     </div>
+                     <div class="refsection">
+                        <div class="refsection-titlepage">
+                           <h2>Implementation</h2>
+                        </div>
+                        <div class="content">
+                           
+                           
+                           <p>This step is implemented by the
+                              <a href="https://github.com/ndw/xmlcalabash1-mathml-to-svg">xmlcalabash1-mathml-to-svg</a>
+                              module. The jar file from that project must be in the class path in order
+                              to use this step.</p>
+                           </div>
+                     </div>
+                     <div class="refsection">
+                        <div class="refsection-titlepage">
+                           <h2>Notices</h2>
+                        </div>
+                        <div class="content">
+                           
+                           
+                           <p>This product includes software developed by 
+                              JEulid (<a href="http://www.sourceforge.net/projects/jeuclid/">http://www.sourceforge.net/projects/jeuclid/</a>).
+                              </p>
+                           </div>
+                     </div>
+                  </div>
+               </article>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="cx:java-properties" href="cx-java-properties.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="cx:message" href="cx-message.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">cx:java-properties </td>
+                  <td width="20%" align="center"><a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> cx:message</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

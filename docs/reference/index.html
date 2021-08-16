@@ -1,0 +1,322 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>XML Calabash Reference</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="#R.1"><img src="img/home.png" alt="Home" border="0" /></a> <img src="img/xprev.png" alt="Prev" border="0" /> <img src="img/xup.png" alt="Up" border="0" /> <a title="Preface" href="preface.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <article id="R.1" class="book">
+                  <header class="book-titlepage">
+                     <h1>XML Calabash Reference</h1>
+                     <div class="author">
+                        <h3><span class="personname"><span class="firstname">Norman</span> <span class="surname">Walsh</span></span></h3>
+                     </div>
+                     <p xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="releaseinfo">Reference version 0.28</p>
+                     <p xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="releaseinfo">For XML Calabash version 1.2.0</p><span class="copyright">Copyright © <span class="years">2011–2020</span> <span class="holders"><span class="holder">Norman Walsh</span></span></span><div>
+                        <p>
+                           <p xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="pubdate">Published 29 Mar 2020</p><br xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" clear="all" /></p>
+                     </div>
+                  </header>
+                  <div class="lists-of-titles">
+                     <div class="toc">
+                        <div class="title">Table of Contents</div>
+                        <ul class="toc">
+                           <li><span><a href="preface.html"><span class="label">1. </span>Preface</a></span><ul class="toc">
+                                 <li><span><a href="whatis.html"><span class="label">1. </span>What is XML Calabash?</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="building.html"><span class="label">1. </span>Building XML Calabash</a></span><ul class="toc">
+                                 <li><span><a href="requirements.html"><span class="label">1. </span>Requirements</a></span></li>
+                                 <li><span><a href="gradle.html"><span class="label">2. </span>Running Gradle</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="running.html"><span class="label">2. </span>Running XML Calabash</a></span><ul class="toc">
+                                 <li><span><a href="javasetup.html"><span class="label">1. </span>Setting up the environment</a></span></li>
+                                 <li><span><a href="cmdline.html"><span class="label">2. </span>The command line</a></span></li>
+                                 <li><span><a href="logging.html"><span class="label">3. </span>Setting up logging</a></span></li>
+                                 <li><span><a href="help.html"><span class="label">4. </span>What do I do if it all goes wrong?</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="anttask.html"><span class="label">3. </span>Calabash Ant Task</a></span><ul class="toc">
+                                 <li><span><a href="antsetup.html"><span class="label">1. </span>Setting up the Ant Task and Types</a></span></li>
+                                 <li><span><a href="antdesc.html"><span class="label">2. </span>Description</a></span><ul class="toc">
+                                       <li><span><a href="antdesc.html#antdesc.4"><span class="label">2.1. </span>Custom Task and Types</a></span></li>
+                                       <li><span><a href="antdesc.html#ant.input-and-output"><span class="label">2.2. </span>Input and output files and filesets</a></span></li>
+                                       <li><span><a href="antdesc.html#antdesc.6"><span class="label">2.3. </span>Ports</a></span></li>
+                                    </ul>
+                                 </li>
+                                 <li><span><a href="antparam.html"><span class="label">3. </span>Parameters</a></span></li>
+                                 <li><span><a href="antparamnest.html"><span class="label">4. </span>Parameters specified as nested elements</a></span><ul class="toc">
+                                       <li><span><a href="antparamnest.html#ant.input"><span class="label">4.1. </span>input</a></span></li>
+                                       <li><span><a href="antparamnest.html#ant.pipeline"><span class="label">4.2. </span>pipeline</a></span></li>
+                                       <li><span><a href="antparamnest.html#ant.output"><span class="label">4.3. </span>output</a></span></li>
+                                       <li><span><a href="antparamnest.html#antparamnest.5"><span class="label">4.4. </span>any Ant resource</a></span></li>
+                                       <li><span><a href="antparamnest.html#antparamnest.6"><span class="label">4.5. </span>mapper</a></span></li>
+                                       <li><span><a href="antparamnest.html#antparamnest.7"><span class="label">4.6. </span>namespace</a></span></li>
+                                       <li><span><a href="antparamnest.html#ant.option"><span class="label">4.7. </span>option</a></span></li>
+                                       <li><span><a href="antparamnest.html#ant.parameter"><span class="label">4.8. </span>parameter</a></span></li>
+                                       <li><span><a href="antparamnest.html#antparamnest.10"><span class="label">4.9. </span>sysproperty</a></span></li>
+                                       <li><span><a href="antparamnest.html#antparamnest.11"><span class="label">4.10. </span>syspropertyset</a></span></li>
+                                       <li><span><a href="antparamnest.html#antparamnest.12"><span class="label">4.11. </span>profile</a></span></li>
+                                       <li><span><a href="antparamnest.html#antparamnest.13"><span class="label">4.12. </span>saxonConfig</a></span></li>
+                                       <li><span><a href="antparamnest.html#antparamnest.14"><span class="label">4.13. </span>config</a></span></li>
+                                       <li><span><a href="antparamnest.html#ant.library"><span class="label">4.14. </span>library</a></span></li>
+                                       <li><span><a href="antparamnest.html#ant.step"><span class="label">4.15. </span>step</a></span></li>
+                                    </ul>
+                                 </li>
+                                 <li><span><a href="antexamples.html"><span class="label">5. </span>Examples</a></span><ul class="toc">
+                                       <li><span><a href="antexamples.html#antexamples.2"><span class="label">5.1. </span>Single input, single output</a></span></li>
+                                       <li><span><a href="antexamples.html#antexamples.3"><span class="label">5.2. </span><code class="tag-element">pipeline</code></a></span></li>
+                                       <li><span><a href="antexamples.html#antexamples.4"><span class="label">5.3. </span>Implicit fileset plus mapper on additional input port</a></span></li>
+                                       <li><span><a href="antexamples.html#antexamples.5"><span class="label">5.4. </span>Fixed input, multiple mapped outputs</a></span></li>
+                                       <li><span><a href="antexamples.html#antexamples.6"><span class="label">5.5. </span>QNames</a></span></li>
+                                    </ul>
+                                 </li>
+                                 <li><span><a href="antjustdont.html"><span class="label">6. </span>What not to do</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="configuration.html"><span class="label">4. </span>Configuration</a></span><ul class="toc">
+                                 <li><span><a href="cfg.saxon-processor.html"><span class="label">1. </span>Saxon processor</a></span></li>
+                                 <li><span><a href="cfg.saxon-configuration.html"><span class="label">2. </span>Saxon configuration</a></span></li>
+                                 <li><span><a href="cfg.implementation.html"><span class="label">3. </span>Implementation classes</a></span><ul class="toc">
+                                       <li><span><a href="cfg.implementation.html#impl-prop"><span class="label">3.1. </span>Implementation class property file</a></span></li>
+                                       <li><span><a href="cfg.implementation.html#impl-anno"><span class="label">3.2. </span>Implementation class annotations</a></span></li>
+                                       <li><span><a href="cfg.implementation.html#impl-cfg"><span class="label">3.3. </span>Implementation classes in the configuration file</a></span></li>
+                                    </ul>
+                                 </li>
+                                 <li><span><a href="cfg.schema-aware.html"><span class="label">4. </span>Schema aware processing</a></span></li>
+                                 <li><span><a href="cfg.debug.html"><span class="label">5. </span>Debug</a></span></li>
+                                 <li><span><a href="cfg.showMessages.html"><span class="label">6. </span>Debug</a></span></li>
+                                 <li><span><a href="cfg.safe-mode.html"><span class="label">7. </span>Safe mode</a></span></li>
+                                 <li><span><a href="cfg.config.html"><span class="label">8. </span>Alternate configuration file</a></span></li>
+                                 <li><span><a href="cfg.log-style.html"><span class="label">9. </span>Logging style</a></span></li>
+                                 <li><span><a href="cfg.entity-resolver.html"><span class="label">10. </span>Entity resolver</a></span></li>
+                                 <li><span><a href="cfg.uri-resolver.html"><span class="label">11. </span>URI resolver</a></span></li>
+                                 <li><span><a href="cfg.extension.html"><span class="label">12. </span>Extension</a></span></li>
+                                 <li><span><a href="cfg.binding.html"><span class="label">13. </span>Binding</a></span></li>
+                                 <li><span><a href="cfg.parameter.html"><span class="label">14. </span>Parameter</a></span></li>
+                                 <li><span><a href="cfg.input.html"><span class="label">15. </span>Input</a></span></li>
+                                 <li><span><a href="cfg.data-input.html"><span class="label">16. </span>Data input</a></span></li>
+                                 <li><span><a href="cfg.output.html"><span class="label">17. </span>Output</a></span></li>
+                                 <li><span><a href="cfg.library.html"><span class="label">18. </span>Library</a></span></li>
+                                 <li><span><a href="cfg.step.html"><span class="label">19. </span>Step</a></span></li>
+                                 <li><span><a href="cfg.pipeline.html"><span class="label">20. </span>Pipeline</a></span></li>
+                                 <li><span><a href="cfg.option.html"><span class="label">21. </span>Option</a></span></li>
+                                 <li><span><a href="cfg.profile-file.html"><span class="label">22. </span>Profile File</a></span></li>
+                                 <li><span><a href="cfg.version.html"><span class="label">23. </span>Version</a></span></li>
+                                 <li><span><a href="cfg.step-error-listener.html"><span class="label">24. </span>Step error listener</a></span></li>
+                                 <li><span><a href="cfg.serialization.html"><span class="label">25. </span>Serialization options</a></span></li>
+                                 <li><span><a href="cfg.extension-function.html"><span class="label">26. </span>Extension function</a></span></li>
+                                 <li><span><a href="cfg.fo-processor.html"><span class="label">27. </span>FO processor</a></span></li>
+                                 <li><span><a href="cfg.css-processor.html"><span class="label">28. </span>CSS processor</a></span></li>
+                                 <li><span><a href="cfg.xproc-configurer.html"><span class="label">29. </span>XProc configurer</a></span></li>
+                                 <li><span><a href="cfg.default-system-property.html"><span class="label">30. </span>Default system property</a></span></li>
+                                 <li><span><a href="cfg.html-parser.html"><span class="label">31. </span>HTML parser</a></span></li>
+                                 <li><span><a href="cfg.saxon-configuration-property.html"><span class="label">32. </span>Saxon configuration property</a></span></li>
+                                 <li><span><a href="cfg.sendmail.html"><span class="label">33. </span>Send mail configuration</a></span></li>
+                                 <li><span><a href="cfg.piperack.html"><span class="label">34. </span>Piperack configuration</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="extensions.html"><span class="label">5. </span>Extensions</a></span><ul class="toc">
+                                 <li><span><a href="extprop.html"><span class="label">1. </span>System property extensions</a></span></li>
+                                 <li><span><a href="extattr.html"><span class="label">2. </span>Extension Attributes</a></span><ul class="toc">
+                                       <li><span><a href="extattr.html#cx-depends-on"><span class="label">2.1. </span><code class="tag-attribute">cx:depends-on</code></a></span></li>
+                                       <li><span><a href="extattr.html#cx-message"><span class="label">2.2. </span><code class="tag-attribute">cx:message</code></a></span></li>
+                                       <li><span><a href="extattr.html#cx-logstyle"><span class="label">2.3. </span><code class="tag-attribute">cx:logstyle</code></a></span></li>
+                                    </ul>
+                                 </li>
+                                 <li><span><a href="langext.html"><span class="label">3. </span>Language Extensions</a></span><ul class="toc">
+                                       <li><span><a href="langext.html#ext.general-values"><span class="label">3.1. </span>General values extension</a></span></li>
+                                       <li><span><a href="langext.html#ext.xpointer-on-text"><span class="label">3.2. </span>XPointer on text</a></span></li>
+                                       <li><span><a href="langext.html#ext.transparent-json"><span class="label">3.3. </span>Transparent JSON</a></span></li>
+                                       <li><span><a href="langext.html#ext.use-xslt-10"><span class="label">3.4. </span>Use XSLT 1.0</a></span></li>
+                                       <li><span><a href="langext.html#ext.html-serializer"><span class="label">3.5. </span>HTML serializer</a></span></li>
+                                       <li><span><a href="langext.html#ext.allow-text-results"><span class="label">3.6. </span>Allow text results extension</a></span></li>
+                                    </ul>
+                                 </li>
+                                 <li><span><a href="extfunc.html"><span class="label">4. </span>Extension functions</a></span></li>
+                                 <li><span><a href="user-extfunc.html"><span class="label">5. </span>User defined extension functions</a></span></li>
+                                 <li><span><a href="extsteps.html"><span class="label">6. </span>Extension steps</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="piperack.html"><span class="label">6. </span>Piperack</a></span><ul class="toc">
+                                 <li><span><a href="runpiperack.html"><span class="label">1. </span>Running Piperack</a></span><ul class="toc">
+                                       <li><span><a href="runpiperack.html#piperack-cmdline"><span class="label">1.1. </span>The Piperack command line</a></span></li>
+                                    </ul>
+                                 </li>
+                                 <li><span><a href="using-piperack.html"><span class="label">2. </span>Using Piperack</a></span><ul class="toc">
+                                       <li><span><a href="using-piperack.html#pr-status"><span class="label">2.1. </span><code class="uri">/status</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-help"><span class="label">2.2. </span><code class="uri">/help</code> (or just <code class="uri">/</code>)</a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines"><span class="label">2.3. </span><code class="uri">/pipelines</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines-id"><span class="label">2.4. </span><code class="uri">/pipelines/{id}</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines-id-inputs-port"><span class="label">2.5. </span><code class="uri">/pipelines/{id}/inputs/{port}</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-piplines-id-options"><span class="label">2.6. </span><code class="uri">/pipelines/{id}/options</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines-id-options-option"><span class="label">2.7. </span><code class="uri">/pipelines/{id}/options/{option}</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines-id-parameters"><span class="label">2.8. </span><code class="uri">/pipelines/{id}/parameters</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines-id-parameters-port"><span class="label">2.9. </span><code class="uri">/pipelines/{id}/parameters/{port}</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines-id-parameters-port-param"><span class="label">2.10. </span><code class="uri">/pipelines/{id}/parameters/{port}/{param}</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines-id-run"><span class="label">2.11. </span><code class="uri">/pipelines/{id}/run</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines-id-outputs-port"><span class="label">2.12. </span><code class="uri">/pipelines/{id}/outputs/{port}</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-pipelines-id-reset"><span class="label">2.13. </span><code class="uri">/pipelines/{id}/reset</code></a></span></li>
+                                       <li><span><a href="using-piperack.html#pr-stop"><span class="label">2.14. </span><code class="uri">/stop</code></a></span></li>
+                                    </ul>
+                                 </li>
+                              </ul>
+                           </li>
+                           <li><span><a href="p-steps.html"><span class="label">I. </span>Standard XProc Steps</a></span><ul class="toc">
+                                 <li><span class="refentrytitle"><a href="p-add-attribute.html">p:add-attribute</a></span><span class="refpurpose"> - The standard p:add-attribute step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-add-xml-base.html">p:add-xml-base</a></span><span class="refpurpose"> - The standard p:add-xml-base step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-compare.html">p:compare</a></span><span class="refpurpose"> - The standard p:compare step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-count.html">p:count</a></span><span class="refpurpose"> - The standard p:count step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-delete.html">p:delete</a></span><span class="refpurpose"> - The standard p:delete step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-directory-list.html">p:directory-list</a></span><span class="refpurpose"> - The standard p:directory-list step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-error.html">p:error</a></span><span class="refpurpose"> - The standard p:error step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-escape-markup.html">p:escape-markup</a></span><span class="refpurpose"> - The standard p:escape-markup step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-exec.html">p:exec</a></span><span class="refpurpose"> - The standard p:exec step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-filter.html">p:filter</a></span><span class="refpurpose"> - The standard p:filter step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-hash.html">p:hash</a></span><span class="refpurpose"> - The standard p:hash step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-http-request.html">p:http-request</a></span><span class="refpurpose"> - The standard p:http-request step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-identity.html">p:identity</a></span><span class="refpurpose"> - The standard p:identity step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-in-scope-names.html">p:in-scope-names</a></span><span class="refpurpose"> - The standard p:in-scope-names step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-insert.html">p:insert</a></span><span class="refpurpose"> - The standard p:insert step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-label-elements.html">p:label-elements</a></span><span class="refpurpose"> - The standard p:label-elements step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-load.html">p:load</a></span><span class="refpurpose"> - The standard p:load step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-make-absolute-uris.html">p:make-absolute-uris</a></span><span class="refpurpose"> - The standard p:make-absolute-uris step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-namespace-rename.html">p:namespace-rename</a></span><span class="refpurpose"> - The standard p:namespace-rename step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-pack.html">p:pack</a></span><span class="refpurpose"> - The standard p:pack step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-parameters.html">p:parameters</a></span><span class="refpurpose"> - The standard p:parameters step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-rename.html">p:rename</a></span><span class="refpurpose"> - The standard p:rename step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-replace.html">p:replace</a></span><span class="refpurpose"> - The standard p:replace step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-set-attributes.html">p:set-attributes</a></span><span class="refpurpose"> - The standard p:set-attributes step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-sink.html">p:sink</a></span><span class="refpurpose"> - The standard p:sink step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-split-sequence.html">p:split-sequence</a></span><span class="refpurpose"> - The standard p:split-sequence step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-store.html">p:store</a></span><span class="refpurpose"> - The standard p:store step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-string-replace.html">p:string-replace</a></span><span class="refpurpose"> - The standard p:string-replace step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-template.html">p:template</a></span><span class="refpurpose"> - The standard p:template step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-unescape-markup.html">p:unescape-markup</a></span><span class="refpurpose"> - The standard p:unescape-markup step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-unwrap.html">p:unwrap</a></span><span class="refpurpose"> - The standard p:unwrap step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-uuid.html">p:uuid</a></span><span class="refpurpose"> - The standard p:uuid step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-validate-with-relax-ng.html">p:validate-with-relax-ng</a></span><span class="refpurpose"> - The standard p:validate-with-relax-ng step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-validate-with-schematron.html">p:validate-with-schematron</a></span><span class="refpurpose"> - The standard p:validate-with-schematron step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-validate-with-xml-schema.html">p:validate-with-xml-schema</a></span><span class="refpurpose"> - The standard p:validate-with-xml-schema step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-wrap-sequence.html">p:wrap-sequence</a></span><span class="refpurpose"> - The standard p:wrap-sequence step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-wrap.html">p:wrap</a></span><span class="refpurpose"> - The standard p:wrap step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-www-form-urldecode.html">p:www-form-urldecode</a></span><span class="refpurpose"> - The standard p:www-form-urldecode step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-www-form-urlencode.html">p:www-form-urlencode</a></span><span class="refpurpose"> - The standard p:www-form-urlencode step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-xinclude.html">p:xinclude</a></span><span class="refpurpose"> - The standard p:xinclude step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-xquery.html">p:xquery</a></span><span class="refpurpose"> - The standard p:xquery step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-xsl-formatter.html">p:xsl-formatter</a></span><span class="refpurpose"> - The standard p:xsl-formatter step</span></li>
+                                 <li><span class="refentrytitle"><a href="p-xslt.html">p:xslt</a></span><span class="refpurpose"> - The standard p:xslt step</span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="pxp-steps.html"><span class="label">II. </span>Proposed EXProc Steps</a></span><ul class="toc">
+                                 <li><span class="refentrytitle"><a href="pxp-nvdl.html">pxp:nvdl</a></span><span class="refpurpose"> - Perform NVDL validation</span></li>
+                                 <li><span class="refentrytitle"><a href="pxp-unzip.html">pxp:unzip</a></span><span class="refpurpose"> - Extract documents from a ZIP file</span></li>
+                                 <li><span class="refentrytitle"><a href="pxp-zip.html">pxp:zip</a></span><span class="refpurpose"> - Update a ZIP file</span></li>
+                                 <li><span class="refentrytitle"><a href="pxf-copy.html">pxf:copy</a></span><span class="refpurpose"> - Copy a file</span></li>
+                                 <li><span class="refentrytitle"><a href="pxf-delete.html">pxf:delete</a></span><span class="refpurpose"> - Delete a file</span></li>
+                                 <li><span class="refentrytitle"><a href="pxf-head.html">pxf:head</a></span><span class="refpurpose"> - Return the first few lines of a file</span></li>
+                                 <li><span class="refentrytitle"><a href="pxf-info.html">pxf:info</a></span><span class="refpurpose"> - Return information about a file</span></li>
+                                 <li><span class="refentrytitle"><a href="pxf-mkdir.html">pxf:mkdir</a></span><span class="refpurpose"> - Create a directory</span></li>
+                                 <li><span class="refentrytitle"><a href="pxf-move.html">pxf:move</a></span><span class="refpurpose"> - Move a file</span></li>
+                                 <li><span class="refentrytitle"><a href="pxf-tail.html">pxf:tail</a></span><span class="refpurpose"> - Return the last few lines of a file</span></li>
+                                 <li><span class="refentrytitle"><a href="pxf-tempfile.html">pxf:tempfile</a></span><span class="refpurpose"> - Create a temporary file</span></li>
+                                 <li><span class="refentrytitle"><a href="pxf-touch.html">pxf:touch</a></span><span class="refpurpose"> - Touch a file</span></li>
+                                 <li><span class="refentrytitle"><a href="pos-cwd.html">pos:cwd</a></span><span class="refpurpose"> - Return the current working directory</span></li>
+                                 <li><span class="refentrytitle"><a href="pos-env.html">pos:env</a></span><span class="refpurpose"> - Return a representation of the current OS environment</span></li>
+                                 <li><span class="refentrytitle"><a href="pos-info.html">pos:info</a></span><span class="refpurpose"> - Return information about the operating system</span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="cx-steps.html"><span class="label">III. </span>XML Calabash Extension Steps</a></span><ul class="toc">
+                                 <li><span class="refentrytitle"><a href="cx-asciidoctor.html">cx:asciidoctor</a></span><span class="refpurpose"> - Convert AsciiDoc text to XML</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-collection-manager.html">cx:collection-manager</a></span><span class="refpurpose"> - Associate documents with a collection URI</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-commonmark.html">cx:commonmark</a></span><span class="refpurpose"> - Transform a “CommonMark” flavored Markdown document into XHTML</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-css-formatter.html">cx:css-formatter</a></span><span class="refpurpose"> - Format a document using CSS</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-delta-xml.html">cx:delta-xml</a></span><span class="refpurpose"> - Run the DeltaXML comparitor</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-ditaa.html">cx:ditaa</a></span><span class="refpurpose"> - Convert a “DIagrams Through ASCII Art” diagram into an image</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-eval.html">cx:eval</a></span><span class="refpurpose"> - Evaluate a dynamically constructed pipeline</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-get-cookies.html">cx:get-cookies</a></span><span class="refpurpose"> - Get the cookies returned by the previous HTTP request</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-hash-document.html">cx:hash-document</a></span><span class="refpurpose"> - Compute the hash of a document</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-java-properties.html">cx:java-properties</a></span><span class="refpurpose"> - Reads a Java properties file</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-mathml-to-svg.html">cx:mathml-to-svg</a></span><span class="refpurpose"> - Convert MathML to SVG</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-message.html">cx:message</a></span><span class="refpurpose"> - Output a message each time a document is processed</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-metadata-extractor.html">cx:metadata-extractor</a></span><span class="refpurpose"> - Extract metadata from images</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-namespace-delete.html">cx:namespace-delete</a></span><span class="refpurpose"> - Delete namespace declarations</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-pegdown.html">cx:pegdown</a></span><span class="refpurpose"> - Convert Markdown text to XHTML</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-plantuml.html">cx:plantuml</a></span><span class="refpurpose"> - Convert an ASCII “PlantUML” diagram into an image</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-pretty-print.html">cx:pretty-print</a></span><span class="refpurpose"> - Reformat whitespace in a document</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-rdfa.html">cx:rdfa</a></span><span class="refpurpose"> - Extract RDF triples from RDFa encoded documents</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-rdf-load.html">cx:rdf-load</a></span><span class="refpurpose"> - Load RDF triples from semantic web data sources</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-rdf-store.html">cx:rdf-store</a></span><span class="refpurpose"> - Stores RDF triples</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-report-errors.html">cx:report-errors</a></span><span class="refpurpose"> - Send error report to the user</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-send-mail.html">cx:send-mail</a></span><span class="refpurpose"> - Sends an email message</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-set-cookies.html">cx:set-cookies</a></span><span class="refpurpose"> - Set cookies for subsequent HTTP requests</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-sparql.html">cx:sparql</a></span><span class="refpurpose"> - Perform SPARQL queries</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-until-unchanged.html">cx:until-unchanged</a></span><span class="refpurpose"> - Iterates to a fixed point</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-uri-info.html">cx:uri-info</a></span><span class="refpurpose"> - Information about a URI</span></li>
+                                 <li><span class="refentrytitle"><a href="cx-wait-for-update.html">cx:wait-for-update</a></span><span class="refpurpose"> - Pause execution until a URI has changed</span></li>
+                                 <li><span class="refentrytitle"><a href="cxu-compare.html">cxu:compare</a></span><span class="refpurpose"> - XML Unit comparison of two documents</span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="ml-steps.html"><span class="label">IV. </span>MarkLogic XCC Steps</a></span><ul class="toc">
+                                 <li><span class="refentrytitle"><a href="ml-adhoc-query.html">ml:adhoc-query</a></span><span class="refpurpose"> - Run an adhoc query on MarkLogic Server</span></li>
+                                 <li><span class="refentrytitle"><a href="ml-insert-document.html">ml:insert-document</a></span><span class="refpurpose"> - Insert a document into a database on MarkLogic Server</span></li>
+                                 <li><span class="refentrytitle"><a href="ml-invoke-module.html">ml:invoke-module</a></span><span class="refpurpose"> - Invoke a module on MarkLogic Server</span></li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="list-of-figures">
+                        <div class="title">List of Figures</div>
+                        <ul class="toc">
+                           <li>1. <a href="cx-metadata-extractor.html#fig.amaryllis">Amaryllis</a></li>
+                        </ul>
+                     </div>
+                     <div class="list-of-examples">
+                        <div class="title">List of Examples</div>
+                        <ul class="toc">
+                           <li>5.1. <a href="langext.html#ex-gv-1">Pipeline that exploits the general values extension</a></li>
+                           <li>2. <a href="cx-metadata-extractor.html#ex.amaryllis">Amaryllis metadata</a></li>
+                           <li>3. <a href="cx-metadata-extractor.html#ex.digicam">Digital Camera metadata</a></li>
+                           <li>4. <a href="cx-metadata-extractor.html#ex.png">PNG metadata</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="content"></div>
+               </article>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="#R.1"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="Preface" href="preface.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left"> </td>
+                  <td width="20%" align="center"> </td>
+                  <td width="40%" align="right"> Preface</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

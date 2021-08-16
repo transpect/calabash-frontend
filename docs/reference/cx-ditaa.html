@@ -1,0 +1,117 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>cx:ditaa</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="cx-delta-xml.html" title="cx:delta-xml"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="cx:eval" href="cx-eval.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <article id="cx-ditaa" class="refentry">
+                  <div class="content">
+                     <div class="refnamediv">
+                        <h2>Name</h2>
+                        <p><span class="refname">cx:ditaa</span><span class="refpurpose"><span class="refpurpose-sep"> — </span><span class="refpurpose-text">Convert a “DIagrams Through ASCII Art” diagram into an image</span><span class="refpurpose-punc">.</span></span></p>
+                     </div>
+                     <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="refsynopsisdiv">
+                        <h2>Synopsis</h2>
+                        <p class="element-syntax element-syntax-declare-step-opt"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cx:ditaa</code><code>"</code> <code class="attr xmlns-attr">xmlns:cx</code><code>="</code><code class="value xmlns-value">http://xmlcalabash.com/ns/extensions</code><code>"</code><code>&gt;</code></span><br />     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code><code>/&gt;</code></span><br />     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code><code>/&gt;</code></span><br />     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">shadows</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">true()</code><code>"</code><code>/&gt;</code><code>                    </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br />     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">antialias</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">true()</code><code>"</code><code>/&gt;</code><code>                  </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br />     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">corners</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'square'</code><code>"</code><code>/&gt;</code><code>                  </code><code class="comment">&lt;!-- </code><span class="opt-type">"rounded" | "square"</span><code class="comment"> --&gt;</code></span><br />     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">separation</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">true()</code><code>"</code><code>/&gt;</code><code>                 </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br />     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">scale</code><code>"</code><code>/&gt;</code><code>                                      </code><code class="comment">&lt;!-- </code><span class="opt-type">float</span><code class="comment"> --&gt;</code></span><br />     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">html</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">false()</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br /><code>&lt;/p:declare-step&gt;</code></p>
+                     </div>
+                     <div class="refsection">
+                        <div class="refsection-titlepage">
+                           <h2>Description</h2>
+                        </div>
+                        <div class="content">
+                           
+                           
+                           
+                           <p>This step converts
+                              <a href="http://ditaa.sourceforge.net/">ditaa</a> diagrams
+                              into PNG images. The step returns a base64 encoded
+                              <code class="literal">data:</code> URI.</p>
+                           
+                           
+                           <p>If the <code class="option">html</code> option is true, an HTML <code class="tag-element">img</code>
+                              is returned, otherwise a <code class="tag-element">c:data</code> element that contains the
+                              URI is returned.
+                              </p>
+                           
+                           
+                           <p>Here's an example from the <em class="citetitle">ditaa</em>
+                              site:</p>
+                           
+                           
+                           <pre class="programlisting language-none line-numbers"><code>
++--------+   +-------+    +-------+
+|        | --+ ditaa +--&gt; |       |
+|  Text  |   +-------+    |diagram|
+|Document|   |!magic!|    |       |
+|     {d}|   |       |    |       |
++---+----+   +-------+    +-------+
+    :                         ^
+    |       Lots of work      |
+    +-------------------------+
+</code></pre>
+                           
+                           
+                           <p>Run through the <code class="tag-element">cx:ditaa</code> step, you get:</p>
+                           
+                           <img src="data:image/png;base64,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" />
+                           
+                           
+                           <p>There are lots of other examples on the <em class="citetitle">ditaa</em>
+                              site.</p>
+                           
+                           
+                           <div class="refsection">
+                              <div class="refsection-titlepage">
+                                 <h3>Implementation</h3>
+                              </div>
+                              <div class="content">
+                                 
+                                 
+                                 <p>To use this step you must have the
+                                    <a href="https://github.com/ndw/xmlcalabash1-ditaa">xmlcalabash1-ditaa</a>
+                                    module. The jar file from that project must be in the class path in order
+                                    to use this step.</p>
+                                 </div>
+                           </div>
+                           
+                           </div>
+                     </div>
+                  </div>
+               </article>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="cx:delta-xml" href="cx-delta-xml.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="cx:eval" href="cx-eval.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">cx:delta-xml </td>
+                  <td width="20%" align="center"><a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> cx:eval</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

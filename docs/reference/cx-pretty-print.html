@@ -1,0 +1,175 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>cx:pretty-print</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="cx-plantuml.html" title="cx:plantuml"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="cx:rdfa" href="cx-rdfa.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <article id="cx-pretty-print" class="refentry">
+                  <div class="content">
+                     <div class="refnamediv">
+                        <h2>Name</h2>
+                        <p><span class="refname">cx:pretty-print</span><span class="refpurpose"><span class="refpurpose-sep"> — </span><span class="refpurpose-text">Reformat whitespace in a document</span><span class="refpurpose-punc">.</span></span></p>
+                     </div>
+                     <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="refsynopsisdiv">
+                        <h2>Synopsis</h2>
+                        <p class="element-syntax element-syntax-declare-step-opt"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cx:pretty-print</code><code>"</code> <code class="attr xmlns-attr">xmlns:cx</code><code>="</code><code class="value xmlns-value">http://xmlcalabash.com/ns/extensions</code><code>"</code><code>&gt;</code></span><br />     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br />     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br /><code>&lt;/p:declare-step&gt;</code></p>
+                     </div>
+                     <div class="refsection">
+                        <div class="refsection-titlepage">
+                           <h2>Description</h2>
+                        </div>
+                        <div class="content">
+                           
+                           
+                           
+                           <p>The <code class="tag-element">cx:pretty-print</code> step reformats an XML document by
+                              passing it through the following XSLT stylesheet, serializing the result,
+                              and then reparsing it<sup class="footnote"><span class="osq">[</span><a id="cx-pretty-print.3.2.2" href="#ftn.cx-pretty-print.3.2.2">1</a><span class="csq">]</span></sup>.</p>
+                           
+                           
+                           <pre class="programlisting language-none line-numbers"><code>&lt;xsl:stylesheet xmlns:xsl='http://www.w3.org/1999/XSL/Transform'
+                xmlns:saxon='http://icl.com/saxon'
+                exclude-result-prefixes='saxon'
+                version='2.0'&gt;
+
+  &lt;xsl:output method='xml' indent='yes' saxon:indent-spaces='2'/&gt;
+
+  &lt;xsl:strip-space elements='*'/&gt;
+
+  &lt;xsl:template match='*'&gt;
+    &lt;xsl:copy&gt;
+      &lt;xsl:copy-of select='@*'/&gt;
+      &lt;xsl:apply-templates/&gt;
+    &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template match='comment()'&gt;
+    &lt;xsl:choose&gt;
+      &lt;xsl:when test="preceding-sibling::node()[1]/self::text()
+                      and contains(preceding-sibling::text()[1], '&amp;#10;')"&gt;
+      &lt;/xsl:when&gt;
+      &lt;xsl:otherwise&gt;
+        &lt;xsl:text&gt;&amp;#10;&lt;/xsl:text&gt;
+      &lt;/xsl:otherwise&gt;
+    &lt;/xsl:choose&gt;
+
+    &lt;xsl:copy/&gt;
+
+    &lt;xsl:choose&gt;
+      &lt;xsl:when test="following-sibling::node()[1]/self::text()
+                      and contains(following-sibling::text()[1], '&amp;#10;')"&gt;
+      &lt;/xsl:when&gt;
+      &lt;xsl:when test="following-sibling::node()[1]/self::comment()
+                      or following-sibling::node()[1]/self::processing-instruction()"&gt;
+      &lt;/xsl:when&gt;
+      &lt;xsl:otherwise&gt;
+        &lt;xsl:text&gt;&amp;#10;&lt;/xsl:text&gt;
+      &lt;/xsl:otherwise&gt;
+    &lt;/xsl:choose&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template match='processing-instruction()'&gt;
+    &lt;xsl:choose&gt;
+      &lt;xsl:when test="preceding-sibling::node()[1]/self::text()
+                      and contains(preceding-sibling::text()[1], '&amp;#10;')"&gt;
+      &lt;/xsl:when&gt;
+      &lt;xsl:otherwise&gt;
+        &lt;xsl:text&gt;&amp;#10;&lt;/xsl:text&gt;
+      &lt;/xsl:otherwise&gt;
+    &lt;/xsl:choose&gt;
+
+    &lt;xsl:copy/&gt;
+
+    &lt;xsl:choose&gt;
+      &lt;xsl:when test="following-sibling::node()[1]/self::text()
+                      and contains(following-sibling::text()[1], '&amp;#10;')"&gt;
+      &lt;/xsl:when&gt;
+      &lt;xsl:when test="following-sibling::node()[1]/self::comment()
+                      or following-sibling::node()[1]/self::processing-instruction()"&gt;
+      &lt;/xsl:when&gt;
+      &lt;xsl:otherwise&gt;
+        &lt;xsl:text&gt;&amp;#10;&lt;/xsl:text&gt;
+      &lt;/xsl:otherwise&gt;
+    &lt;/xsl:choose&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;</code></pre>
+                           
+                           
+                           <p>Serializing the pretty-printed output and reparsing it
+                              <em>should</em> have the effect of normalizing the whitespace
+                              so that the document will print with reasonable line breaks and
+                              indentation. However,</p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul>
+                                 <li>
+                                    <p>There's nothing about this process that will break very long
+                                       runs of text into lines of reasonable length.</p>
+                                 </li>
+                                 <li>
+                                    <p>If the parser performs validation on the input, it may
+                                       have the effect of removing insignificant whitespace.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                           
+                           
+                           <p>Your milage may vary.</p>
+                           
+                           </div>
+                     </div>
+                  </div>
+                  <div class="footnotes">
+                     <hr width="100" align="left" class="footnotes-divider" />
+                     <div class="footnote">
+                        <div class="footnote-wrapper">
+                           <div class="footnote-symbol-wrapper">
+                              <p><sup><span class="osq">[</span><a href="#cx-pretty-print.3.2.2" id="ftn.cx-pretty-print.3.2.2">1</a><span class="csq">]</span></sup> </p>
+                           </div>
+                           <div class="footnote-body-wrapper">
+                              <p>Technically, the stylesheet used
+                                 is <code class="filename">/etc/prettyprint.xsl</code> in the <em class="citetitle">XML
+                                    Calabash</em> jar file.</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </article>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="cx:plantuml" href="cx-plantuml.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="cx:rdfa" href="cx-rdfa.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">cx:plantuml </td>
+                  <td width="20%" align="center"><a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> cx:rdfa</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

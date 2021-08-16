@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>3. Setting up logging</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="cmdline.html" title="2 .  The command line"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="Chapter  2 .  Running XML Calabash" href="running.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="4 .  What do I do if it all goes wrong?" href="help.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <section id="logging" class="section">
+                  <div class="section-titlepage">
+                     <h2>3. Setting up logging</h2>
+                  </div>
+                  <div class="content">
+                     <p>If you're running <em class="citetitle">XML Calabash</em> on the
+                        command line, or through a shell script or batch file,
+                        it's possible to get it to print a lot of additional information as it
+                        runs. If you're running in an embedded environment like an editor, it's
+                        less clear to me how (or if) logging messages are available, but it's
+                        possible.</p>
+                     <p>To start off with, let me come clean, the Java logging ecosystem
+                        is messy. There are a bunch of different API standards and a bunch of
+                        different implementations and a bunch of bunches of other bunches of
+                        things. As far as I can tell.</p>
+                     <p>I believe that I've configured <em class="citetitle">XML Calabash</em>
+                        in such a way that those familiar with the dark arts of Java logging can
+                        swap out my logging implementation for one of their own choosing. If I'm
+                        wrong, I'd be happy if you tell me. I don't know, I can't tell, and
+                        I'm not even going to try to explain it. I think it's just a matter
+                        of swapping some implementation jar files. Maybe.</p>
+                     <p>I ship <em class="citetitle">XML Calabash</em> with the
+                        <a href="http://slf4j.org/">SLF4J</a> facade and
+                        the
+                        <a href="https://logging.apache.org/log4j/2.x/">Apache Log4j 2</a>
+                        implementation.</p>
+                     <p>What this means to you is that you can change the logging messages
+                        by putting a Log4j
+                        <a href="https://logging.apache.org/log4j/2.x/manual/configuration.html">configuration file</a> on the classpath <em>before</em>
+                        <code class="filename">xmlcalabash-1.2.0.jar</code>.</p>
+                     <p>Here's the one that I use:</p>
+                     <pre class="programlisting language-none line-numbers"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Configuration status="warn"&gt;
+  &lt;Appenders&gt;
+    &lt;Console name="Console" target="SYSTEM_ERR"&gt;
+      &lt;PatternLayout pattern="%-5level: %msg%n" /&gt;
+    &lt;/Console&gt;
+  &lt;/Appenders&gt;
+  &lt;Loggers&gt;
+    &lt;Logger name="com.xmlcalabash" level="debug" additivity="false"&gt;
+      &lt;AppenderRef ref="Console"/&gt;
+    &lt;/Logger&gt;
+    &lt;Root level="warn"&gt;
+      &lt;AppenderRef ref="Console" /&gt;
+    &lt;/Root&gt;
+  &lt;/Loggers&gt;
+&lt;/Configuration&gt;</code></pre>
+                     <p>In order to keep the logger happy if you <em>don't</em>
+                        have a logger configuration file on your classpath,
+                        <em class="citetitle">XML Calabash</em> ships with a default one that
+                        only logs “info” messages.</p>
+                  </div>
+               </section>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="2 .  The command line" href="cmdline.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="4 .  What do I do if it all goes wrong?" href="help.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">2 .  The command line </td>
+                  <td width="20%" align="center"><a title="Chapter  2 .  Running XML Calabash" href="running.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> 4 .  What do I do if it all goes wrong?</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

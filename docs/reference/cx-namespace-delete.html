@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>cx:namespace-delete</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="cx-metadata-extractor.html" title="cx:metadata-extractor"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="cx:pegdown" href="cx-pegdown.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <article id="cx-namespace-delete" class="refentry">
+                  <div class="content">
+                     <div class="refnamediv">
+                        <h2>Name</h2>
+                        <p><span class="refname">cx:namespace-delete</span><span class="refpurpose"><span class="refpurpose-sep"> — </span><span class="refpurpose-text">Delete namespace declarations</span><span class="refpurpose-punc">.</span></span></p>
+                     </div>
+                     <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="refsynopsisdiv">
+                        <h2>Synopsis</h2>
+                        <p class="element-syntax element-syntax-declare-step-opt"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cx:namespace-delete</code><code>"</code> <code class="attr xmlns-attr">xmlns:cx</code><code>="</code><code class="value xmlns-value">http://xmlcalabash.com/ns/extensions</code><code>"</code><code>&gt;</code></span><br />     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br />     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br />     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">prefixes</code><code>"</code><code>/&gt;</code><code>                                   </code><code class="comment">&lt;!-- </code><span class="opt-type">ListOfStrings</span><code class="comment"> --&gt;</code></span><br /><code>&lt;/p:declare-step&gt;</code></p>
+                     </div>
+                     <div class="refsection">
+                        <div class="refsection-titlepage">
+                           <h2>Description</h2>
+                        </div>
+                        <div class="content">
+                           
+                           
+                           
+                           <p>This step <em>aggressively</em> removes all of the
+                              namespaces identified by the specified prefixes from the document. The
+                              prefixes must be in-scope at the point where the
+                              <code class="tag-element">cx:namespace-delete</code> element occurs.</p>
+                           
+                           
+                           <p>Consider this document:</p>
+                           
+                           
+                           <figure id="cx-namespace-delete.3.4" class="informalfigure-wrapper">
+                              <div class="informalfigure">
+                                 <pre class="programlisting language-none line-numbers"><code>&lt;doc xmlns:ns1="http://example.com/ns1"
+     xmlns:ns2="http://example.com/ns2"&gt;
+  &lt;para ns1:attr="value"&gt;This document has
+unspecified semantics with respect to
+&lt;ns1:item&gt;{ns1:foo}&lt;/ns1:item&gt; and
+&lt;ns2:item&gt;{ns2:bar}&lt;/ns2:item&gt;.&lt;/para&gt;
+&lt;/doc&gt;</code></pre>
+                              </div>
+                           </figure>
+                           
+                           
+                           <p>If the following step is used to remove the
+                              “<span class="quote"><code class="literal">ns1</code></span>” prefix,</p>
+                           
+                           
+                           <figure id="cx-namespace-delete.3.6" class="informalfigure-wrapper">
+                              <div class="informalfigure">
+                                 <pre class="programlisting language-none line-numbers"><code>&lt;cx:namespace-delete xmlns:ns1="http://example.com/ns1"
+                     prefixes="ns1"/&gt;</code></pre>
+                              </div>
+                           </figure>
+                           
+                           
+                           <p>the resulting document will be:</p>
+                           
+                           
+                           <figure id="cx-namespace-delete.3.8" class="informalfigure-wrapper">
+                              <div class="informalfigure">
+                                 <pre class="programlisting language-none line-numbers"><code>&lt;doc xmlns:ns2="http://example.com/ns2"&gt;
+  &lt;para attr="value"&gt;This document has
+unspecified semantics with respect to
+&lt;item&gt;{ns1:foo}&lt;/item&gt; and
+&lt;ns2:item&gt;{ns2:bar}&lt;/ns2:item&gt;.&lt;/para&gt;
+&lt;/doc&gt;</code></pre>
+                              </div>
+                           </figure>
+                           
+                           
+                           <p>Observe that the namespace declaration has been stripped off both
+                              elements and attributes. If prefixes occur in places, such as attribute
+                              values or text content, not “visible” to the XML specification,
+                              they are not changed.</p>
+                           
+                           
+                           <div class="note admonition">
+                              <h3>Note</h3>
+                              <div class="admonition-body">
+                                 <p>Removing namespace declarations from attributes can
+                                    introduce well-formedness problems. For example, if the
+                                    “<span class="quote"><code class="literal">para</code></span>” element in the example had
+                                    an <code class="tag-attribute">attr</code> attribute in no namespace, deleting
+                                    “<span class="quote"><code class="literal">ns1</code></span>” would leave two attributes with the
+                                    same name on the element. This is not well-formed and the step would fail.
+                                    </p>
+                                 <p>This problem can be addressed by first deleting the offending attributes,
+                                    perhaps like so:</p>
+                                 <figure id="cx-namespace-delete.3.10.4" class="informalfigure-wrapper">
+                                    <div class="informalfigure">
+                                       <pre class="programlisting language-none line-numbers"><code>&lt;p:delete xmlns:ns1="http://example.com/ns1"
+          match="*[@ns1:attr]/@attr"/&gt;</code></pre>
+                                    </div>
+                                 </figure>
+                              </div>
+                           </div>
+                           
+                           </div>
+                     </div>
+                  </div>
+               </article>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="cx:metadata-extractor" href="cx-metadata-extractor.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="cx:pegdown" href="cx-pegdown.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">cx:metadata-extractor </td>
+                  <td width="20%" align="center"><a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> cx:pegdown</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>
