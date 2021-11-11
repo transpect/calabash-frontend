@@ -28,7 +28,7 @@
 @set mailext=%extensions%calabash/lib/xmlcalabash1-sendmail-1.1.4.jar;%extensions%calabash/lib/javax.mail.jar
 @set svnext=%extensions%transpect/svn-extension
 @set jaf=%scriptdir%/lib/javax.activation.jar
-@set config=%scriptdir%extensions/transpect/transpect-config.xml
+@set config="%scriptdir%extensions/transpect/transpect-config.xml"
 
 @set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%rngvalidext%;%distro%lib/;%distro%lib/xmlresolver-0.14.0.jar;%distro%lib/commons-fileupload-1.3.3.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.1.22-98.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
 
@@ -37,7 +37,7 @@
 @if exist {%localdefs%} {call %localdefs%}
 
 @set CALABASH=java ^
-   -cp %classpath% ^
+   -cp "%classpath%" ^
    -Dfile.encoding=UTF-8 ^
    -Dsun.jnu.encoding=UTF-8 ^
    -Dxml.catalog.files="file:///%scriptdir%xmlcatalog/catalog.xml" ^
