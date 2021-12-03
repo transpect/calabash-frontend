@@ -22,6 +22,7 @@
       <ref name="Step-filter"/>
       <ref name="Step-http-request"/>
       <ref name="Step-identity"/>
+      <ref name="Step-in-scope-names"/>
       <ref name="Step-insert"/>
       <ref name="Step-label-elements"/>
       <ref name="Step-load"/>
