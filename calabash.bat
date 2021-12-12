@@ -42,6 +42,7 @@ set svnext=%extensions%transpect/svn-extension
    -cp "%classpath%" ^
    -Dfile.encoding=UTF8 ^
    -Dsun.jnu.encoding=UTF-8 ^
+   -Dlog4j2.formatMsgNoLookups=true ^
    -Dxml.catalog.files=%scriptdir_uri%xmlcatalog/catalog.xml ^
    -Djdk.xml.entityExpansionLimit=%entityexpansionlimit% ^
    -Xmx%heap% -Xss1024k ^
