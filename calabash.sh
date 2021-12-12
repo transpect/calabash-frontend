@@ -155,6 +155,7 @@ fi
 $JAVA \
    -cp "$CLASSPATH" \
    -Dfile.encoding=$JAVA_FILE_ENCODING \
+   -Dlog4j2.formatMsgNoLookups=true \
    "-Dxml.catalog.files=$CATALOGS" \
    -Djruby.compile.mode=OFF \
    -Dxml.catalog.staticCatalog=1 \
