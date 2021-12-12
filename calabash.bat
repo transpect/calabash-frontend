@@ -40,6 +40,7 @@
    -cp %classpath% ^
    -Dfile.encoding=UTF-8 ^
    -Dsun.jnu.encoding=UTF-8 ^
+   -Dlog4j2.formatMsgNoLookups=true ^
    -Dxml.catalog.files="file:///%scriptdir%xmlcatalog/catalog.xml" ^
    -Djdk.xml.entityExpansionLimit=%entityexpansionlimit% ^
    -Xmx%heap% -Xss1024k ^
