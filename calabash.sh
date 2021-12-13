@@ -1,7 +1,8 @@
 #!/bin/bash
 cygwin=false;
 case "`uname`" in
-  CYGWIN*) cygwin=true;
+  CYGWIN*) cygwin=true;;
+  MINGW*) mingw=true;;
 esac
 
 export JAVA=java
@@ -15,6 +16,16 @@ function real_dir() {
 	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
     done
     echo "$( cd -P "$( dirname "$SOURCE" )" && pwd  )"
+}
+
+function mingw_win_path() {
+    SOURCE="$1"
+    while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    done
+    echo "$( cd -P "$( dirname "$SOURCE" )" && pwd -W )/$( basename "$SOURCE" )"
 }
 
 DIR="$( real_dir "${BASH_SOURCE[0]}" )"
