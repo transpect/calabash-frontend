@@ -31,7 +31,7 @@
 set svnext=%extensions%transpect/svn-extension
 @set jaf=%scriptdir%/lib/javax.activation.jar
 @set config="%scriptdir%extensions/transpect/transpect-config.xml"
-@set distrolibs=%distro%lib/;%distro%lib/xmlresolver-1.0.4.jar;%distro%lib/commons-fileupload-1.3.3.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.2.1-99.jar;%distro%lib/log4j-api-2.15.0.jar;%distro%lib/log4j-core-2.15.0.jar;%distro%lib/log4j-slf4j-impl-2.15.0.jar;%distro%lib/slf4j-api-1.7.32.jar
+@set distrolibs=%distro%lib/;%distro%lib/xmlresolver-1.0.4.jar;%distro%lib/commons-fileupload-1.3.3.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.2.1-99.jar;%distro%lib/log4j-api-2.16.0.jar;%distro%lib/log4j-core-2.16.0.jar;%distro%lib/log4j-slf4j-impl-2.16.0.jar;%distro%lib/slf4j-api-1.7.32.jar
 
 @set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%distrolibs%;%rngvalidext%;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
 
