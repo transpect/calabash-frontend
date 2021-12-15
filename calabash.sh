@@ -152,6 +152,9 @@ CATALOGS="$CATALOGS;$DIR/xmlcatalog/catalog.xml;$PROJECT_DIR/xmlcatalog/catalog.
 # If, however, this calabash dir is not a subdir of $PROJECT_DIR, then it makes sense to explicitly include them here.
 # Please note that it is _essential_ that your project contains an xmlcatalog/catalog.xml that includes the catalogs
 # of all transpect modules that you use.
+if $mingw; then
+  CATALOGS=file:///$(mingw_win_path "$DIR/xmlcatalog/catalog.xml")
+fi
 
 # show variables for debugging
 if [ "$DEBUG" == "yes" ]; then
@@ -162,6 +165,7 @@ if [ "$DEBUG" == "yes" ]; then
        echo "CATALOGS: $CATALOGS"
        echo "LOCALDEFS: $LOCALDEFS"
        echo "ENTITYEXPANSIONLIMIT: $ENTITYEXPANSIONLIMIT"
+       echo "SAXON_JAR: $SAXON_JAR"
 fi
 
 $JAVA \
