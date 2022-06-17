@@ -1,7 +1,9 @@
 #!/bin/bash
 cygwin=false;
+mingw=false;
 case "`uname`" in
-  CYGWIN*) cygwin=true;
+  CYGWIN*) cygwin=true;;
+  MINGW*) mingw=true;;
 esac
 
 export JAVA=java
@@ -15,6 +17,16 @@ function real_dir() {
 	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
     done
     echo "$( cd -P "$( dirname "$SOURCE" )" && pwd  )"
+}
+
+function mingw_win_path() {
+    SOURCE="$1"
+    while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    done
+    echo "$( cd -P "$( dirname "$SOURCE" )" && pwd -W )/$( basename "$SOURCE" )"
 }
 
 DIR="$( real_dir "${BASH_SOURCE[0]}" )"
@@ -90,7 +102,7 @@ if [ -z $SAXON_JAR ]; then
     elif [ -e $PROJECT_DIR/saxon/saxon10pe.jar ]; then
         SAXON_JAR=$PROJECT_DIR/saxon/saxon10pe.jar
     else
-	SAXON_JAR=$DIR/saxon/saxon10he.jar
+	SAXON_JAR=$PROJECT_DIR/saxon/saxon10he.jar
     fi
 fi
 if [ -z "$SAXON_PROCESSOR" ]; then
@@ -122,7 +134,7 @@ MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calab
 JAF="$DIR/lib/javax.activation.jar"
 DISTROLIBS="$DISTRO/lib/:$DISTRO/lib/xmlresolver-2.0.1.jar:$DISTRO/lib/commons-fileupload-1.3.3.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/slf4j-simple-1.7.32.jar:$DISTRO/lib/slf4j-api-1.7.32.jar"
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.3.2-100.jar:$DISTRO/lib/:$DISTRO/lib/xmlresolver-1.0.4.jar:$DISTRO/lib/commons-fileupload-1.3.3.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTROLIBS:$DISTRO/lib/tagsoup-1.2.1.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.3.2-100.jar:$DISTROLIBS:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
@@ -141,6 +153,9 @@ CATALOGS="$CATALOGS;$DIR/xmlcatalog/catalog.xml;$PROJECT_DIR/xmlcatalog/catalog.
 # If, however, this calabash dir is not a subdir of $PROJECT_DIR, then it makes sense to explicitly include them here.
 # Please note that it is _essential_ that your project contains an xmlcatalog/catalog.xml that includes the catalogs
 # of all transpect modules that you use.
+if $mingw; then
+  CATALOGS=file:///$(mingw_win_path "$DIR/xmlcatalog/catalog.xml")
+fi
 
 # show variables for debugging
 if [ "$DEBUG" == "yes" ]; then
@@ -151,6 +166,7 @@ if [ "$DEBUG" == "yes" ]; then
        echo "CATALOGS: $CATALOGS"
        echo "LOCALDEFS: $LOCALDEFS"
        echo "ENTITYEXPANSIONLIMIT: $ENTITYEXPANSIONLIMIT"
+	     echo "SAXON_JAR: $SAXON_JAR"
 fi
 
 $JAVA \
@@ -162,6 +178,7 @@ $JAVA \
    -Dxml.catalog.staticCatalog=1 \
    -Djdk.xml.entityExpansionLimit=$ENTITYEXPANSIONLIMIT \
    -Duser.language=$UI_LANG \
+   -Dxml.catalog.cacheUnderHome \
    $SYSPROPS \
    -Xmx$HEAP -Xss1024k \
    com.xmlcalabash.drivers.$DRIVER \
