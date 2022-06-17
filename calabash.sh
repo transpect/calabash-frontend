@@ -85,12 +85,12 @@ fi
 # SAXON_JAR is the path to a Saxon PE or EE jar file. Its name should match the following
 # regex: /[ehp]e\.jar$/ so that we can extract the substring 'ee', 'he', or 'pe':
 if [ -z $SAXON_JAR ]; then
-    if [ -e $PROJECT_DIR/saxon/saxon9ee.jar ]; then
-	SAXON_JAR=$PROJECT_DIR/saxon/saxon9ee.jar
-    elif [ -e $PROJECT_DIR/saxon/saxon9pe.jar ]; then
-        SAXON_JAR=$PROJECT_DIR/saxon/saxon9pe.jar
+    if [ -e $PROJECT_DIR/saxon/saxon10ee.jar ]; then
+	SAXON_JAR=$PROJECT_DIR/saxon/saxon10ee.jar
+    elif [ -e $PROJECT_DIR/saxon/saxon10pe.jar ]; then
+        SAXON_JAR=$PROJECT_DIR/saxon/saxon10pe.jar
     else
-	SAXON_JAR=$DIR/saxon/saxon9he.jar
+	SAXON_JAR=$DIR/saxon/saxon10he.jar
     fi
 fi
 if [ -z "$SAXON_PROCESSOR" ]; then
