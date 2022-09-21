@@ -26,7 +26,7 @@
 @set imagetransformext=%extensions%transpect/image-transform-extension;%extensions%transpect/image-transform-extension/lib/*
 @set rngvalidext=%extensions%transpect/rng-extension;%extensions%transpect/rng-extension/lib/*
 @set unzipext=%extensions%transpect/unzip-extension
-@set mathtypeext=%extensions%transpect/mathtype-extension;%extensions%transpect/mathtype-extension/lib/*;%extensions%transpect/mathtype-extension/ruby/bindata-2.3.5/lib;%extensions%transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib;%extensions%transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib;%extensions%transpect/mathtype-extension/ruby/ruby-ole-1.2.12.2/lib
+@set mathtypeext=%extensions%transpect/mathtype-extension;%extensions%transpect/mathtype-extension/lib/*;%extensions%transpect/mathtype-extension/ruby/bindata-2.3.5/lib;%extensions%transpect/mathtype-extension/ruby/mathtype-0.1.0/lib;%extensions%transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib;%extensions%transpect/mathtype-extension/ruby/ruby-ole-1.2.12.2/lib
 @set mailext=%extensions%calabash/lib/xmlcalabash1-sendmail-1.1.4.jar;%extensions%calabash/lib/javax.mail.jar
 set svnext=%extensions%transpect/svn-extension
 @set jaf=%scriptdir%/lib/javax.activation.jar
@@ -47,6 +47,8 @@ set svnext=%extensions%transpect/svn-extension
    -Dxml.catalog.files=%scriptdir_uri%xmlcatalog/catalog.xml ^
    -Djdk.xml.entityExpansionLimit=%entityexpansionlimit% ^
    -Xmx%heap% -Xss1024k ^
+   --add-opens java.base/sun.nio.ch=ALL-UNNAMED ^
+   --add-opens java.base/java.io=ALL-UNNAMED ^
    com.xmlcalabash.drivers.Main ^
    -E org.xmlresolver.Resolver ^
    -U org.xmlresolver.Resolver ^
