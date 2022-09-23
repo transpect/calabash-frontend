@@ -6,6 +6,10 @@ case "`uname`" in
 esac
 
 export JAVA=java
+JAVA_VERSION=$(java -version 2>&1 | sed -n ';s/.* version "\(.*\)\..*\..*\..*".*/\1/p;')
+if [ -z "$JAVA_VERSION" ]; then
+    JAVA_VERSION=$(java -version 2>&1 | sed -n ';s/.* version ".*\.\(.*\)\..*".*/\1/p;')
+fi
 
 # readlink -f is unavailable on Mac OS X
 function real_dir() {
@@ -153,6 +157,19 @@ CATALOGS="$CATALOGS;$DIR/xmlcatalog/catalog.xml;$PROJECT_DIR/xmlcatalog/catalog.
 # Please note that it is _essential_ that your project contains an xmlcatalog/catalog.xml that includes the catalogs
 # of all transpect modules that you use.
 
+JAVA_OPTS="-Dfile.encoding=$JAVA_FILE_ENCODING -Dxml.catalog.files=$CATALOGS \
+-Djruby.compile.mode=OFF \
+-Dxml.catalog.staticCatalog=1 \
+-Djdk.xml.entityExpansionLimit=$ENTITYEXPANSIONLIMIT \
+-Duser.language=$UI_LANG \
+-Dxml.catalog.cacheUnderHome \
+$SYSPROPS \
+-Xmx$HEAP -Xss1024k "
+
+if [ $JAVA_VERSION -gt 11 ]; then
+JAVA_OPTS+="--add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED"
+fi
+
 # show variables for debugging
 if [ "$DEBUG" == "yes" ]; then
        echo "CLASSPATH: $CLASSPATH"
@@ -167,17 +184,7 @@ fi
 
 $JAVA \
    -cp "$CLASSPATH" \
-   -Dfile.encoding=$JAVA_FILE_ENCODING \
-   -Dlog4j2.formatMsgNoLookups=true \
-   "-Dxml.catalog.files=$CATALOGS" \
-   -Djruby.compile.mode=OFF \
-   -Dxml.catalog.staticCatalog=1 \
-   -Djdk.xml.entityExpansionLimit=$ENTITYEXPANSIONLIMIT \
-   -Duser.language=$UI_LANG \
-   $SYSPROPS \
-   -Xmx$HEAP -Xss1024k \
-   --add-opens java.base/sun.nio.ch=ALL-UNNAMED \
-   --add-opens java.base/java.io=ALL-UNNAMED \
+   $JAVA_OPTS \
    com.xmlcalabash.drivers.$DRIVER \
    -Xtransparent-json \
    -E org.xmlresolver.Resolver \
