@@ -1,0 +1,154 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>2. The command line</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="javasetup.html" title="1 .  Setting up the environment"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="Chapter  2 .  Running XML Calabash" href="running.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="3 .  Setting up logging" href="logging.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <section id="cmdline" class="section">
+                  <div class="section-titlepage">
+                     <h2>2. The command line</h2>
+                  </div>
+                  <div class="content">
+                     <p>Assuming you have the appropriate jar files on your classpath, you can run
+                        <em class="citetitle">XML Calabash</em> like this:</p>
+                     <pre class="screen language-none"><code>java <em class="replaceable"><code>java-options</code></em> com.xmlcalabash.drivers.Main <em class="replaceable"><code>xml-calabash-options</code></em> <em class="replaceable"><code>pipeline.xpl</code></em></code></pre>
+                     <p>For example:</p>
+                     <pre class="screen language-none line-numbers"><code><code class="prompt">$</code> <strong class="userinput"><code>cd xmlcalabash-1.2.0</code></strong>
+<code class="prompt">$</code> <strong class="userinput"><code>java -jar xmlcalabash-1.2.0.jar xpl/pipe.xpl</code></strong>
+<code class="computeroutput">&lt;doc&gt;
+Congratulations! You've run your first pipeline!
+&lt;/doc&gt;</code></code></pre>
+                     <p>You can use
+                        <code class="option">-i <em class="replaceable"><code>port</code></em>=<em class="replaceable"><code>uri</code></em></code>
+                        to change the inputs and
+                        <code class="option">-o <em class="replaceable"><code>port</code></em>=<em class="replaceable"><code>file</code></em></code>
+                        to change the output location.</p>
+                     <p>For example:</p>
+                     <pre class="screen language-none"><code><code class="prompt">$</code> <strong class="userinput"><code>java -jar xmlcalabash-1.2.0.jar -i source=xpl/pipe.xpl -o result=/tmp/out.xml xpl/pipe.xpl</code></strong></code></pre>
+                     <p>That will run <code class="filename">xpl/pipe.xpl</code> using <code class="filename">xpl/pipe.xpl</code>
+                        as the input and writing the result to <code class="filename">/tmp/out.xml</code>.</p>
+                     <p>If you run
+                        <strong class="userinput"><code>java -jar xmlcalabash-1.2.0.jar</code></strong> with no options, it will
+                        print a short usage summary.</p>
+                     <p>Throughout this book, we assume that the command
+                        <em class="replaceable"><code>calabash</code></em> will run Java with the correct
+                        class path and other arguments.</p>
+                     <p>In all its gory detail, the following synopsis describes the
+                        <em class="citetitle">XML Calabash</em> command line:</p>
+                     <div class="cmdsynopsis" style="margin-top: 1em; text-indent: -0.66in; margin-left: 0.66in;"><code class="command"><em class="replaceable"><code>calabash</code></em></code>  [
+                        { -P  |   --saxon-processor }
+                        { he  |   pe  |   ee }
+                        ] [--saxon-configuration <em class="replaceable"><code>file</code></em>] [
+                        { -a  |   --schema-aware }
+                        ] [
+                        { -D  |   --debug }
+                        ] [--show-messages] [
+                        { -v  |   --version }
+                        ] [--profile <em class="replaceable"><code>file</code></em>] [
+                        { -S  |   --safe-mode }
+                        ] [
+                        { -c  |   --config }
+                        <em class="replaceable"><code>configfile</code></em>
+                        ] [
+                        { -G  |   --log-style }
+                        { off  |   plain  |   wrapped  |   directory }
+                        ]<br /> [
+                        { -E  |   --entity-resolver }
+                        <em class="replaceable"><code>className</code></em>
+                        ] [
+                        { -U  |   --uri-resolver }
+                        <em class="replaceable"><code>className</code></em>
+                        ] [
+                        { -X  |   --extension }
+                        { general-values  |   xpointer-on-text  |   
+                        { use-xslt-1.0  |   use-xslt-10 }
+                        |   transparent-json  |   json-flavor=<em class="replaceable"><code>flavor</code></em> }
+                        ...]<br /> [
+                        { -b  |   --binding }
+                        <em class="replaceable"><code>prefix</code></em>=<em class="replaceable"><code>uri</code></em>
+                        ...] [
+                        { -p  |   --with-param }
+                        [<em class="replaceable"><code>port</code></em>@]<em class="replaceable"><code>param</code></em>=<em class="replaceable"><code>value</code></em>
+                        ...]<br /> [
+                        { -i  |   --input }
+                        [<em class="replaceable"><code>port</code></em>=]<em class="replaceable"><code>uri</code></em>
+                        ...] [
+                        { -d  |   --data-input }
+                        [<em class="replaceable"><code>contentType</code></em>@] [<em class="replaceable"><code>port</code></em>=]<em class="replaceable"><code>uri</code></em>
+                        ...] [
+                        { -o  |   --output }
+                        [<em class="replaceable"><code>port</code></em>=]<em class="replaceable"><code>uri</code></em>
+                        ...] [<em class="replaceable"><code>option</code></em>=<em class="replaceable"><code>value</code></em>...]<br /> [[
+                        [
+                        { -l  |   --library }
+                        <em class="replaceable"><code>library.xpl</code></em>
+                        ...]
+                        [
+                        [
+                        { -p  |   --with-param }
+                        [<em class="replaceable"><code>port</code></em>@]<em class="replaceable"><code>param</code></em>=<em class="replaceable"><code>value</code></em>
+                        ...]
+                        [
+                        { -i  |   --input }
+                        [<em class="replaceable"><code>port</code></em>=]<em class="replaceable"><code>uri</code></em>
+                        ...]
+                        [
+                        { -d  |   --data-input }
+                        [<em class="replaceable"><code>port</code></em>=]<em class="replaceable"><code>uri</code></em>
+                        ...]
+                        [
+                        { -s  |   --step }
+                        <em class="replaceable"><code>steptype</code></em>
+                        ...]
+                        [<em class="replaceable"><code>option</code></em>=<em class="replaceable"><code>value</code></em>...]
+                        ...]
+                        ] |  [
+                        <em class="replaceable"><code>pipeline-uri</code></em> 
+                        [<em class="replaceable"><code>option</code></em>=<em class="replaceable"><code>value</code></em>...]
+                        ]]</div>
+                     <p>See <a href="configuration.html" title="Configuration">Chapter 4, <i>Configuration</i></a> for a description of these arguments and what they
+                        mean.</p>
+                     <p>There are three different ways to select the pipeline to run: you can specify the
+                        URI of
+                        the pipeline document on the commandline, you can specify one or more step types on
+                        the commandline,
+                        or you can specify the URI of the pipeline document in the configfile.</p>
+                  </div>
+               </section>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="1 .  Setting up the environment" href="javasetup.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="3 .  Setting up logging" href="logging.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">1 .  Setting up the environment </td>
+                  <td width="20%" align="center"><a title="Chapter  2 .  Running XML Calabash" href="running.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> 3 .  Setting up logging</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

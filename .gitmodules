@@ -1,15 +1,19 @@
 [submodule "calabash-distro"]
 	path = distro
 	url = https://github.com/transpect/calabash-distro
+	branch = saxon10
 [submodule "extensions/transpect/unzip-extension"]
 	path = extensions/transpect/unzip-extension
 	url = https://github.com/transpect/unzip-extension
+	branch = saxon10
 [submodule "extensions/transpect/image-props-extension"]
 	path = extensions/transpect/image-props-extension
 	url = https://github.com/transpect/image-props-extension
+	branch = saxon10
 [submodule "extensions/transpect/rng-extension"]
 	path = extensions/transpect/rng-extension
 	url = https://github.com/transpect/rng-extension
+	branch = saxon10
 [submodule "extensions/transpect/image-transform-extension"]
 	path = extensions/transpect/image-transform-extension
 	url = https://github.com/transpect/image-transform-extension
@@ -19,6 +23,8 @@
 [submodule "extensions/transpect/mathtype-extension"]
 	path = extensions/transpect/mathtype-extension
 	url = https://github.com/transpect/mathtype-extension
+	branch = saxon10
 [submodule "extensions/transpect/svn-extension"]
 	path = extensions/transpect/svn-extension
 	url = https://github.com/transpect/svn-extension
+	branch = calabash132-saxon10

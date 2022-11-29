@@ -1,0 +1,103 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Chapter 4. Configuration</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="antjustdont.html" title="6 .  What not to do"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="XML Calabash Reference" href="index.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="1 .  Saxon processor" href="cfg.saxon-processor.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <article id="configuration" class="chapter">
+                  <header class="chapter-titlepage">
+                     <h2>Chapter 4. Configuration</h2>
+                  </header>
+                  <div class="lists-of-titles">
+                     <div class="toc">
+                        <div class="title">Table of Contents</div>
+                        <ul class="toc">
+                           <li><span><a href="cfg.saxon-processor.html"><span class="label">1. </span>Saxon processor</a></span></li>
+                           <li><span><a href="cfg.saxon-configuration.html"><span class="label">2. </span>Saxon configuration</a></span></li>
+                           <li><span><a href="cfg.implementation.html"><span class="label">3. </span>Implementation classes</a></span><ul class="toc">
+                                 <li><span><a href="cfg.implementation.html#impl-prop"><span class="label">3.1. </span>Implementation class property file</a></span></li>
+                                 <li><span><a href="cfg.implementation.html#impl-anno"><span class="label">3.2. </span>Implementation class annotations</a></span></li>
+                                 <li><span><a href="cfg.implementation.html#impl-cfg"><span class="label">3.3. </span>Implementation classes in the configuration file</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="cfg.schema-aware.html"><span class="label">4. </span>Schema aware processing</a></span></li>
+                           <li><span><a href="cfg.debug.html"><span class="label">5. </span>Debug</a></span></li>
+                           <li><span><a href="cfg.showMessages.html"><span class="label">6. </span>Debug</a></span></li>
+                           <li><span><a href="cfg.safe-mode.html"><span class="label">7. </span>Safe mode</a></span></li>
+                           <li><span><a href="cfg.config.html"><span class="label">8. </span>Alternate configuration file</a></span></li>
+                           <li><span><a href="cfg.log-style.html"><span class="label">9. </span>Logging style</a></span></li>
+                           <li><span><a href="cfg.entity-resolver.html"><span class="label">10. </span>Entity resolver</a></span></li>
+                           <li><span><a href="cfg.uri-resolver.html"><span class="label">11. </span>URI resolver</a></span></li>
+                           <li><span><a href="cfg.extension.html"><span class="label">12. </span>Extension</a></span></li>
+                           <li><span><a href="cfg.binding.html"><span class="label">13. </span>Binding</a></span></li>
+                           <li><span><a href="cfg.parameter.html"><span class="label">14. </span>Parameter</a></span></li>
+                           <li><span><a href="cfg.input.html"><span class="label">15. </span>Input</a></span></li>
+                           <li><span><a href="cfg.data-input.html"><span class="label">16. </span>Data input</a></span></li>
+                           <li><span><a href="cfg.output.html"><span class="label">17. </span>Output</a></span></li>
+                           <li><span><a href="cfg.library.html"><span class="label">18. </span>Library</a></span></li>
+                           <li><span><a href="cfg.step.html"><span class="label">19. </span>Step</a></span></li>
+                           <li><span><a href="cfg.pipeline.html"><span class="label">20. </span>Pipeline</a></span></li>
+                           <li><span><a href="cfg.option.html"><span class="label">21. </span>Option</a></span></li>
+                           <li><span><a href="cfg.profile-file.html"><span class="label">22. </span>Profile File</a></span></li>
+                           <li><span><a href="cfg.version.html"><span class="label">23. </span>Version</a></span></li>
+                           <li><span><a href="cfg.step-error-listener.html"><span class="label">24. </span>Step error listener</a></span></li>
+                           <li><span><a href="cfg.serialization.html"><span class="label">25. </span>Serialization options</a></span></li>
+                           <li><span><a href="cfg.extension-function.html"><span class="label">26. </span>Extension function</a></span></li>
+                           <li><span><a href="cfg.fo-processor.html"><span class="label">27. </span>FO processor</a></span></li>
+                           <li><span><a href="cfg.css-processor.html"><span class="label">28. </span>CSS processor</a></span></li>
+                           <li><span><a href="cfg.xproc-configurer.html"><span class="label">29. </span>XProc configurer</a></span></li>
+                           <li><span><a href="cfg.default-system-property.html"><span class="label">30. </span>Default system property</a></span></li>
+                           <li><span><a href="cfg.html-parser.html"><span class="label">31. </span>HTML parser</a></span></li>
+                           <li><span><a href="cfg.saxon-configuration-property.html"><span class="label">32. </span>Saxon configuration property</a></span></li>
+                           <li><span><a href="cfg.sendmail.html"><span class="label">33. </span>Send mail configuration</a></span></li>
+                           <li><span><a href="cfg.piperack.html"><span class="label">34. </span>Piperack configuration</a></span></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="content">
+                     <p><em class="citetitle">XML Calabash</em> reads configuration
+                        information from several sources. The default configuration, built
+                        into the application, is augmented by user-specified configuration
+                        files, system properties, and command line options, generally in that
+                        order.</p>
+                     <p>This chapter summarizes the configuration options, irrespective of how they're
+                        set.</p>
+                  </div>
+               </article>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="6 .  What not to do" href="antjustdont.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="1 .  Saxon processor" href="cfg.saxon-processor.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">6 .  What not to do </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> 1 .  Saxon processor</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

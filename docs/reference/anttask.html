@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Chapter 3. Calabash Ant Task</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="help.html" title="4 .  What do I do if it all goes wrong?"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="XML Calabash Reference" href="index.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="1 .  Setting up the Ant Task and Types" href="antsetup.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <article id="anttask" class="chapter">
+                  <header class="chapter-titlepage">
+                     <h2>Chapter 3. Calabash Ant Task</h2>
+                  </header>
+                  <div class="lists-of-titles">
+                     <div class="toc">
+                        <div class="title">Table of Contents</div>
+                        <ul class="toc">
+                           <li><span><a href="antsetup.html"><span class="label">1. </span>Setting up the Ant Task and Types</a></span></li>
+                           <li><span><a href="antdesc.html"><span class="label">2. </span>Description</a></span><ul class="toc">
+                                 <li><span><a href="antdesc.html#antdesc.4"><span class="label">2.1. </span>Custom Task and Types</a></span></li>
+                                 <li><span><a href="antdesc.html#ant.input-and-output"><span class="label">2.2. </span>Input and output files and filesets</a></span></li>
+                                 <li><span><a href="antdesc.html#antdesc.6"><span class="label">2.3. </span>Ports</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="antparam.html"><span class="label">3. </span>Parameters</a></span></li>
+                           <li><span><a href="antparamnest.html"><span class="label">4. </span>Parameters specified as nested elements</a></span><ul class="toc">
+                                 <li><span><a href="antparamnest.html#ant.input"><span class="label">4.1. </span>input</a></span></li>
+                                 <li><span><a href="antparamnest.html#ant.pipeline"><span class="label">4.2. </span>pipeline</a></span></li>
+                                 <li><span><a href="antparamnest.html#ant.output"><span class="label">4.3. </span>output</a></span></li>
+                                 <li><span><a href="antparamnest.html#antparamnest.5"><span class="label">4.4. </span>any Ant resource</a></span></li>
+                                 <li><span><a href="antparamnest.html#antparamnest.6"><span class="label">4.5. </span>mapper</a></span></li>
+                                 <li><span><a href="antparamnest.html#antparamnest.7"><span class="label">4.6. </span>namespace</a></span></li>
+                                 <li><span><a href="antparamnest.html#ant.option"><span class="label">4.7. </span>option</a></span></li>
+                                 <li><span><a href="antparamnest.html#ant.parameter"><span class="label">4.8. </span>parameter</a></span></li>
+                                 <li><span><a href="antparamnest.html#antparamnest.10"><span class="label">4.9. </span>sysproperty</a></span></li>
+                                 <li><span><a href="antparamnest.html#antparamnest.11"><span class="label">4.10. </span>syspropertyset</a></span></li>
+                                 <li><span><a href="antparamnest.html#antparamnest.12"><span class="label">4.11. </span>profile</a></span></li>
+                                 <li><span><a href="antparamnest.html#antparamnest.13"><span class="label">4.12. </span>saxonConfig</a></span></li>
+                                 <li><span><a href="antparamnest.html#antparamnest.14"><span class="label">4.13. </span>config</a></span></li>
+                                 <li><span><a href="antparamnest.html#ant.library"><span class="label">4.14. </span>library</a></span></li>
+                                 <li><span><a href="antparamnest.html#ant.step"><span class="label">4.15. </span>step</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="antexamples.html"><span class="label">5. </span>Examples</a></span><ul class="toc">
+                                 <li><span><a href="antexamples.html#antexamples.2"><span class="label">5.1. </span>Single input, single output</a></span></li>
+                                 <li><span><a href="antexamples.html#antexamples.3"><span class="label">5.2. </span><code class="tag-element">pipeline</code></a></span></li>
+                                 <li><span><a href="antexamples.html#antexamples.4"><span class="label">5.3. </span>Implicit fileset plus mapper on additional input port</a></span></li>
+                                 <li><span><a href="antexamples.html#antexamples.5"><span class="label">5.4. </span>Fixed input, multiple mapped outputs</a></span></li>
+                                 <li><span><a href="antexamples.html#antexamples.6"><span class="label">5.5. </span>QNames</a></span></li>
+                              </ul>
+                           </li>
+                           <li><span><a href="antjustdont.html"><span class="label">6. </span>What not to do</a></span></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="content">
+                     <p>This chapter describes how to run <em class="citetitle">XML
+                           Calabash</em> from Apache Ant using the
+                        <code class="code">CalabashTask</code> custom task.</p>
+                  </div>
+               </article>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="4 .  What do I do if it all goes wrong?" href="help.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="1 .  Setting up the Ant Task and Types" href="antsetup.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">4 .  What do I do if it all goes wrong? </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> 1 .  Setting up the Ant Task and Types</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

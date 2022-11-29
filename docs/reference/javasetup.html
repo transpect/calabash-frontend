@@ -1,0 +1,174 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>1. Setting up the environment</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="running.html" title="Chapter  2 .  Running XML Calabash"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="Chapter  2 .  Running XML Calabash" href="running.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="2 .  The command line" href="cmdline.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <section id="javasetup" class="section">
+                  <div class="section-titlepage">
+                     <h2>1. Setting up the environment</h2>
+                  </div>
+                  <div class="content">
+                     <p>You must have Java 1.7 or later installed in order to run
+                        <em class="citetitle">XML Calabash</em>.</p>
+                     <p>In addition to Java, you need a set of jar files on your
+                        classpath. At a minimum, you need to include the
+                        <code class="filename">calabash.jar</code> file and the jar files in the
+                        <code class="filename">lib</code> directory of the
+                        distribution.</p>
+                     <p>Starting with version 1.1.0, <em class="citetitle">XML Calabash</em>
+                        has been broken into several modules:</p>
+                     <div class="variablelist">
+                        <dl>
+                           <dt><span class="term">deltaxml</span></dt>
+                           <dd>
+                              <p>Supports the <a href="http://www.deltaxml.com/">Delta XML</a>
+                                 comparison step. You'll also need the commercial <em class="citetitle">Delta XML</em>
+                                 jars and a license.</p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-deltaxml">http://github.com/ndw/xmlcalabash1-deltaxml</a>.
+                                 </p>
+                           </dd>
+                           <dt><span class="term">ditaa</span></dt>
+                           <dd>
+                              <p>Supports the
+                                 <a href="http://sourceforge.net/projects/ditaa/">ditaa</a>
+                                 drawing step.
+                                 </p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-ditaa">http://github.com/ndw/xmlcalabash1-ditaa</a>.
+                                 </p>
+                           </dd>
+                           <dt><span class="term">mathml-to-svg</span></dt>
+                           <dd>
+                              <p>Supports MathML to SVG conversions with the
+                                 <a href="http://sourceforge.net/projects/jeuclid/">JEuclid</a>
+                                 renderer.
+                                 </p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-mathml-to-svg">http://github.com/ndw/xmlcalabash1-mathml-to-svg</a>.
+                                 </p>
+                           </dd>
+                           <dt><span class="term">metadata-extractor</span></dt>
+                           <dd>
+                              <p>Supports the image metadata extractions step with the
+                                 <a href="https://drewnoakes.com/code/exif/">Metadata Extractor</a>
+                                 library.
+                                 </p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-metadata-extractor">http://github.com/ndw/xmlcalabash1-metadata-extractor</a>.
+                                 </p>
+                           </dd>
+                           <dt><span class="term">plantuml</span></dt>
+                           <dd>
+                              <p>Supports the
+                                 <a href="http://sourceforge.net/projects/plantuml/">PlantUML</a>
+                                 drawing step.
+                                 </p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-plantuml">http://github.com/ndw/xmlcalabash1-plantuml</a>.
+                                 </p>
+                           </dd>
+                           <dt><span class="term">print</span></dt>
+                           <dd>
+                              <p>Supports printing with
+                                 <a href="http://www.w3.org/standards/techs/xsl#w3c_all">XSL
+                                    Formatting Objects</a>
+                                 or
+                                 <a href="http://www.w3.org/Style/CSS/">CSS</a>.
+                                 Support is included for XSL FO processing with
+                                 <a href="https://xmlgraphics.apache.org/fop/">FOP</a>,
+                                 <a href="http://www.antennahouse.com/antenna1/xsl-specification/">AntennaHouse</a>,
+                                 or
+                                 <a href="http://www.renderx.com/">RenderX</a>
+                                 and CSS processing with
+                                 <a href="http://www.antennahouse.com/antenna1/css/">AntennaHouse</a>,
+                                 or
+                                 <a href="http://www.princexml.com/">PrinceXML</a>.
+                                 </p>
+                              <p>Printing with XML Calabash requires the libraries in this module
+                                 in addition to any commercial libraries and licences required. (No
+                                 additional libraries are required for FOP.)</p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-print">http://github.com/ndw/xmlcalabash1-print</a>.
+                                 </p>
+                           </dd>
+                           <dt><span class="term">rdf</span></dt>
+                           <dd>
+                              <p>Supports the extension steps that can read, write, and query
+                                 <a href="http://www.w3.org/RDF/">RDF</a>.
+                                 </p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-rdf">http://github.com/ndw/xmlcalabash1-rdf</a>.
+                                 </p>
+                           </dd>
+                           <dt><span class="term">sendmail</span></dt>
+                           <dd>
+                              <p>Supports the step that sends email.
+                                 </p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-sendmail">http://github.com/ndw/xmlcalabash1-sendmail</a>.
+                                 </p>
+                           </dd>
+                           <dt><span class="term">xcc</span></dt>
+                           <dd>
+                              <p>Supports the
+                                 <a href="http://www.marklogic.com/">MarkLogic</a>
+                                 XCC steps.
+                                 </p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-xcc">http://github.com/ndw/xmlcalabash1-xcc</a>.
+                                 </p>
+                           </dd>
+                           <dt><span class="term">xmlunit</span></dt>
+                           <dd>
+                              <p>Supports XML comparison with the
+                                 <a href="http://www.xmlunit.org/">XMLUnit</a> library.
+                                 </p>
+                              <p>Available from <a href="http://github.com/ndw/xmlcalabash1-xmlunit">http://github.com/ndw/xmlcalabash1-xmlunit</a>.
+                                 </p>
+                           </dd>
+                        </dl>
+                     </div>
+                     <p>To use any of these modules, simply download them (or get them
+                        <a href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.xmlcalabash%22">through Maven</a>) and place them on your classpath. No other
+                        configuration is necessary.</p>
+                     <p>With the introduction of modules, <em class="citetitle">XML Calabash</em>
+                        version numbers move somewhat in the direction of
+                        <em>semantic versioning</em>. Modules with version numbers
+                        of the form 1.1.<em class="replaceable"><code>x</code></em> are designed to work with
+                        <em class="citetitle">XML Calabash</em> version 1.1.<em class="replaceable"><code>x</code></em>,
+                        modules with version numbers
+                        of the form 1.2.<em class="replaceable"><code>x</code></em> with
+                        <em class="citetitle">XML Calabash</em> version 1.2.<em class="replaceable"><code>x</code></em>,
+                        etc.</p>
+                  </div>
+               </section>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="Chapter  2 .  Running XML Calabash" href="running.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="2 .  The command line" href="cmdline.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">Chapter  2 .  Running XML Calabash </td>
+                  <td width="20%" align="center"><a title="Chapter  2 .  Running XML Calabash" href="running.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> 2 .  The command line</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>cx:sparql</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="cx-set-cookies.html" title="cx:set-cookies"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="cx:until-unchanged" href="cx-until-unchanged.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <article id="cx-sparql" class="refentry">
+                  <div class="content">
+                     <div class="refnamediv">
+                        <h2>Name</h2>
+                        <p><span class="refname">cx:sparql</span><span class="refpurpose"><span class="refpurpose-sep"> — </span><span class="refpurpose-text">Perform SPARQL queries</span><span class="refpurpose-punc">.</span></span></p>
+                     </div>
+                     <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="refsynopsisdiv">
+                        <h2>Synopsis</h2>
+                        <p class="element-syntax element-syntax-declare-step-opt"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cx:sparql</code><code>"</code> <code class="attr xmlns-attr">xmlns:cx</code><code>="</code><code class="value xmlns-value">http://xmlcalabash.com/ns/extensions</code><code>"</code><code>&gt;</code></span><br />     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">true</code><code>"</code><code>/&gt;</code></span><br />     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">query</code><code>"</code><code>/&gt;</code></span><br />     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code><code>/&gt;</code></span><br /><code>&lt;/p:declare-step&gt;</code></p>
+                     </div>
+                     <div class="refsection">
+                        <div class="refsection-titlepage">
+                           <h2>Description</h2>
+                        </div>
+                        <div class="content">
+                           
+                           
+                           
+                           <p>This step uses the <a href="https://jena.apache.org/">Jena</a> project libraries to
+                              perform SPARQL queries on semantic web data.
+                              The sequence of triple documents that
+                              appears on the <code class="code">source</code> port is used to construct a graph which
+                              is then queries.</p>
+                           
+                           
+                           <p>The format of <code class="code">sem:triples</code> files is straightforward, it contains
+                              a set of one or more <code class="tag-element">sem:triple</code> elements. Each <code class="tag-element">sem:triple</code>
+                              in turn contains a <code class="tag-element">sem:subject</code>, a <code class="tag-element">sem:predicate</code>, and a
+                              <code class="tag-element">sem:object</code>.</p>
+                           
+                           
+                           <p>The subject and predicate are always IRIs, the object is either
+                              an IRI or a literal value. The object is an IRI unless it has a <code class="tag-attribute">datatype</code> or <code class="tag-attribute">xml:lang</code> attribute, in which case it is a
+                              literal.</p>
+                           
+                           
+                           <p>If any IRI begins with “<code class="literal">http://marklogic.com/semantics/blank/</code>”,
+                              it represents a blank node.</p>
+                           
+                           
+                           <div class="note admonition">
+                              <h3>What the heck is this format?</h3>
+                              <div class="admonition-body">
+                                 <p>This format is a serialization of the internal format that
+                                    <a href="http://www.marklogic.com/">MarkLogic</a> uses to represent
+                                    semantics data. It's convenient for me and easy to convert into other formats.
+                                    Eventually, I'll add serialization options to produce more common formats.</p>
+                              </div>
+                           </div>
+                           </div>
+                     </div>
+                     <div class="refsection">
+                        <div class="refsection-titlepage">
+                           <h2>Implementation</h2>
+                        </div>
+                        <div class="content">
+                           
+                           
+                           <p>This step is implemented by the
+                              <a href="https://github.com/ndw/xmlcalabash1-rdf">xmlcalabash1-rdf</a>
+                              module. The jar file from that project must be in the class path in order
+                              to use this step.</p>
+                           </div>
+                     </div>
+                  </div>
+               </article>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="cx:set-cookies" href="cx-set-cookies.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="cx:until-unchanged" href="cx-until-unchanged.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">cx:set-cookies </td>
+                  <td width="20%" align="center"><a title="XML Calabash Extension Steps" href="cx-steps.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> cx:until-unchanged</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>

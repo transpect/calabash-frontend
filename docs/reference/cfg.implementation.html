@@ -1,0 +1,144 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>3. Implementation classes</title>
+      <meta charset="utf-8" />
+      <meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.5.0" />
+      <link href="css/default.css" rel="stylesheet" type="text/css" />
+      <link href="css/db-prism.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="css/xproc.css" type="text/css" /><script type="text/javascript" src="js/dbmodnizr.js"></script></head>
+   <body>
+      <div class="page">
+         <div class="content">
+            <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navheader">
+               <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Navigation table">
+                  <tr>
+                     <td align="left"> <a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a> <a href="cfg.saxon-configuration.html" title="2 .  Saxon configuration"><img src="img/prev.png" alt="Prev" border="0" /></a> <a title="Chapter  4 .  Configuration" href="configuration.html"><img src="img/up.png" alt="Up" border="0" /></a> <a title="4 .  Schema aware processing" href="cfg.schema-aware.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+                     <td align="right"><i>XML Calabash Reference</i> (Version 0.28)</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="body">
+               <section id="cfg.implementation" class="section">
+                  <div class="section-titlepage">
+                     <h2>3. Implementation classes</h2>
+                  </div>
+                  <div class="content">
+                     <p>In order to run an atomic step (implemented in the JVM), the
+                        processor must know what class provides its implementation. Prior to
+                        <em class="citetitle">XML Calabash</em> 1.2.0, the preferred mechanism was to use
+                        annotations.</p>
+                     <p>However, it turns out in practice that access to annotations can
+                        be challenging. They depend (I infer) on the security settings of the
+                        class loader in effect and are sometimes unavailable. The preferred mechanism is
+                        now a properties file.</p>
+                     <section id="impl-prop" class="section">
+                        <div class="section-titlepage">
+                           <h3>3.1. Implementation class property file</h3>
+                        </div>
+                        <div class="content">
+                           <p>Add a Java property file named “<code class="filename">com.xmlcalabash.properties</code>” to
+                              the jar file that includes the class which implements the step. The property file
+                              can
+                              declare namespaces and step implementations. For example:</p>
+                           <pre class="programlisting language-none line-numbers"><code>cx = namespace http://xmlcalabash.com/ns/extensions
+px = namespace http://example.com/ns/xproc
+
+com.xmlcalabash.extensions.StepA = step cx:step-a
+com.xmlcalabash.extensions.StepB = step cx:step-c
+com.xmlcalabash.extensions.StepC = step cx:step-c,px:step-c-legacy</code></pre>
+                           <p>Namespaces prefixes are declared by using the prefix as the key in the property file
+                              with the value “<code class="literal">namespace</code> <em class="replaceable"><code>URI</code></em>”.</p>
+                           <p>Steps are declared by using the implementation class name as the
+                              key with the value “<code class="literal">step</code>
+                              <em class="replaceable"><code>QName</code></em>” where
+                              <em class="replaceable"><code>QName</code></em> is the step type. If the class
+                              implements multiple step types, use a comma separated list of step QNames.
+                              </p>
+                           <p>For backwards compatibility, annotations take preference over property values.
+                              Also, any parsing errors in the property file(s) are reported as log messages at the
+                              <code class="literal">DEBUG</code> level.</p>
+                        </div>
+                     </section>
+                     <section id="impl-anno" class="section">
+                        <div class="section-titlepage">
+                           <h3>3.2. Implementation class annotations</h3>
+                        </div>
+                        <div class="content">
+                           <p>The preferred way to
+                              identify implementation classes is with the
+                              <code class="interfacename">XMLCalabash</code> annotation:</p>
+                           <pre class="programlisting language-none line-numbers"><code>package com.example.package;
+
+import com.xmlcalabash.core.XMLCalabash;
+import com.xmlcalabash.library.DefaultStep;
+
+@XMLCalabash(
+        name = "ex:step-name",
+        type = "{http://example.com/ns/extensions}step-name")
+
+public class StepName extends DefaultStep {
+   …
+}</code></pre>
+                           <p>The <code class="methodname">name</code> annotation might be used in
+                              messages, but it's the <code class="methodname">type</code> annotation that's important.
+                              It must be the namespace URI and local name of the step type in “Clark
+                              notation.” If there are multiple steps that share an implementation the
+                              <code class="methodname">type</code> annotation may be a space-separated list
+                              of tokens.</p>
+                        </div>
+                     </section>
+                     <section id="impl-cfg" class="section">
+                        <div class="section-titlepage">
+                           <h3>3.3. Implementation classes in the configuration file</h3>
+                        </div>
+                        <div class="content">
+                           <p>If for some reason it isn't possible to use a property file or an annotation, the
+                              <code class="tag-element">cc:implementation</code> element in the XML Configuration
+                              file can be used instead:</p>
+                           <figure id="impl-cfg.3" class="informaltable-wrapper cfgprop">
+                              <div class="informaltable cfgprop">
+                                 <table border="0" style="border-collapse: collapse;">
+                                    <colgroup>
+                                       <col class="tcol1" />
+                                       <col class="tcol2" />
+                                    </colgroup>
+                                    <tbody>
+                                       <tr>
+                                          <td>XML configuration:</td>
+                                          <td><code class="tag-emptytag">&lt;cc:implementation type="<em class="replaceable"><code>QName</code></em>" class-name="<em class="replaceable"><code>class-name</code></em>"/&gt;</code></td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </figure>
+                           <p>The <code class="tag-attribute">type</code> attribute may be a space-separated
+                              list of QNames. The <code class="tag-attribute">class-name</code> must be a fully
+                              qualified class name, such as <code class="literal">com.xmlcalabash.library.Identity</code>.
+                              </p>
+                        </div>
+                     </section>
+                  </div>
+               </section>
+            </div>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="navfooter">
+            <table width="100%" summary="Navigation table">
+               <tr>
+                  <td width="40%" align="left"><a title="2 .  Saxon configuration" href="cfg.saxon-configuration.html"><img src="img/prev.png" alt="Prev" border="0" /></a> </td>
+                  <td width="20%" align="center"><a title="XML Calabash Reference" href="index.html"><img src="img/home.png" alt="Home" border="0" /></a></td>
+                  <td width="40%" align="right"> <a title="4 .  Schema aware processing" href="cfg.schema-aware.html"><img src="img/next.png" alt="Next" border="0" /></a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left">2 .  Saxon configuration </td>
+                  <td width="20%" align="center"><a title="Chapter  4 .  Configuration" href="configuration.html"><img src="img/up.png" alt="Up" border="0" /></a></td>
+                  <td width="40%" align="right"> 4 .  Schema aware processing</td>
+               </tr>
+            </table>
+         </div>
+         <div xmlns:tmpl="http://docbook.org/xslt/titlepage-templates" class="copyrightfooter">
+            <p><a href="dbcpyright.html">Copyright</a> © 2011–2020 Norman Walsh.</p>
+         </div>
+      </div>
+   </body>
+</html>
