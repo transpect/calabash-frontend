@@ -26,14 +26,14 @@
 @set imagetransformext=%extensions%transpect/image-transform-extension;%extensions%transpect/image-transform-extension/lib/*
 @set rngvalidext=%extensions%transpect/rng-extension;%extensions%transpect/rng-extension/lib/*
 @set unzipext=%extensions%transpect/unzip-extension
-@set mathtypeext=%extensions%transpect/mathtype-extension;%extensions%transpect/mathtype-extension/lib/*;%extensions%transpect/mathtype-extension/ruby/bindata-2.3.5/lib;%extensions%transpect/mathtype-extension/ruby/mathtype-0.1.0/lib;%extensions%transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib;%extensions%transpect/mathtype-extension/ruby/ruby-ole-1.2.12.2/lib
+@set mathtypeext=%extensions%transpect/mathtype-extension;%extensions%transpect/mathtype-extension/lib/*;%extensions%transpect/mathtype-extension/ruby/bindata-2.3.5/lib;%extensions%transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib;%extensions%transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib;%extensions%transpect/mathtype-extension/ruby/ruby-ole-1.2.12.2/lib
 @set mailext=%extensions%calabash/lib/xmlcalabash1-sendmail-1.1.4.jar;%extensions%calabash/lib/javax.mail.jar
 set svnext=%extensions%transpect/svn-extension
 @set jaf=%scriptdir%/lib/javax.activation.jar
 @set config="%scriptdir%extensions/transpect/transpect-config.xml"
-@set distrolibs=%distro%lib/;%distro%lib/xmlresolver-1.0.4.jar;%distro%lib/commons-fileupload-1.3.3.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.3.2-100.jar;%distro%lib/log4j-api-2.17.1.jar;%distro%lib/log4j-core-2.17.1.jar;%distro%lib/log4j-slf4j-impl-2.17.1.jar;%distro%lib/slf4j-api-1.7.32.jar
+@set distrolibs=%distro%lib/;%distro%lib/xmlresolver-2.0.1.jar;%distro%lib/commons-fileupload-1.3.3.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.3.2-100.jar;%distro%lib/slf4j-simple-1.7.32.jar;%distro%lib/slf4j-api-1.7.32.jar
 
-@set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%distrolibs%;%rngvalidext%;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
+@set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon10ee.jar;%projectdir%saxon/saxon10pe.jar;%projectdir%saxon/saxon10he.jar;%scriptdir%saxon/saxon10he.jar;%distrolibs%;%rngvalidext%;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
 
 @REM call localdefs batch file to overwrite default values for classpath 
 @REM or xproc-config
