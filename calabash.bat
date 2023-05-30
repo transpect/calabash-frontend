@@ -1,17 +1,19 @@
+@setlocal ENABLEDELAYEDEXPANSION
+@set escapedspace=%%20
 
 @REM The variable %~dp0 (the current script's directory) is not available
 @REM in Windows versions prior to Windows 7. You need to set the scriptdir
 @REM variable manually (with forward slashes and with a trailing slash), e.g.
 @REM set scriptdir=C:/Users/joe/myproject/calabash/
-
-@if not defined heap (
-@set heap=1024m
-)
 @if not defined entityexpansionlimit (
 @set entityexpansionlimit=2147483647
 )
+@if not defined heap (
+@set heap=1024m
+)
 @set sd=%~dp0
 @set scriptdir=%sd:\=/%
+@set scriptdir_uri=file:///%scriptdir: =!escapedspace!%
 @set distro=%scriptdir%/distro/
 @set extensions=%scriptdir%/extensions/
 @set projectdir=%scriptdir%/../
@@ -24,29 +26,54 @@
 @set imagetransformext=%extensions%transpect/image-transform-extension;%extensions%transpect/image-transform-extension/lib/*
 @set rngvalidext=%extensions%transpect/rng-extension;%extensions%transpect/rng-extension/lib/*
 @set unzipext=%extensions%transpect/unzip-extension
-@set mathtypeext=%extensions%transpect/mathtype-extension;%extensions%transpect/mathtype-extension/lib/*;%extensions%transpect/mathtype-extension/ruby/bindata-2.3.5/lib;%extensions%transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib;%extensions%transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib;%extensions%transpect/mathtype-extension/ruby/ruby-ole-1.2.12.1/lib
+@set mathtypeext=%extensions%transpect/mathtype-extension;%extensions%transpect/mathtype-extension/lib/*;%extensions%transpect/mathtype-extension/ruby/bindata-2.3.5/lib;%extensions%transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib;%extensions%transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib;%extensions%transpect/mathtype-extension/ruby/ruby-ole-1.2.12.2/lib
 @set mailext=%extensions%calabash/lib/xmlcalabash1-sendmail-1.1.4.jar;%extensions%calabash/lib/javax.mail.jar
-@set svnext=%extensions%transpect/svn-extension
+set svnext=%extensions%transpect/svn-extension
 @set jaf=%scriptdir%/lib/javax.activation.jar
 @set config="%scriptdir%extensions/transpect/transpect-config.xml"
+@set distrolibs=%distro%lib/;%distro%lib/httpclient-4.5.13.jar;%distro%lib/xmlresolver-0.14.0.jar;%distro%lib/commons-fileupload-1.3.3.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.1.22-98.jar;%distro%lib/log4j-api-2.17.1.jar;%distro%lib/log4j-core-2.17.1.jar;%distro%lib/log4j-slf4j-impl-2.17.1.jar;%distro%lib/slf4j-api-1.7.32.jar
 
-@set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%rngvalidext%;%distro%lib/;%distro%lib/xmlresolver-0.14.0.jar;%distro%lib/commons-fileupload-1.3.3.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.1.22-98.jar;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
+@set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon9ee.jar;%projectdir%saxon/saxon9pe.jar;%projectdir%saxon/saxon9he.jar;%scriptdir%saxon/saxon9he.jar;%distrolibs%;%rngvalidext%;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
 
 @REM call localdefs batch file to overwrite default values for classpath 
 @REM or xproc-config
 @if exist {%localdefs%} {call %localdefs%}
 
-@set CALABASH=java ^
+print "---------------------"
+
+for /f tokens^=2-5^ delims^=.-_^" %%j in ('java -fullversion 2^>^&1') do set "jver=%%j%%k%%l%%m"
+
+print "---------------------"
+echo %javaversion%
+
+for /f tokens^=^2^ delims^=^.^" %%a in ('java -fullversion 2^>^&1') do set JAVA_VER_NUM=%%a
+@echo "JAVA VERSION:" %JAVA_VER_NUM%
+
+@if %JAVA_VER_NUM% GEQ 12 (@set JAVA_OPTS=--add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED)
+
+@if %JAVA_VER_NUM% GEQ 8 (@set CALABASH=java ^
    -cp "%classpath%" ^
-   -Dfile.encoding=UTF-8 ^
+   -Dfile.encoding=UTF8 ^
    -Dsun.jnu.encoding=UTF-8 ^
    -Dlog4j2.formatMsgNoLookups=true ^
-   -Dxml.catalog.files="file:///%scriptdir%xmlcatalog/catalog.xml" ^
+   -Dxml.catalog.files=%scriptdir_uri%xmlcatalog/catalog.xml ^
+   -Djdk.xml.entityExpansionLimit=%entityexpansionlimit% ^
+   -Xmx%heap% -Xss1024k ^
+   %JAVA_OPTS% ^
+   com.xmlcalabash.drivers.Main ^
+   -E org.xmlresolver.Resolver ^
+   -U org.xmlresolver.Resolver ^
+   -c "%config%") else (@set CALABASH=java ^
+   -cp "%classpath%" ^
+   -Dfile.encoding=UTF8 ^
+   -Dsun.jnu.encoding=UTF-8 ^
+   -Dlog4j2.formatMsgNoLookups=true ^
+   -Dxml.catalog.files=%scriptdir_uri%xmlcatalog/catalog.xml ^
    -Djdk.xml.entityExpansionLimit=%entityexpansionlimit% ^
    -Xmx%heap% -Xss1024k ^
    com.xmlcalabash.drivers.Main ^
    -E org.xmlresolver.Resolver ^
    -U org.xmlresolver.Resolver ^
-   -c %config% 
+   -c "%config%" )
 
-@%CALABASH% %*
+%CALABASH% %*

@@ -18,6 +18,7 @@ BUILD_DIR	?= $(TR_PROJ)/build
 DIRS            ?= calabash a9s cascade conf htmlreports schema schematron xmlcatalog xpl xproc-util xsl xslt-util
 MAIN_CLASS	?= MyWrapper
 WRAPPER_DIR	?= $(TR_PROJ)/JarWrapper
+WRAPPER_TARGET_DIR ?=  $(TR_PROJ)/JarWrapper
 # Assuming that it is in no package for the time being:
 MAIN_CLASS_FILE	?= $(BUILD_DIR)/$(MAIN_CLASS).class
 JAR_MANIFEST	?= $(WRAPPER_DIR)/src/Manifest.txt
@@ -39,35 +40,42 @@ CALABASH_JARS	=  $(DISTRO)/lib/ant-1.9.4.jar \
  $(DISTRO)/lib/commons-logging-1.2.jar \
  $(DISTRO)/lib/hamcrest-core-1.3.jar \
  $(DISTRO)/lib/htmlparser-1.4.jar \
- $(DISTRO)/lib/httpclient-4.5.2.jar \
+ $(DISTRO)/lib/httpclient-4.5.13.jar \
  $(DISTRO)/lib/httpcore-4.4.5.jar \
  $(DISTRO)/lib/icu4j-49.1.jar \
  $(DISTRO)/lib/isorelax-20090621.jar \
  $(DISTRO)/lib/javax.servlet-api-3.1.0.jar \
  $(DISTRO)/lib/jcl-over-slf4j-1.7.10.jar \
  $(DISTRO)/lib/junit-4.12.jar \
- $(DISTRO)/lib/log4j-api-2.1.jar \
- $(DISTRO)/lib/log4j-core-2.1.jar \
- $(DISTRO)/lib/log4j-slf4j-impl-2.1.jar \
  $(DISTRO)/lib/msv-core-2013.6.1.jar \
  $(DISTRO)/lib/nwalsh-annotations-1.0.0.jar \
  $(DISTRO)/lib/org.restlet.ext.fileupload-2.2.2.jar \
  $(DISTRO)/lib/org.restlet.ext.slf4j-2.2.2.jar \
  $(DISTRO)/lib/org.restlet-2.2.2.jar \
  $(DISTRO)/lib/relaxngDatatype-20020414.jar \
- $(DISTRO)/lib/slf4j-api-1.7.10.jar \
+ $(DISTRO)/lib/slf4j-api-1.7.32.jar \
+ $(DISTRO)/lib/log4j-api-2.17.1.jar \
+ $(DISTRO)/lib/log4j-core-2.17.1.jar \
+ $(DISTRO)/lib/log4j-slf4j-impl-2.17.1.jar \
  $(DISTRO)/lib/tagsoup-1.2.1.jar \
  $(DISTRO)/lib/xmlresolver-0.14.0.jar \
  $(DISTRO)/lib/xsdlib-2013.6.1.jar \
- $(DISTRO)/xmlcalabash-1.1.21-98.jar
+ $(DISTRO)/xmlcalabash-1.1.22-98.jar
+
 SAXON_JARS		= $(MAKEFILEDIR)/saxon/saxon9he.jar
 RNG_EXTENSION_JARS	= $(TR_EXT)/rng-extension/jar/ValidateWithRelaxNG.jar \
  $(TR_EXT)/rng-extension/lib/jing.jar
 UNZIP_EXTENSION_JARS	= $(TR_EXT)/unzip-extension/jar/UnZip.jar
 # More extensions will go here...
 
+IMAGEIDENTIFY_EXTENSION_JARS	= $(TR_EXT)/image-props-extension/jar/ImageIdentify.jar $(TR_EXT)/image-props-extension/lib/xmlgraphics-commons-1.5.jar $(TR_EXT)/image-props-extension/lib/xmpcore-6.0.6.jar $(TR_EXT)/image-props-extension/lib/metadata-extractor-2.18.0.jar $(TR_EXT)/image-props-extension/lib/commons-imaging-1.0-alpha2.jar $(TR_EXT)/image-props-extension/lib/junit-4.12.jar $(TR_EXT)/image-props-extension/lib/hamcrest-core-1.3.jar
+
+
+#currently you need to use image-props-extension r7125 to run image-identify properly. use the IMAGEIDENITY_EXTENSION_JARS below or debug the on above with the current extension libs
+#IMAGEIDENTIFY_EXTENSION_JARS	= $(TR_EXT)/image-props-extension/jar/ImageIdentify.jar $(TR_EXT)/image-props-extension/lib/xmlgraphics-commons-1.5.jar $(TR_EXT)/image-props-extension/lib/commons-imaging-1.0-SNAPSHOT.jar
+
 # This variable may be configured again in the including Makefile:
-JARS			?= $(WRAPPER_JARS) $(CALABASH_JARS) $(SAXON_JARS) $(RNG_EXTENSION_JARS) $(UNZIP_EXTENSION_JARS)
+JARS			?= $(WRAPPER_JARS) $(CALABASH_JARS) $(SAXON_JARS) $(RNG_EXTENSION_JARS) $(UNZIP_EXTENSION_JARS) $(IMAGEIDENTIFY_EXTENSION_JARS)
 
 .PHONY: build_jar clean unzip_jars copy_dirs monolithic_jar_patches
 
@@ -83,7 +91,15 @@ usage_jarbuild:
 	@echo "You need to create a source file for the main class in the first place. There is no public example yet."
 
 build_jar: $(BUILD_DIR) unzip_jars monolithic_jar_patches $(MAIN_CLASS_FILE) copy_dirs $(BUILD_DIR)/META-INF/catalog.xml
-	jar cfm $(call win_path,$(WRAPPER_DIR)/$(MAIN_CLASS).jar) $(call win_path,$(JAR_MANIFEST)) -C $(call win_path,$(BUILD_DIR)/) .
+	echo "JARS:" $(JARS);\
+	echo "DIRS" $(DIRS);\
+	echo "TRPROJ:" $(TR_PROJ);\
+	echo "BUILD_DIR:" $(BUILD_DIR);\
+	echo "WRAPPER_DIR:" $(WRAPPER_DIR);\
+	echo "JAR_MANIFEST:" $(JAR_MANIFEST);\
+	echo "WRAPPER_TARGET_DIR:" $(WRAPPER_TARGET_DIR);\
+	echo "MAIN_CLASS_FILE:" $(MAIN_CLASS_FILE);\
+	jar cfm $(call win_path,$(WRAPPER_TARGET_DIR)/$(MAIN_CLASS).jar) $(call win_path,$(JAR_MANIFEST)) -C $(call win_path,$(BUILD_DIR)/) .
 
 $(BUILD_DIR):
 	-mkdir $@
@@ -94,7 +110,7 @@ $(BUILD_DIR)/META-INF/catalog.xml: $(MAKEFILEDIR)/xmlcatalog/catalog.forjar.xml
 
 $(BUILD_DIR)/%.class: $(WRAPPER_DIR)/src/%.java
 # Will be created in no package dir, i.e., immediately in the build directory
-	$(JAVAC) -cp '$(call win_path,$(BUILD_DIR))' -Xlint:-options -source 1.7 $< -d '$(call win_path,$(BUILD_DIR))/' -target 1.7
+	$(JAVAC) -cp '$(call win_path,$(BUILD_DIR))' -Xlint:-options -source 1.7 $(call win_path,$<) -d '$(call win_path,$(BUILD_DIR))/' -target 1.7
 
 monolithic_jar_patches: $(PATCHED_CLASSES)
 	cd $(MAKEFILEDIR)/patches/monolithic-jar-builder/java && find . -name '*.class' -exec cp -u --parents {} $(abspath $(BUILD_DIR)) \;

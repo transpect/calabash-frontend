@@ -24,6 +24,10 @@
   <p:option name="fail-on-error" select="'true'">
     <p:documentation>Whether to throw an error when validation fails.</p:documentation>
   </p:option>
+  
+  <p:option name="output-to-console" select="'false'">
+    <p:documentation>Whether to throw an error when validation fails.</p:documentation>
+  </p:option>
 
   <p:variable name="var-file-uri" select="base-uri()"/>
 
@@ -62,6 +66,21 @@
         </p:input>
       </p:identity>
       
+      <p:choose>
+        <p:when test="$output-to-console = 'true'">
+          <p:identity>
+            <p:input port="source">
+              <p:pipe step="catch1" port="error"/>
+            </p:input>
+          </p:identity>
+           <cx:message>
+             <p:with-option name="message" select="."/>
+           </cx:message>
+        </p:when>
+        <p:otherwise>
+          <p:identity/>
+        </p:otherwise>
+      </p:choose>
       <p:choose>
         <p:when test="$fail-on-error = 'true'">
           <p:error code="tr:XSD1">
