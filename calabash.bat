@@ -39,11 +39,8 @@ set svnext=%extensions%transpect/svn-extension
 @REM or xproc-config
 @if exist {%localdefs%} {call %localdefs%}
 
-print "---------------------"
-
 for /f tokens^=2-5^ delims^=.-_^" %%j in ('java -fullversion 2^>^&1') do set "jver=%%j%%k%%l%%m"
 
-print "---------------------"
 echo %javaversion%
 
 for /f tokens^=^2^ delims^=^.^" %%a in ('java -fullversion 2^>^&1') do set JAVA_VER_NUM=%%a
