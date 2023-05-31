@@ -7,6 +7,10 @@ case "`uname`" in
 esac
 
 export JAVA=java
+JAVA_VERSION=$(java -version 2>&1 | sed -n ';s/.* version "\(.*\)\..*\..*\..*".*/\1/p;')
+if [ -z "$JAVA_VERSION" ]; then
+    JAVA_VERSION=$(java -version 2>&1 | sed -n ';s/.* version ".*\.\(.*\)\..*".*/\1/p;')
+fi
 
 # readlink -f is unavailable on Mac OS X
 function real_dir() {
@@ -122,13 +126,13 @@ fi
 # to the calabash/calabash.sh invocation.
 
 # The class paths of the custom Calabash extension steps
-IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/xmlgraphics-commons-1.5.jar:$EXT_BASE/transpect/image-props-extension/lib/commons-imaging-1.0-alpha2.jar:$EXT_BASE/transpect/image-props-extension/lib/metadata-extractor-2.14.0.jar:$EXT_BASE/transpect/image-props-extension/lib/xmpcore-6.0.6.jar"
+IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/xmlgraphics-commons-1.5.jar:$EXT_BASE/transpect/image-props-extension/lib/commons-imaging-1.0-alpha2.jar:$EXT_BASE/transpect/image-props-extension/lib/metadata-extractor-2.18.0.jar:$EXT_BASE/transpect/image-props-extension/lib/xmpcore-6.0.6.jar"
 IMAGETRANSFORM_EXT="$EXT_BASE/transpect/image-transform-extension:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-image-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-io-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-lang-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-core-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-jpeg-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-metadata-3.2-SNAPSHOT.jar"
 JAVASCRIPT_EXT="$EXT_BASE/transpect/javascript-extension:$EXT_BASE/transpect/javascript-extension/lib/rhino-1.7.8.jar:$EXT_BASE/transpect/javascript-extension/lib/trireme.0.9.1.jar"
 EPUBCHECK_EXT="$EXT_BASE/transpect/epubcheck-extension:$EXT_BASE/transpect/epubcheck-extension/lib"
 RNGVALID_EXT="$EXT_BASE/transpect/rng-extension:$EXT_BASE/transpect/rng-extension/lib/jing.jar"
 UNZIP_EXT="$EXT_BASE/transpect/unzip-extension"
-MATHTYPE_EXT="$EXT_BASE/transpect/mathtype-extension:$EXT_BASE/transpect/mathtype-extension/lib/jruby-complete-9.1.8.0.jar:$EXT_BASE/transpect/mathtype-extension/ruby/bindata-2.3.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib:$EXT_BASE/transpect/mathtype-extension/ruby/ruby-ole-1.2.12.1/lib"
+MATHTYPE_EXT="$EXT_BASE/transpect/mathtype-extension:$EXT_BASE/transpect/mathtype-extension/lib/jruby-complete-9.3.8.0.jar:$EXT_BASE/transpect/mathtype-extension/ruby/bindata-2.3.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/mathtype-0.0.7.5/lib:$EXT_BASE/transpect/mathtype-extension/ruby/nokogiri-1.7.0.1-java/lib:$EXT_BASE/transpect/mathtype-extension/ruby/ruby-ole-1.2.12.2/lib"
 SVN_EXT="$EXT_BASE/transpect/svn-extension:$EXT_BASE/transpect/svn-extension/lib/antlr-runtime-3.4.jar:$EXT_BASE/transpect/svn-extension/lib/jna-4.1.0.jar:$EXT_BASE/transpect/svn-extension/lib/jna-platform-4.1.0.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.connector-factory-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.core-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.pageant-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.sshagent-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.svnkit-trilead-ssh2-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.usocket-jna-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.usocket-nc-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/lz4-java-1.4.1.jar:$EXT_BASE/transpect/svn-extension/lib/sequence-library-1.0.4.jar:$EXT_BASE/transpect/svn-extension/lib/sqljet-1.1.12.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-1.10.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-cli-1.10.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.10.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.10.1-javadoc.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.10.1-sources.jar:$EXT_BASE/transpect/svn-extension/lib/trilead-ssh2-1.0.0-build222.jar"
 MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calabash/lib/javax.mail.jar"
 JAF="$DIR/lib/javax.activation.jar"
@@ -157,6 +161,19 @@ if $mingw; then
   CATALOGS=file:///$(mingw_win_path "$DIR/xmlcatalog/catalog.xml")
 fi
 
+JAVA_OPTS="-Dfile.encoding=$JAVA_FILE_ENCODING -Dxml.catalog.files=$CATALOGS \
+-Djruby.compile.mode=OFF \
+-Dxml.catalog.staticCatalog=1 \
+-Djdk.xml.entityExpansionLimit=$ENTITYEXPANSIONLIMIT \
+-Duser.language=$UI_LANG \
+-Dxml.catalog.cacheUnderHome \
+$SYSPROPS \
+-Xmx$HEAP -Xss1024k "
+
+if [ $JAVA_VERSION -gt 11 ]; then
+JAVA_OPTS+="--add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED"
+fi
+
 # show variables for debugging
 if [ "$DEBUG" == "yes" ]; then
        echo "CLASSPATH: $CLASSPATH"
@@ -170,17 +187,8 @@ if [ "$DEBUG" == "yes" ]; then
 fi
 
 $JAVA \
-   -cp "$CLASSPATH" \
-   -Dfile.encoding=$JAVA_FILE_ENCODING \
-   -Dlog4j2.formatMsgNoLookups=true \
-   "-Dxml.catalog.files=$CATALOGS" \
-   -Djruby.compile.mode=OFF \
-   -Dxml.catalog.staticCatalog=1 \
-   -Djdk.xml.entityExpansionLimit=$ENTITYEXPANSIONLIMIT \
-   -Duser.language=$UI_LANG \
-   -Dxml.catalog.cacheUnderHome \
-   $SYSPROPS \
-   -Xmx$HEAP -Xss1024k \
+    -cp "$CLASSPATH" \
+   $JAVA_OPTS \
    com.xmlcalabash.drivers.$DRIVER \
    -Xtransparent-json \
    -E org.xmlresolver.Resolver \

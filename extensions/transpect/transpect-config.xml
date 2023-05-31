@@ -23,8 +23,6 @@
   <implementation type="svn:checkout"                                 class-name="io.transpect.calabash.extensions.subversion.XSvnCheckout"/>
   <implementation type="svn:list"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnList"/>
   <implementation type="svn:lock"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnLock"/>
-  <implementation type="svn:propset"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnPropGetSet"/>
-  <implementation type="svn:propset"                                     class-name="io.transpect.calabash.extensions.subversion.XSvnPropGetSet"/>
   <implementation type="cx:send-mail"                                 class-name="com.xmlcalabash.extensions.SendMail"/>
   <implementation type="svn:propget"                                  class-name="io.transpect.calabash.extensions.subversion.XSvnPropGetSet"/>
   <implementation type="svn:propset"                                  class-name="io.transpect.calabash.extensions.subversion.XSvnPropGetSet"/>

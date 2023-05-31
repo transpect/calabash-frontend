@@ -22,6 +22,7 @@
       <ref name="Step-filter"/>
       <ref name="Step-http-request"/>
       <ref name="Step-identity"/>
+      <ref name="Step-in-scope-names"/>
       <ref name="Step-insert"/>
       <ref name="Step-label-elements"/>
       <ref name="Step-load"/>
@@ -36,6 +37,7 @@
       <ref name="Step-split-sequence"/>
       <ref name="Step-store"/>
       <ref name="Step-string-replace"/>
+      <ref name="Step-template"/>
       <ref name="Step-unescape-markup"/>
       <ref name="Step-unwrap"/>
       <ref name="Step-wrap"/>
@@ -743,6 +745,30 @@
       </interleave>
     </element>
   </define>
+  
+  <define name="Step-in-scope-names">
+    <element name="in-scope-names">
+      <a:documentation>The p:in-scope-names step exposes all of the in-scope variables and options as a set of parameters in a c:param-set document.</a:documentation>
+      <a:documentation>Output port: result (secondary).</a:documentation>
+      <a:documentation>---</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  
   <define name="Step-insert">
     <element name="insert">
       <a:documentation>Inserts the insertion port's document into the source port's document
@@ -1590,6 +1616,43 @@
       </interleave>
     </element>
   </define>
+  
+  <define name="Step-template">
+    <element name="template">
+      <a:documentation>The p:template replaces each XPath expression,
+        delimited with curly braces, in the template document with the 
+        result of evaluating that expression.</a:documentation>
+      <a:documentation>Input port: source (primary).</a:documentation>
+      <a:documentation>Input port: template (secondary).</a:documentation>
+      <a:documentation>Input port: parameters (parameter).</a:documentation>
+      <a:documentation>Output port: result (primary).</a:documentation>
+      <optional>
+        <ref name="name.ncname.attr"/>
+      </optional>
+      <ref name="common.attributes"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="InputBinding"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithOption"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="WithParam"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Log"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="Documentation"/>
+            <ref name="PipeInfo"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  
   <define name="Step-unescape-markup">
     <element name="unescape-markup">
       <a:documentation>Takes the string value of the document element and parses the content as if
