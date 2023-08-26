@@ -101,12 +101,12 @@ fi
 # SAXON_JAR is the path to a Saxon PE or EE jar file. Its name should match the following
 # regex: /[ehp]e\.jar$/ so that we can extract the substring 'ee', 'he', or 'pe':
 if [ -z $SAXON_JAR ]; then
-    if [ -e $PROJECT_DIR/saxon/saxon10ee.jar ]; then
-	SAXON_JAR=$PROJECT_DIR/saxon/saxon10ee.jar
-    elif [ -e $PROJECT_DIR/saxon/saxon10pe.jar ]; then
-        SAXON_JAR=$PROJECT_DIR/saxon/saxon10pe.jar
+    if [ -e $PROJECT_DIR/saxon/saxon12ee.jar ]; then
+	SAXON_JAR=$PROJECT_DIR/saxon/saxon12ee.jar
+    elif [ -e $PROJECT_DIR/saxon/saxon12pe.jar ]; then
+        SAXON_JAR=$PROJECT_DIR/saxon/saxon12pe.jar
     else
-	SAXON_JAR=$PROJECT_DIR/saxon/saxon10he.jar
+	SAXON_JAR=$PROJECT_DIR/saxon/saxon12he.jar
     fi
 fi
 if [ -z "$SAXON_PROCESSOR" ]; then
@@ -136,9 +136,9 @@ MATHTYPE_EXT="$EXT_BASE/transpect/mathtype-extension:$EXT_BASE/transpect/mathtyp
 SVN_EXT="$EXT_BASE/transpect/svn-extension:$EXT_BASE/transpect/svn-extension/lib/antlr-runtime-3.4.jar:$EXT_BASE/transpect/svn-extension/lib/jna-4.1.0.jar:$EXT_BASE/transpect/svn-extension/lib/jna-platform-4.1.0.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.connector-factory-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.core-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.pageant-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.sshagent-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.svnkit-trilead-ssh2-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.usocket-jna-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.usocket-nc-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/lz4-java-1.4.1.jar:$EXT_BASE/transpect/svn-extension/lib/sequence-library-1.0.4.jar:$EXT_BASE/transpect/svn-extension/lib/sqljet-1.1.12.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-1.10.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-cli-1.10.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.10.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.10.1-javadoc.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.10.1-sources.jar:$EXT_BASE/transpect/svn-extension/lib/trilead-ssh2-1.0.0-build222.jar"
 MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calabash/lib/javax.mail.jar"
 JAF="$DIR/lib/javax.activation.jar"
-DISTROLIBS="$DISTRO/lib/:$DISTRO/lib/xmlresolver-5.2.0.jar:$DISTRO/lib/commons-fileupload-1.3.3.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/slf4j-simple-1.7.32.jar:$DISTRO/lib/slf4j-api-1.7.32.jar"
+DISTROLIBS="$DISTRO/lib/:$DISTRO/lib/xmlresolver-5.2.0.jar:$DISTRO/lib/commons-fileupload-1.4.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DIR/lib/slf4j-simple-1.7.36.jar:$DISTRO/lib/slf4j-api-1.7.36.jar"
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTROLIBS:$DISTRO/xmlcalabash-1.3.2-100.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTROLIBS:$DISTRO/xmlcalabash-1.5.6-120.jar:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
