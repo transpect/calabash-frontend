@@ -109,9 +109,13 @@ if [ -z $SAXON_JAR ]; then
 	SAXON_JAR=$PROJECT_DIR/saxon/saxon12he.jar
     fi
 fi
+if [ ! -e "$SAXON_JAR" ]; then
+   SAXON_JAR=$DIR/saxon/saxon12he.jar
+fi
 if [ -z "$SAXON_PROCESSOR" ]; then
     SAXON_PROCESSOR=--saxon-processor=${SAXON_JAR:(-6):2}
 fi
+
 # If you want to use Saxon PE or EE, you'll have to specify SAXON_JAR in your localdefs.sh
 # or as an environment variable. You also need to prepend the directory that contains
 # saxon-license.lic to CLASSPATH.
