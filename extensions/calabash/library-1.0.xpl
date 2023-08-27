@@ -3,6 +3,8 @@
 	   xmlns:cx="http://xmlcalabash.com/ns/extensions"
 	   xmlns:ml="http://xmlcalabash.com/ns/extensions/marklogic"
 	   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	   xmlns:pxf="http://exproc.org/proposed/steps/file"
+	   xmlns:pos="http://exproc.org/proposed/steps/os"
            version="1.0">
 
 <p:documentation xmlns="http://www.w3.org/1999/xhtml">
@@ -14,6 +16,38 @@
 </p>
 </div>
 </p:documentation>
+  
+  <p:declare-step type="pos:info">
+     <p:output port="result"/>
+  </p:declare-step>
+  
+  <p:declare-step type="pxf:copy" xmlns:pxf="http://exproc.org/proposed/steps/file">
+     <p:output port="result" primary="false"/>
+     <p:option name="href" required="true"/>                       <!-- anyURI -->
+     <p:option name="target" required="true"/>                     <!-- boolean -->
+     <p:option name="fail-on-error" select="'true'"/>              <!-- boolean -->
+  </p:declare-step>
+  
+  <p:declare-step type="pxf:info">
+     <p:output port="result" sequence="true"/>
+     <p:option name="href" required="true"/>                       <!-- anyURI -->
+     <p:option name="fail-on-error" select="'true'"/>              <!-- boolean -->
+  </p:declare-step>
+  
+  <p:declare-step type="cx:eval">
+     <p:input port="pipeline"/>
+     <p:input port="source" sequence="true"/>
+     <p:input port="options"/>
+     <p:output port="result"/>
+     <p:option name="step"/>                                       <!-- QName -->
+     <p:option name="detailed"/>                                   <!-- boolean -->
+  </p:declare-step>
+
+  <p:declare-step type="cx:namespace-delete">
+    <p:input port="source"/>
+    <p:output port="result"/>
+    <p:option name="prefixes"/>
+  </p:declare-step>
 
   <p:declare-step type="cx:nvdl">
     <p:input port="source" primary="true"/>
