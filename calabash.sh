@@ -126,8 +126,8 @@ fi
 # to the calabash/calabash.sh invocation.
 
 # The class paths of the custom Calabash extension steps
-IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/xmlgraphics-commons-1.5.jar:$EXT_BASE/transpect/image-props-extension/lib/commons-imaging-1.0-alpha2.jar:$EXT_BASE/transpect/image-props-extension/lib/metadata-extractor-2.18.0.jar:$EXT_BASE/transpect/image-props-extension/lib/xmpcore-6.0.6.jar"
-IMAGETRANSFORM_EXT="$EXT_BASE/transpect/image-transform-extension:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-image-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-io-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-lang-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-core-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-jpeg-3.2-SNAPSHOT.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-metadata-3.2-SNAPSHOT.jar"
+IMAGEPROPS_EXT="$EXT_BASE/transpect/image-props-extension:$EXT_BASE/transpect/image-props-extension/lib/xmlgraphics-commons-2.9.jar:$EXT_BASE/transpect/image-props-extension/lib/commons-imaging-1.0-alpha3.jar:$EXT_BASE/transpect/image-props-extension/lib/metadata-extractor-2.18.0.jar:$EXT_BASE/transpect/image-props-extension/lib/xmpcore-6.0.6.jar"
+IMAGETRANSFORM_EXT="$EXT_BASE/transpect/image-transform-extension/lib/commons-imaging-1.0-alpha3.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-io-3.9.4.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-core-3.9.4.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-metadata-3.9.4.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-image-3.9.4.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-common-lang-3.9.4.jar:$EXT_BASE/transpect/image-transform-extension/lib/twelvemonkeys-imageio-jpeg-3.9.4.jar"
 JAVASCRIPT_EXT="$EXT_BASE/transpect/javascript-extension:$EXT_BASE/transpect/javascript-extension/lib/rhino-1.7.8.jar:$EXT_BASE/transpect/javascript-extension/lib/trireme.0.9.1.jar"
 EPUBCHECK_EXT="$EXT_BASE/transpect/epubcheck-extension:$EXT_BASE/transpect/epubcheck-extension/lib"
 RNGVALID_EXT="$EXT_BASE/transpect/rng-extension:$EXT_BASE/transpect/rng-extension/lib/jing.jar"
@@ -136,9 +136,9 @@ MATHTYPE_EXT="$EXT_BASE/transpect/mathtype-extension:$EXT_BASE/transpect/mathtyp
 SVN_EXT="$EXT_BASE/transpect/svn-extension:$EXT_BASE/transpect/svn-extension/lib/antlr-runtime-3.4.jar:$EXT_BASE/transpect/svn-extension/lib/jna-4.1.0.jar:$EXT_BASE/transpect/svn-extension/lib/jna-platform-4.1.0.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.connector-factory-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.core-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.pageant-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.sshagent-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.svnkit-trilead-ssh2-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.usocket-jna-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/jsch.agentproxy.usocket-nc-0.0.7.jar:$EXT_BASE/transpect/svn-extension/lib/lz4-java-1.4.1.jar:$EXT_BASE/transpect/svn-extension/lib/sequence-library-1.0.4.jar:$EXT_BASE/transpect/svn-extension/lib/sqljet-1.1.12.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-1.10.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-cli-1.10.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.10.1.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.10.1-javadoc.jar:$EXT_BASE/transpect/svn-extension/lib/svnkit-javahl16-1.10.1-sources.jar:$EXT_BASE/transpect/svn-extension/lib/trilead-ssh2-1.0.0-build222.jar"
 MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calabash/lib/javax.mail.jar"
 JAF="$DIR/lib/javax.activation.jar"
-DISTROLIBS="$DISTRO/lib/:$DISTRO/lib/xmlresolver-5.2.0.jar:$DISTRO/lib/commons-fileupload-1.3.3.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/slf4j-simple-1.7.32.jar:$DISTRO/lib/slf4j-api-1.7.32.jar"
+DISTROLIBS="$DISTRO/lib/:$DISTRO/lib/xmlresolver-5.2.1.jar:$DISTRO/lib/xmlresolver-5.2.1-data.jar:$DISTRO/lib/commons-fileupload-1.4.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DISTRO/lib/slf4j-simple-1.7.36.jar:$DISTRO/lib/slf4j-api-1.7.36.jar"
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTROLIBS:$DISTRO/xmlcalabash-1.3.2-100.jar:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTRO/xmlcalabash-1.5.7-100.jar:$DISTROLIBS:$EPUBCHECK_EXT:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
@@ -188,7 +188,7 @@ if [ "$DEBUG" == "yes" ]; then
 fi
 
 $JAVA \
-   -cp "$CLASSPATH" \
+    -cp "$CLASSPATH" \
    $JAVA_OPTS \
    com.xmlcalabash.drivers.$DRIVER \
    -Xtransparent-json \
