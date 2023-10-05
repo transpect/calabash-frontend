@@ -31,7 +31,7 @@
 set svnext=%extensions%transpect/svn-extension
 @set jaf=%scriptdir%/lib/javax.activation.jar
 @set config="%scriptdir%extensions/transpect/transpect-config.xml"
-@set distrolibs=%distro%lib/;%distro%lib/xmlresolver-2.0.1.jar;%distro%lib/commons-fileupload-1.3.3.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.3.2-100.jar;%distro%lib/slf4j-simple-1.7.32.jar;%distro%lib/slf4j-api-1.7.32.jar
+@set distrolibs=%distro%lib/;%distro%lib/xmlresolver-5.2.1.jar;%distro%lib/xmlresolver-5.2.1-data.jar;%distro%lib/commons-fileupload-1.4.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.5.7-100.jar;%distro%lib/slf4j-simple-1.7.36.jar;%distro%lib/slf4j-api-1.7.36.jar
 
 @set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon10ee.jar;%projectdir%saxon/saxon10pe.jar;%projectdir%saxon/saxon10he.jar;%scriptdir%saxon/saxon10he.jar;%distrolibs%;%rngvalidext%;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
 
@@ -45,6 +45,7 @@ set svnext=%extensions%transpect/svn-extension
    -Dsun.jnu.encoding=UTF-8 ^
    -Dlog4j2.formatMsgNoLookups=true ^
    -Dxml.catalog.files=%scriptdir_uri%xmlcatalog/catalog.xml ^
+   -Dxml.catalog.cacheUnderHome ^
    -Djdk.xml.entityExpansionLimit=%entityexpansionlimit% ^
    -Xmx%heap% -Xss1024k ^
    --add-opens java.base/sun.nio.ch=ALL-UNNAMED ^
