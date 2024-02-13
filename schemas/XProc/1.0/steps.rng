@@ -76,6 +76,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
             dynamic error if the match pattern does not match an element.</a:documentation>
@@ -87,6 +90,16 @@
           <a:documentation>The value of the attribute-name option must be a QName. The corresponding
             expanded name is used to construct the added attribute.</a:documentation>
           <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="attribute-prefix">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="attribute-namespace">
+          <data type="anyURI"/>
         </attribute>
       </optional>
       <optional>
@@ -129,6 +142,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="all">
           <a:documentation>The value of the all option must be a boolean, the default is false. If
@@ -180,6 +196,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="fail-if-not-equal">
           <a:documentation>The value of the fail-if-not-equal option must be a boolean, the default
             is false. If set to true it causes the pipeline to fail if the documents are
@@ -219,6 +238,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="limit">
           <a:documentation>If the limit option is specified and is greater than zero, the count step
@@ -264,6 +286,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an XSLTMatchPattern. A match
             pattern may match multiple items to be deleted.</a:documentation>
@@ -306,6 +331,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="path">
           <a:documentation>The value of the path option must be an anyURI. It is interpreted as an
@@ -362,9 +390,22 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="code">
           <a:documentation>The value of the code option must be a QName.</a:documentation>
           <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="code-prefix">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="code-namespace">
+          <data type="anyURI"/>
         </attribute>
       </optional>
       <interleave>
@@ -407,6 +448,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="cdata-section-elements">
           <a:documentation>The value of this option must be a list of QNames. They are interpreted
@@ -536,6 +580,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="select">
           <a:documentation>An XPath expression.</a:documentation>
           <ref name="XPathExpression"/>
@@ -578,6 +625,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="byte-order-mark">
           <a:documentation>The value of this option must be a boolean. If it's not specified, the
@@ -729,6 +779,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <interleave>
         <zeroOrMore>
           <ref name="InputBinding"/>
@@ -755,6 +808,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <interleave>
         <zeroOrMore>
           <ref name="Log"/>
@@ -786,6 +842,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
@@ -861,6 +920,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="attribute">
           <a:documentation>The value of the attribute option must be a QName, the default is
             xml:id.</a:documentation>
@@ -868,10 +930,20 @@
         </attribute>
       </optional>
       <optional>
+        <attribute name="attribute-prefix">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="attribute-namespace">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
         <attribute name="label">
           <a:documentation>The value of the label option is an XPath expression used to generate the
             value of the attribute label. The default is 'concat("_",$p:index)'.</a:documentation>
-          <data type="string"/>
+          <ref name="XPathExpression"/>
         </attribute>
       </optional>
       <optional>
@@ -926,6 +998,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="href">
           <a:documentation>The value of the href option must be an anyURI. It is interpreted as an
             IRI reference. If it is relative, it is made absolute against the base URI of the
@@ -978,6 +1053,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
@@ -1035,6 +1113,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="from">
           <a:documentation>The value of the from option must be an anyURI. It should be either empty
@@ -1103,9 +1184,22 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="wrapper">
           <a:documentation>The value of the wrapper option must be a QName.</a:documentation>
           <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="wrapper-prefix">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="wrapper-namespace">
+          <data type="anyURI"/>
         </attribute>
       </optional>
       <interleave>
@@ -1148,6 +1242,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <interleave>
         <zeroOrMore>
           <ref name="InputBinding"/>
@@ -1192,6 +1289,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
             dynamic errorif the pattern matches anything other than element, attribute or processing
@@ -1203,6 +1303,16 @@
         <attribute name="new-name">
           <a:documentation>The value of the new-name option must be a QName.</a:documentation>
           <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="new-prefix">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="new-namespace">
+          <data type="anyURI"/>
         </attribute>
       </optional>
       <interleave>
@@ -1239,6 +1349,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
@@ -1292,6 +1405,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
             dynamic error if that pattern matches anything other than element
@@ -1327,6 +1443,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <interleave>
         <zeroOrMore>
           <ref name="InputBinding"/>
@@ -1366,6 +1485,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="initial-only">
           <a:documentation>If true, it writes only the initial series of matched documents (which
@@ -1417,6 +1539,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="href">
           <a:documentation>The value of the href option must be an anyURI. If it is relative, it is
@@ -1584,6 +1709,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an
             XSLTMatchPattern.</a:documentation>
@@ -1630,6 +1758,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <interleave>
         <zeroOrMore>
           <ref name="InputBinding"/>
@@ -1693,6 +1824,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="namespace">
           <a:documentation>The value of the namespace option must be an anyURI. It should be
@@ -1760,6 +1894,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an XSLTMatchPattern. It is a
             dynamic error if that pattern matches anything other than element
@@ -1811,9 +1948,22 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="wrapper">
           <a:documentation>The value of the wrapper option must be a QName.</a:documentation>
           <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="wrapper-prefix">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="wrapper-namespace">
+          <data type="anyURI"/>
         </attribute>
       </optional>
       <optional>
@@ -1873,9 +2023,22 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="wrapper">
           <a:documentation>The value of the wrapper option must be a QName.</a:documentation>
           <data type="QName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="wrapper-prefix">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="wrapper-namespace">
+          <data type="anyURI"/>
         </attribute>
       </optional>
       <optional>
@@ -1917,6 +2080,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="fixup-xml-base">
           <a:documentation>The value of the fixup-xml-base option must be a boolean, the default is
@@ -1981,6 +2147,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <a:documentation>If present, the value of the initial-mode option must be a
           QName.</a:documentation>
@@ -2066,6 +2235,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="command">
           <a:documentation>The name of the command to be executed.</a:documentation>
@@ -2320,6 +2492,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="value">
           <a:documentation>The value to generate the hash for.</a:documentation>
           <data type="string"/>
@@ -2396,6 +2571,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an
             XSLTMatchPattern.</a:documentation>
@@ -2445,6 +2623,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="dtd-attribute-values">
           <a:documentation>The value of the dtd-attribute-values option must be boolean. If the
@@ -2506,6 +2687,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="phase">
           <a:documentation>The value of the phase option identifies the Schematron validation phase
@@ -2570,6 +2754,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="use-location-hints">
           <a:documentation>The value of the use-location-hints option must be boolean. If the
@@ -2650,6 +2837,9 @@
       </optional>
       <ref name="common.attributes"/>
       <optional>
+        <ref name="use-when.attr"/>
+      </optional>
+      <optional>
         <attribute name="value">
           <a:documentation>The value option is interpreted as a string of parameter values encoded
             using the x-www-form-urlencoded algorithm.</a:documentation>
@@ -2685,6 +2875,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="match">
           <a:documentation>The value of the match option must be an XSLTMatchPattern. For each
@@ -2732,6 +2925,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <interleave>
         <zeroOrMore>
           <ref name="InputBinding"/>
@@ -2765,6 +2961,9 @@
         <ref name="name.ncname.attr"/>
       </optional>
       <ref name="common.attributes"/>
+      <optional>
+        <ref name="use-when.attr"/>
+      </optional>
       <optional>
         <attribute name="href">
           <a:documentation>The value of the href option must be an anyURI. If it is relative, it is
