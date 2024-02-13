@@ -129,6 +129,16 @@
       <data type="anyURI"/>
     </attribute>
   </define>
+    <define name="use-when.attr" sa:ignore="yes">
+    <attribute name="use-when">
+      <ref name="XPathExpression"/>
+    </attribute>
+  </define>
+  <define name="p_use-when.attr" sa:ignore="yes">
+    <attribute name="p:use-when">
+      <ref name="XPathExpression"/>
+    </attribute>
+  </define>
   <define name="common.attributes">
     <optional>
       <ref name="xmlid.attr"/>
