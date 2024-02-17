@@ -1,4 +1,4 @@
-1.5.@setlocal ENABLEDELAYEDEXPANSION
+@setlocal ENABLEDELAYEDEXPANSION
 @set escapedspace=%%20
 
 @REM The variable %~dp0 (the current script's directory) is not available
