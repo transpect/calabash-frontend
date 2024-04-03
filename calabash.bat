@@ -31,7 +31,7 @@
 set svnext=%extensions%transpect/svn-extension
 @set jaf=%scriptdir%/lib/javax.activation.jar
 @set config="%scriptdir%extensions/transpect/transpect-config.xml"
-@set distrolibs=%distro%lib/;%distro%lib/xmlresolver-5.2.1.jar;%distro%lib/xmlresolver-5.2.1-data.jar;%distro%lib/commons-fileupload-1.4.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.4.1-100.jar;%distro%lib/slf4j-simple-1.7.36.jar;%distro%lib/slf4j-api-1.7.36.jar
+@set distrolibs=%distro%lib/;%distro%lib/xmlresolver-5.2.2.jar;%distro%lib/xmlresolver-5.2.2-data.jar;%distro%lib/commons-fileupload-1.4.jar;%distro%lib/classindex-3.3.jar;%distro%lib/htmlparser-1.4.jar;%mailext%;%distro%xmlcalabash-1.4.1-100.jar;%distro%lib/slf4j-simple-1.7.36.jar;%distro%lib/slf4j-api-1.7.36.jar
 
 @set classpath=%adaptationsdir%common/saxon/;%projectdir%saxon/saxon10ee.jar;%projectdir%saxon/saxon10pe.jar;%projectdir%saxon/saxon10he.jar;%scriptdir%saxon/saxon10he.jar;%distrolibs%;%rngvalidext%;%extensions%transpect/;%javascriptext%;%epubckeckext%;%imagetransformext%;%imagepropsext%;%unzipext%;%mathtypeext%;%svnext%;%jaf%
 
