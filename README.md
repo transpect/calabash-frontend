@@ -8,7 +8,7 @@ You can check out the whole thing using
 git clone --recursive https://github.com/transpect/calabash-frontend calabash
 ```
 
-transpect projects usually have their Calabash runtime attached as a submodule or as an svn external. It typically resides in a subdirectory `calabash` of the project. If the project directory is `${pdu}` (in oXygen notation), the Calabash frontend will use an XML catalog `${pdu}/xmlcatalog/catalog.xml` by default. This contains `<nextCatalog>` instructions that read the catalogs of the transpect libraries that the project uses. Catalog resolution is important since the XProc, XSLT, font, … files within the modules will only be addressed by their canonical locations (typically starting with http://transpect.io ). 
+transpect projects usually have their Calabash runtime attached as a submodule or as an svn external. It typically resides in a subdirectory `calabash` of the project. If the project directory is `${pdu}` (in oXygen notation), the Calabash frontend will use an XML catalog `${pdu}/xmlcatalog/catalog.xml` by default. This contains `<nextCatalog>` instructions that read the catalogs of the transpect libraries that the project uses. Catalog resolution is important since the XProc, XSLT, font, … files within the modules will only be addressed by their canonical locations (typically starting with `http//transpect.io`). 
 
 Attaching this and its submodules as a submodule to a git repo works like this:
 
