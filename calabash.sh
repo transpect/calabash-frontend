@@ -105,6 +105,8 @@ if [ -z $SAXON_JAR ]; then
 	SAXON_JAR=$PROJECT_DIR/saxon/saxon10ee.jar
     elif [ -e $PROJECT_DIR/saxon/saxon10pe.jar ]; then
         SAXON_JAR=$PROJECT_DIR/saxon/saxon10pe.jar
+    elif [ -e $DIR/saxon/saxon10pe.jar ]; then
+        SAXON_JAR=$DIR/saxon/saxon10pe.jar
     else
 	SAXON_JAR=$PROJECT_DIR/saxon/saxon10he.jar
     fi
