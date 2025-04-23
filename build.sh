@@ -1,5 +1,13 @@
 #!/bin/bash
 
+function usage {
+    echo "XML Calabash/Saxon distribution build script"
+    echo
+    echo "Please set the XML Calabash and Saxon version as argument, e.g." 
+    echo "$ ./build.sh 1.5.7-120 12.5"
+    exit -1
+}
+
 CALABASH_VERSION=$1
 SAXON_VERSION="${2//./-}"
 CALABASH_RELEASE_URL=https://github.com/ndw/xmlcalabash1/releases/download
@@ -15,17 +23,11 @@ BRANCH_NAME=calabash-${CALABASH_VERSION}_saxon-${SAXON_VERSION}
 cd $CALABASH_TARGET
 
 if [ -z "$1"  ]; then
-    echo "[ERROR] please set the XML Calabash and Saxon version as argument, e.g." 
-    echo "$ ./calabash-build.sh 1.5.7-120 12.5"
-    exit -1
+    usage
 fi
 if [ -z "$2"  ]; then
-    echo "[ERROR] please set the XML Calabash and Saxon version as argument, e.g." 
-    echo "$ ./calabash-build.sh 1.5.7-120 12.5"
-    exit -1
+    usage
 fi
-
-#: '
 
 umask 0002
 
@@ -54,8 +56,6 @@ echo "[info] update calabash to $CALABASH_VERSION"
 cd $CALABASH_TARGET/distro
 
 git checkout master && git pull
-
-#'
 
 git rm -r xmlcalabash-*.jar xpl schemas lib
 
