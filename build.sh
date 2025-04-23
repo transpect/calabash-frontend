@@ -20,8 +20,6 @@ SAXON_HE_ZIP=$BUILD_DIR_NAME/tmp/SaxonHE${SAXON_VERSION}J.zip
 SAXON_PE_ZIP=$BUILD_DIR_NAME/tmp/SaxonPE${SAXON_VERSION}J.zip
 BRANCH_NAME=calabash-${CALABASH_VERSION}_saxon-${SAXON_VERSION}
 
-cd $CALABASH_TARGET
-
 if [ -z "$1"  ]; then
     usage
 fi
