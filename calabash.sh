@@ -143,7 +143,7 @@ MAIL_EXT="$EXT_BASE/calabash/lib/xmlcalabash1-sendmail-1.1.4.jar:$EXT_BASE/calab
 JAF="$DIR/lib/javax.activation.jar"
 DISTROLIBS="$DISTRO/lib/:$DISTRO/lib/xmlresolver-5.2.1.jar:$DISTRO/lib/xmlresolver-5.2.1-data.jar:$DISTRO/lib/commons-fileupload-1.4.jar:$DISTRO/lib/classindex-3.3.jar:$DISTRO/lib/htmlparser-1.4.jar:$PROJECT_DIR/a9s/common/calabash:$DISTRO/lib/org.restlet-2.2.2.jar:$MAIL_EXT:$DISTRO/lib/tagsoup-1.2.1.jar:$DIR/lib/slf4j-simple-1.7.36.jar:$DISTRO/lib/slf4j-api-1.7.36.jar:$DISTRO/lib/slf4j-nop-1.7.36.jar"
 
-CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTROLIBS:$DISTRO/xmlcalabash-1.5.6-120.jar:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
+CLASSPATH="$ADAPTATIONS_DIR/common/saxon/:$SAXON_JAR:$DIR/saxon/:$RNGVALID_EXT:$DISTROLIBS:$DISTRO/xmlcalabash-1.5.7-120.jar:$JAVASCRIPT_EXT:$IMAGEPROPS_EXT:$IMAGETRANSFORM_EXT:$UNZIP_EXT:$MATHTYPE_EXT:$SVN_EXT:$JAF:$CLASSPATH"
 
 OSDIR=$DIR
 if $cygwin; then
