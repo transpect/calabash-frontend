@@ -9,11 +9,22 @@ case "`uname`" in
   CYGWIN*) cygwin=true;;
 esac
 
+# readlink -f is unavailable on Mac OS X
+function real_dir() {
+    SOURCE="$1"
+    while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    done
+    echo "$( cd -P "$( dirname "$SOURCE" )" && pwd  )"
+}
+
 SCRIPT=$(basename "${BASH_SOURCE[0]}" .sh)
 
-SCRIPTDIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
+SCRIPTDIR="$( real_dir "${BASH_SOURCE[0]}" )"
 
-TRANSPECTDIR="$(readlink -f $SCRIPTDIR/../..)"
+TRANSPECTDIR="$( real_dir "$SCRIPTDIR/../../.." )"
 
 READER=org.xmlresolver.tools.ResolvingXMLReader
 
