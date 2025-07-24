@@ -7,9 +7,8 @@ case "`uname`" in
 esac
 
 export JAVA=java
-JAVA_VERSION=$(java -version 2>&1 | sed -n 's/.*version "\([0-9]*\)\.\([0-9]*\).*/\1 \2/p' | awk '{print ($1 == 1) ? $2 : $1}')
 if [ -z "$JAVA_VERSION" ]; then
-    JAVA_VERSION=$(java -version 2>&1 | sed -n 's/.*version "\([0-9]*\)\.\([0-9]*\).*/\1 \2/p' | awk '{print ($1 == 1) ? $2 : $1}')
+    JAVA_VERSION=$($JAVA -version 2>&1 | sed -n 's/.*version "\([0-9]*\)\.\([0-9]*\).*/\1 \2/p' | awk '{print ($1 == 1) ? $2 : $1}')
 fi
 
 # readlink -f is unavailable on Mac OS X
