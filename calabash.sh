@@ -7,9 +7,8 @@ case "`uname`" in
 esac
 
 export JAVA=java
-JAVA_VERSION=$(java -version 2>&1 | sed -n ';s/.* version "\(.*\)\..*\..*\..*".*/\1/p;')
 if [ -z "$JAVA_VERSION" ]; then
-    JAVA_VERSION=$(java -version 2>&1 | sed -n ';s/.* version ".*\.\(.*\)\..*".*/\1/p;')
+    JAVA_VERSION=$($JAVA -version 2>&1 | awk -F'"' '/version/ {split($2,a,"[.+]"); major=a[1]; if(major==1) major=a[2]; print major}')
 fi
 
 # readlink -f is unavailable on Mac OS X
@@ -189,6 +188,7 @@ if [ "$DEBUG" == "yes" ]; then
        echo "LOCALDEFS: $LOCALDEFS"
        echo "ENTITYEXPANSIONLIMIT: $ENTITYEXPANSIONLIMIT"
        echo "SAXON_JAR: $SAXON_JAR"
+       echo "JAVA_VERSION: $JAVA_VERSION"
        echo "JAVA_OPTS: $JAVA_OPTS"
 fi
 
